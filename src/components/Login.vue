@@ -12,64 +12,64 @@
         <input v-model='usr' class='input has-text-centered' placeholder="username" required type='text'>
         <input v-model='pwd' class='input has-text-centered' placeholder="password" required type='password'>
       </div>
-      <input @click='router_table' class='button is-warning' tag="button" value='submit'>
+      <input @click='router_table' type="submit" class='button is-warning' tag="button" value='submit'>
     </div>
   </section>
 </template>
 
 <script>
-import md5 from 'md5'
+import md5 from 'md5';
 export default {
-  name: 'Login',
-  data () {
-    return {
-      usr: '',
-      pwd: ''
-    }
-  },
-  created(){
-    localStorage.clear()
-  },
-  methods: {
-    router_table() {
-      if (this.valid_user) {
-        let data = require('../other/login_user.json')[this.usr]
-        localStorage.setItem('args', JSON.stringify(data))
-        this.$router.push('/')
-      }else{
-        alert('user not valid')
-      }
-    }
-  },
-  computed: {
-    md5_pwd(){
-      return md5(this.pwd)
-    },
-    valid_user(){
-      let lgn = require('../other/login_user.json')
-      return this.usr in lgn && md5(this.pwd) == lgn[this.usr].pwd
-    },
-  }
-}
+	name: 'Login',
+	data() {
+		return {
+			usr: '',
+			pwd: ''
+		};
+	},
+	created() {
+		localStorage.clear();
+	},
+	methods: {
+		router_table() {
+			if (this.valid_user) {
+				let data = require('../other/login_user.json')[this.usr];
+				localStorage.setItem('args', JSON.stringify(data));
+				this.$router.push('/');
+			} else {
+				alert('user not valid');
+			}
+		}
+	},
+	computed: {
+		md5_pwd() {
+			return md5(this.pwd);
+		},
+		valid_user() {
+			let lgn = require('../other/login_user.json');
+			return this.usr in lgn && md5(this.pwd) == lgn[this.usr].pwd;
+		}
+	}
+};
 </script>
 
 <style scoped>
 section {
-  max-width: 400px;
-  min-height: 720px;
-  margin: 0px auto;
+	max-width: 400px;
+	min-height: 720px;
+	margin: 0px auto;
 }
 input {
-  margin: 5px auto;
+	margin: 5px auto;
 }
 .button {
-  margin-top: 10px;
-  width: 100%;
+	margin-top: 10px;
+	width: 100%;
 }
 .box {
-  margin: 0px auto;
+	margin: 0px auto;
 }
 code {
-  font-size: 14px;
+	font-size: 14px;
 }
 </style>
