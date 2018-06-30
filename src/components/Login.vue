@@ -27,6 +27,9 @@ export default {
       pwd: ''
     }
   },
+  created(){
+    localStorage.clear()
+  },
   methods: {
     router_table() {
       if (this.valid_user) {

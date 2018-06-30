@@ -1,6 +1,7 @@
 <template>
   <section class='section'>
     <div class='box' style="margin-top: 15px">
+      <button class='button is-warning is-pulled-right' @click='logout'>logout</button>
       <overview v-if='args.tot' ref='overvR'></overview>
       <baanstaff v-else :name='args.nme' :group='args.usr'></baanstaff>
     </div>
@@ -34,7 +35,13 @@ export default {
   created(){
     if (!this.args){
       this.$router.push('/login')
-  }}
+  }},
+  methods: {
+    logout(){
+      localStorage.clear()
+      this.$router.push('/login')
+    }
+  }
 }
 </script>
 
