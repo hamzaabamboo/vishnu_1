@@ -4,22 +4,20 @@
       ลูกค่าย {{table_dbs_filter_len}} คน
       <br>
     </p>
-    <div>
-      <a class='kbtn kcross kblue'>cancel</a>
-    </div>
+
     <div class="table">
       <table class="is-narrow is-striped">
 
         <thead>
           <tr>
             <td>
-              <button
+              <!-- <button
                 class='button'
                 :class='button_dynamic'
                 :disabled='mode_lock'
                 @click='next_mode'
               >{{mode}}
-              </button>
+              </button> -->
             </td>
             <td v-for='attr in argAtr' :key='attr.id'>
               <p class='has-text-centered'>
@@ -34,11 +32,17 @@
           <tr v-for='id in get_sorted_key' :key='id.id'>
             <td>
               <span>
-                <button
+                <!-- <button
                   class='button'
                   :class='button_dynamic'
                   @click='update_status(id, mode)'
-                  >{{mode}}</button>
+                  >{{mode}}
+                </button> -->
+                <a
+                  class='kbtn kcross kblue'
+                  @click='update_status(id, mode)'
+                > cancel
+                </a>
               </span>
             </td>
             <td v-for='attr in argAtr' :key='attr.id'>
@@ -196,18 +200,19 @@ button {
 .kbtn.kblue::before {background-color: #23718d; color: white;}
 
 .kbtn.kblue:active         {background-color: #23718d;}
-.kbtn.kblue:active::before {background-color: #7cbbd1;}
+.kbtn.kblue:active::before {background-color: #3e7c92;}
 
 .kbtn.kcross::before {
   font-family: 'FontAwesome';
 	content: "\f00d";
-  font-weight: 200;
+  font-size: 20px;
+  font-weight: 50;
 }
 
 .kbtn {
 	font-size: 12px;
 	position: relative;
-	padding: 10px 20px;
+	padding: 10px 15px;
 	margin-left: 35px;
 	border-radius: 0 5px 5px 0;
 }
@@ -219,8 +224,7 @@ button {
 	top: 0px;
 	left: -36px;
   padding-top: 3px;
-	font-size: 16px;
-	font-weight: bold;
+  padding-left: 10px;
 	border-radius: 5px 0 0 5px;
 }
 </style>
