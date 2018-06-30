@@ -7,13 +7,8 @@
     <div>
       <a class='kbtn kcross kblue'>cancel</a>
     </div>
-<<<<<<< HEAD
-
-    <table class="table is-narrow is-striped">
-=======
     <div class="table">
       <table class="is-narrow is-striped">
->>>>>>> e7ef9bb2dd5efbb0d4651318abbe83c42393a1f2
 
         <thead>
           <tr>
@@ -193,7 +188,6 @@ tr td {
 	margin: 20px auto;
 }
 button {
-<<<<<<< HEAD
   width: 50px;
   margin-right: 12px;
 }
@@ -228,9 +222,5 @@ button {
 	font-size: 16px;
 	font-weight: bold;
 	border-radius: 5px 0 0 5px;
-=======
-	width: 50px;
-	margin-right: 12px;
->>>>>>> e7ef9bb2dd5efbb0d4651318abbe83c42393a1f2
 }
 </style>
