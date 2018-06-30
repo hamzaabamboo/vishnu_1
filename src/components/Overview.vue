@@ -14,15 +14,15 @@
       <thead>
         <tr>
           <td></td>
-          <td v-for='b in Object.keys(baan)'>
+          <td v-for='b in Object.keys(baan)' :key='b.id'>
             <strong>{{b}}</strong>
           </td>
         </tr>
       </thead>
       <tbody>
-        <tr v-for='s in ["ช", "ญ"]'>
+        <tr v-for='s in ["ช", "ญ"]' :key='s.id'>
           <td><strong>{{s}}</strong></td>
-          <td v-for='b in baan'>
+          <td v-for='b in baan' :key='b.id'>
             {{b[s]}}
           </td>
         </tr>

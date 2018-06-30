@@ -5,7 +5,7 @@
       <div v-if='udata !== undefined'>
         <table class='container'>
           <tbody>
-            <tr v-for='k in Object.keys(udata)'>
+            <tr v-for='k in Object.keys(udata)' :key="k.id">
               <td class="has-text-right">{{k}}</td>
               <td class="has-text-left">{{udata[k]}}</td>
             </tr>

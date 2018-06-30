@@ -16,7 +16,7 @@
             >{{mode}}
             </button>
           </td>
-          <td v-for='attr in argAtr'>
+          <td v-for='attr in argAtr' :key='attr.id'>
             <p class='has-text-centered'>
               <strong>{{attr}}</strong><br>
               <input v-model='filter_field[attr]' style="width:100%"/><br>
@@ -26,7 +26,7 @@
       </thead>
 
       <tbody>
-        <tr v-for='id in get_sorted_key'>
+        <tr v-for='id in get_sorted_key' :key='id.id'>
           <td>
             <span>
               <button
@@ -36,7 +36,7 @@
                 >{{mode}}</button>
             </span>
           </td>
-          <td v-for='attr in argAtr'>
+          <td v-for='attr in argAtr' :key='attr.id'>
             {{table_dbs_filter[id][attr]}}
           </td>
         </tr>

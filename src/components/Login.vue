@@ -30,13 +30,14 @@ export default {
   methods: {
     router_table() {
       if (this.valid_user) {
-        localStorage.setItem('args', JSON.stringify(require('../other/login_user.json')[this.usr]))
+        let data = require('../other/login_user.json')[this.usr]
+        localStorage.setItem('args', JSON.stringify(data))
+        console.log(JSON.stringify(data))
         this.$router.push({
           name: 'Main',
           params: {
-            args: require('../other/login_user.json')[this.usr]
-          }
-        })
+            args: data
+        }})
       }else{
         alert('user not valid')
       }

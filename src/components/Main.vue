@@ -33,7 +33,7 @@ export default {
   }},
   created(){
     console.log(localStorage)
-    this.args = this.args || JSON.parse(localStorage.get('args'))
+    this.args = this.args || JSON.parse(localStorage.getItem('args'))
     if (!this.args){
       this.$router.push('/login')
   }}
