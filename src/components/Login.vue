@@ -27,16 +27,15 @@ export default {
       pwd: ''
     }
   },
+  created(){
+    localStorage.clear()
+  },
   methods: {
     router_table() {
       if (this.valid_user) {
-        localStorage.setItem('args', JSON.stringify(require('../other/login_user.json')[this.usr]))
-        this.$router.push({
-          name: 'Main',
-          params: {
-            args: require('../other/login_user.json')[this.usr]
-          }
-        })
+        let data = require('../other/login_user.json')[this.usr]
+        localStorage.setItem('args', JSON.stringify(data))
+        this.$router.push('/')
       }else{
         alert('user not valid')
       }

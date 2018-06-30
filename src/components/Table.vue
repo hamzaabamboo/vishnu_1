@@ -2,7 +2,15 @@
   <div>
     <p class='is-size-4 section' style="height: 70px">
       ลูกค่าย {{table_dbs_filter_len}} คน
+      <br>
     </p>
+    <div>
+      <button class='button'>cancel</button>
+      <div class="field has-addons">
+        <p class="control"><a class="button" style="background-color:">x</a></p>
+        <p class="control"><a class="button" style='background-color: #777'>cancel</a></p>
+      </div>
+    </div>
     <table class="table is-narrow is-striped">
 
       <thead>
@@ -16,7 +24,7 @@
             >{{mode}}
             </button>
           </td>
-          <td v-for='attr in argAtr'>
+          <td v-for='attr in argAtr' :key='attr.id'>
             <p class='has-text-centered'>
               <strong>{{attr}}</strong><br>
               <input v-model='filter_field[attr]' style="width:100%"/><br>
@@ -26,7 +34,7 @@
       </thead>
 
       <tbody>
-        <tr v-for='id in get_sorted_key'>
+        <tr v-for='id in get_sorted_key' :key='id.id'>
           <td>
             <span>
               <button
@@ -36,7 +44,7 @@
                 >{{mode}}</button>
             </span>
           </td>
-          <td v-for='attr in argAtr'>
+          <td v-for='attr in argAtr' :key='attr.id'>
             {{table_dbs_filter[id][attr]}}
           </td>
         </tr>
@@ -85,7 +93,6 @@ export default {
       self.$set(self.table_dbs, cid,
         _.assign(val, statics_db[cid]))
     };
-    // console.log(dynamic_db)
     for (let id of this.valid_ids){
       frontend_update(id, dynamic_db.freshy[id])
       // fbref.child(id).on('value', snapshot => {
@@ -93,7 +100,6 @@ export default {
       // })
     }
     console.log('[success]: loading information')
-    // console.log(this.table_dbs)
   },
   computed: {
     table_dbs_filter(){

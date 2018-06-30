@@ -3,6 +3,7 @@
     <h1 class="is-size-6" style="height: 30px">
       vishnu EN102 : database
     </h1>
+    <button>xxx</button>
     <p class="is-size-4" style="height: 50px;">
       พี่ค่าย :
       <strong>
@@ -14,15 +15,15 @@
       <thead>
         <tr>
           <td></td>
-          <td v-for='b in Object.keys(baan)'>
+          <td v-for='b in Object.keys(baan)' :key='b.id'>
             <strong>{{b}}</strong>
           </td>
         </tr>
       </thead>
       <tbody>
-        <tr v-for='s in ["ช", "ญ"]'>
+        <tr v-for='s in ["ช", "ญ"]' :key='s.id'>
           <td><strong>{{s}}</strong></td>
-          <td v-for='b in baan'>
+          <td v-for='b in baan' :key='b.id'>
             {{b[s]}}
           </td>
         </tr>

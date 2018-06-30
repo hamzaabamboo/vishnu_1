@@ -1,12 +1,12 @@
 <template>
   <section class='section'>
     <div class='box' style="margin-top: 15px">
-      <overview v-if='args.tot' ref='overvR'></overview>
+      <button class='button is-warning is-pulled-right' @click='logout'>logout</button>
+      <overview v-if='args.tot'></overview>
       <baanstaff v-else :name='args.nme' :group='args.usr'></baanstaff>
     </div>
     <div class="box">
       <freshy-table
-        ref='tableR'
         :arg-grp='args.grp'
         :arg-atr='args.atr'
       ></freshy-table>
@@ -26,15 +26,15 @@ export default {
     'args': {
       type: Object,
       require: true,
-      default: undefined
-  }},
-  data() {
-    return {
+      default: () => JSON.parse(localStorage.getItem('args'))
   }},
   created(){
-    console.log(localStorage)
-    this.args = this.args || JSON.parse(localStorage.get('args'))
     if (!this.args){
+      this.$router.push('/login')
+  }},
+  methods: {
+    logout(){
+      localStorage.clear()
       this.$router.push('/login')
   }}
 }
