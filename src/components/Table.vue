@@ -11,45 +11,47 @@
         <p class="control"><a class="button" style='background-color: #777'>cancel</a></p>
       </div>
     </div>
-    <table class="table is-narrow is-striped">
+    <div class="table">
+      <table class="is-narrow is-striped">
 
-      <thead>
-        <tr>
-          <td>
-            <button
-              class='button'
-              :class='button_dynamic'
-              :disabled='mode_lock'
-              @click='next_mode'
-            >{{mode}}
-            </button>
-          </td>
-          <td v-for='attr in argAtr' :key='attr.id'>
-            <p class='has-text-centered'>
-              <strong>{{attr}}</strong><br>
-              <input v-model='filter_field[attr]' style="width:100%"/><br>
-            </p>
-          </td>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr v-for='id in get_sorted_key' :key='id.id'>
-          <td>
-            <span>
+        <thead>
+          <tr>
+            <td>
               <button
                 class='button'
                 :class='button_dynamic'
-                @click='update_status(id, mode)'
-                >{{mode}}</button>
-            </span>
-          </td>
-          <td v-for='attr in argAtr' :key='attr.id'>
-            {{table_dbs_filter[id][attr]}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+                :disabled='mode_lock'
+                @click='next_mode'
+              >{{mode}}
+              </button>
+            </td>
+            <td v-for='attr in argAtr' :key='attr.id'>
+              <p class='has-text-centered'>
+                <strong>{{attr}}</strong><br>
+                <input v-model='filter_field[attr]' style="width:100%"/><br>
+              </p>
+            </td>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr v-for='id in get_sorted_key' :key='id.id'>
+            <td>
+              <span>
+                <button
+                  class='button'
+                  :class='button_dynamic'
+                  @click='update_status(id, mode)'
+                  >{{mode}}</button>
+              </span>
+            </td>
+            <td v-for='attr in argAtr' :key='attr.id'>
+              {{table_dbs_filter[id][attr]}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -175,8 +177,9 @@ div.container {
 .box {
 	overflow: auto;
 }
-table {
-	overflow: auto;
+.table {
+	overflow-x: scroll;
+	width: 100%;
 }
 tr td {
 	white-space: nowrap;

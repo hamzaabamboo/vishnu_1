@@ -21,19 +21,21 @@
 
 <script>
 export default {
-  data(){
-    return {
-      id: this.$route.params.id,
-      udata: require('../other/freshy_information.json')[this.$route.params.id]
-}}}
+	data() {
+		return {
+			id: this.$route.params.id,
+			udata: require('../other/freshy_information.json')[this.$route.params.id]
+		};
+	}
+};
 </script>
 
 <style scoped>
 .box {
-  max-width: 400px;
-  overflow: scroll;
+	max-width: 90%;
+	overflow: scroll;
 }
 td {
-  padding: 5px 15px;
+	padding: 5px 15px;
 }
 </style>

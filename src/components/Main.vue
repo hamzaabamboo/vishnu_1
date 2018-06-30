@@ -48,9 +48,6 @@ export default {
 </script>
 
 <style scoped>
-.box {
-	overflow: auto;
-}
 .section {
 	padding: 10px 10px;
 }
