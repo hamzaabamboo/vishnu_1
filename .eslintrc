@@ -1,0 +1,9 @@
+{
+  "env": {
+    "es6": true
+  },
+  "extends": "plugin:vue/base",
+  "rules": {
+    "vue/require-v-for-key": "off"
+  }
+}
