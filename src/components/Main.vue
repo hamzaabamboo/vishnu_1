@@ -15,39 +15,43 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import FreshyTable from './Table.vue'
-import Overview from './Overview.vue'
-import Baanstaff from './Baanstaff.vue'
+import _ from 'lodash';
+import FreshyTable from './Table.vue';
+import Overview from './Overview.vue';
+import Baanstaff from './Baanstaff.vue';
+import ApiService from '@/common/api.service.js';
 
 export default {
-  components: {Overview, FreshyTable, Baanstaff},
-  props: {
-    'args': {
-      type: Object,
-      require: true,
-      default: () => JSON.parse(localStorage.getItem('args'))
-  }},
-  created(){
-    if (!this.args){
-      this.$router.push('/login')
-  }},
-  methods: {
-    logout(){
-      localStorage.clear()
-      this.$router.push('/login')
-  }}
-}
+	components: { Overview, FreshyTable, Baanstaff },
+	props: {
+		args: {
+			type: Object,
+			require: true,
+			default: () => JSON.parse(localStorage.getItem('args'))
+		}
+	},
+	created() {
+		// let test = ApiService.query('/articles', null).then(res =>
+		// 	console.log(res.data)
+		// ); // Test Api Sending
+		if (!this.args) {
+			this.$router.push('/login');
+		}
+	},
+	methods: {
+		logout() {
+			localStorage.clear();
+			this.$router.push('/login');
+		}
+	}
+};
 </script>
 
 <style scoped>
-.box {
-  overflow: auto;
-}
 .section {
-  padding: 10px 10px;
+	padding: 10px 10px;
 }
 #header {
-  margin: 20px auto;
+	margin: 20px auto;
 }
 </style>

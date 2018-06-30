@@ -10,6 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "blueimp-md5": "^2.10.0",
     "bulma": "^0.7.1",
     "firebase": "^5.1.0",
@@ -18,7 +19,12 @@
     "md5": "^2.2.1",
     "moment": "^2.22.2",
     "vue": "^2.5.2",
+<<<<<<< HEAD
     "vue-awesome": "^3.0.3",
+=======
+    "vue-axios": "^2.1.1",
+    "vue-localstorage": "^0.6.2",
+>>>>>>> e7ef9bb2dd5efbb0d4651318abbe83c42393a1f2
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
