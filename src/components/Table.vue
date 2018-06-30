@@ -5,12 +5,9 @@
       <br>
     </p>
     <div>
-      <button class='button'>cancel</button>
-      <div class="field has-addons">
-        <p class="control"><a class="button" style="background-color:">x</a></p>
-        <p class="control"><a class="button" style='background-color: #777'>cancel</a></p>
-      </div>
+      <a class='kbtn kcross kblue'>cancel</a>
     </div>
+
     <table class="table is-narrow is-striped">
 
       <thead>
@@ -189,6 +186,38 @@ tr td {
 }
 button {
   width: 50px;
-  margin-right: 12px
+  margin-right: 12px;
+}
+
+.kbtn.kblue         {background-color: #3bb3e0; color: white;}
+.kbtn.kblue::before {background-color: #23718d; color: white;}
+
+.kbtn.kblue:active         {background-color: #23718d;}
+.kbtn.kblue:active::before {background-color: #7cbbd1;}
+
+.kbtn.kcross::before {
+  font-family: 'FontAwesome';
+	content: "\f00d";
+  font-weight: 200;
+}
+
+.kbtn {
+	font-size: 12px;
+	position: relative;
+	padding: 10px 20px;
+	margin-left: 35px;
+	border-radius: 0 5px 5px 0;
+}
+.kbtn::before {
+	width:  36px;
+	height: 100%;
+	display: block;
+	position: absolute;
+	top: 0px;
+	left: -36px;
+  padding-top: 3px;
+	font-size: 16px;
+	font-weight: bold;
+	border-radius: 5px 0 0 5px;
 }
 </style>
