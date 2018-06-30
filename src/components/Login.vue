@@ -32,7 +32,6 @@ export default {
       if (this.valid_user) {
         let data = require('../other/login_user.json')[this.usr]
         localStorage.setItem('args', JSON.stringify(data))
-        console.log(JSON.stringify(data))
         this.$router.push({
           name: 'Main',
           params: {

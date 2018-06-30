@@ -26,14 +26,12 @@ export default {
     'args': {
       type: Object,
       require: true,
-      default: undefined
+      default: () => JSON.parse(localStorage.getItem('args'))
   }},
   data() {
     return {
   }},
   created(){
-    console.log(localStorage)
-    this.args = this.args || JSON.parse(localStorage.getItem('args'))
     if (!this.args){
       this.$router.push('/login')
   }}
