@@ -35,11 +35,7 @@ export default {
       if (this.valid_user) {
         let data = require('../other/login_user.json')[this.usr]
         localStorage.setItem('args', JSON.stringify(data))
-        this.$router.push({
-          name: 'Main',
-          params: {
-            args: data
-        }})
+        this.$router.push('/')
       }else{
         alert('user not valid')
       }
