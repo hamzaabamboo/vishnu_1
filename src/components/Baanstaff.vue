@@ -1,11 +1,10 @@
 <template>
   <div>
-    <h1 class="is-size-6">vishnu EN102 : database</h1>
     <h1 class="is-size-4">
       พี่บ้าน
       <strong>{{name}}</strong> :
-      ช <input @keyup='edit = true' v-model='ช'>,
-      ญ <input @keyup='edit = true' v-model='ญ'>
+      ช <input @keyup='edit = true' v-model.lazy='ช'>,
+      ญ <input @keyup='edit = true' v-model.lazy='ญ'>
       <button v-if='edit' @click='update'
       class='button is-warning is-small'> update </button>
     </h1>
@@ -25,6 +24,7 @@ export default {
   methods: {
     update(){
       console.log(this.ช + ' ' + this.ญ)
+      this.edit = false;
   }}
 }
 </script>

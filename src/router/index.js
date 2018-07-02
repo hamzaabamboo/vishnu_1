@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import 'bulma/css/bulma.css';
+import '../css/kbutton.css'
 import Main from '@/components/Main';
 import Query from '@/components/Query';
 

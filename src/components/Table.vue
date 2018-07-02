@@ -1,9 +1,9 @@
 <template>
   <div>
-    <p class='is-size-4 section' style="height: 70px">
+    <!-- <p class='is-size-4 section animated flipInX' style="height: 70px">
       ลูกค่าย {{table_dbs_filter_len}} คน
       <br>
-    </p>
+    </p> -->
 
     <div class="table">
       <table class="is-narrow is-striped">
@@ -11,16 +11,12 @@
         <thead>
           <tr>
             <td>
-              <!-- <button
-                class='button'
-                :class='button_dynamic'
-                :disabled='mode_lock'
-                @click='next_mode'
-              >{{mode}}
-              </button> -->
+              <h5 class="is-size-5 has-text-centered">
+                ลูกค่าย <strong>{{table_dbs_filter_len}}</strong> คน
+              </h5>
             </td>
             <td v-for='attr in argAtr' :key='attr.id'>
-              <p class='has-text-centered'>
+              <p class='is-size-6 has-text-centered'>
                 <strong>{{attr}}</strong><br>
                 <input v-model='filter_field[attr]' style="width:100%"/><br>
               </p>
@@ -30,23 +26,21 @@
 
         <tbody>
           <tr v-for='id in get_sorted_key' :key='id.id'>
+
             <td>
-              <span>
-                <!-- <button
-                  class='button'
-                  :class='button_dynamic'
-                  @click='update_status(id, mode)'
-                  >{{mode}}
-                </button> -->
-                <a
-                  class='kbtn kcross kblue'
-                  @click='update_status(id, mode)'
-                > cancel
-                </a>
-              </span>
+              <div id='redID' class="animated"  @click='click_button($event, "#blueID")'>
+                <span class="kbtn kcross kred">cancel</span>
+                <span class="kbtn kcross kgray">cancel</span>
+              </div>
+              <div id='blueID' class="animated" @click='click_button($event, "#redID")' style='display: none'>
+                <span class="kbtn kcross kblue">cancel</span>
+              </div>
             </td>
+
             <td v-for='attr in argAtr' :key='attr.id'>
-              {{table_dbs_filter[id][attr]}}
+              <div class='animated fadeInDown'>
+                {{table_dbs_filter[id][attr]}}
+              </div>
             </td>
           </tr>
         </tbody>
@@ -66,6 +60,7 @@ export default {
 	props: ['arg-grp', 'arg-atr'],
 	data() {
 		return {
+      tmp: false,
 			mode: 'Y',
 			mode_lock: false,
 			valid_ids: null,
@@ -160,7 +155,19 @@ export default {
 			if (hr > 0) return `${hr}:${mn} hour`;
 			if (mn > 0) return `${mn} min`;
 			return 'now';
-		}
+    },
+    click_button (now, nextId) {
+      now = now.target.parentNode
+      let nxt = now.parentNode.querySelector(nextId)
+      now.classList.add('fadeOutUp')
+      now.classList.remove('fadeInDown')
+      setTimeout((nw, nx) => {
+        nw.style.display = 'none'
+        nx.style.display = 'block'
+        nx.classList.add('fadeInDown')
+        nx.classList.remove('fadeOutUp')
+      }, 500, now, nxt)
+    }
 	}
 };
 </script>
@@ -183,7 +190,8 @@ div.container {
 }
 tr td {
 	white-space: nowrap;
-	font-size: 14px;
+  font-size: 14px;
+  overflow: hidden;
 }
 .section {
 	padding: 10px 10px;
@@ -194,37 +202,5 @@ tr td {
 button {
   width: 50px;
   margin-right: 12px;
-}
-
-.kbtn.kblue         {background-color: #3bb3e0; color: white;}
-.kbtn.kblue::before {background-color: #23718d; color: white;}
-
-.kbtn.kblue:active         {background-color: #23718d;}
-.kbtn.kblue:active::before {background-color: #3e7c92;}
-
-.kbtn.kcross::before {
-  font-family: 'FontAwesome';
-	content: "\f00d";
-  font-size: 20px;
-  font-weight: 50;
-}
-
-.kbtn {
-	font-size: 12px;
-	position: relative;
-	padding: 10px 15px;
-	margin-left: 35px;
-	border-radius: 0 5px 5px 0;
-}
-.kbtn::before {
-	width:  36px;
-	height: 100%;
-	display: block;
-	position: absolute;
-	top: 0px;
-	left: -36px;
-  padding-top: 3px;
-  padding-left: 10px;
-	border-radius: 5px 0 0 5px;
 }
 </style>

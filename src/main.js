@@ -8,6 +8,8 @@ import ApiService from '@/common/api.service';
 import ErrorFilter from '@/common/error.filter';
 import 'font-awesome/css/font-awesome.css'
 
+import 'animate.css'
+
 // import { library } from '@fortawesome/fontawesome-svg-core'
 // import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 // library.add(faCoffee)

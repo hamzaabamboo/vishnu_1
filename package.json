@@ -12,6 +12,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.0",
     "@fortawesome/free-solid-svg-icons": "^5.1.0",
+    "animate.css": "^3.6.1",
     "axios": "^0.18.0",
     "blueimp-md5": "^2.10.0",
     "bulma": "^0.7.1",

@@ -1,7 +1,0 @@
-{
-    "window.zoomLevel": 1,
-    "git.enableSmartCommit": true,
-    "gitlens.advanced.messages": {
-        "suppressShowKeyBindingsNotice": true
-    }
-}
