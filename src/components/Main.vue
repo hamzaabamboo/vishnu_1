@@ -3,8 +3,10 @@
     <div class='box' style="margin-top: 15px">
       <button class='button is-warning is-pulled-right' @click='logout'>logout</button>
       <overview v-if='args.tot'></overview>
-      <!-- <announce></announce> -->
       <baanstaff v-if='!args.tot' :name='args.nme' :group='args.usr'></baanstaff>
+    </div>
+    <div class="box">
+      <announce></announce>
     </div>
     <div class="box">
       <freshy-table
@@ -20,7 +22,7 @@ import _ from 'lodash';
 import FreshyTable from './Table.vue';
 import Overview from './Overview.vue';
 import Baanstaff from './Baanstaff.vue';
-import Annuounce from './Announce.vue';
+import Announce from './Announce.vue';
 import ApiService from '@/common/api.service.js';
 
 export default {

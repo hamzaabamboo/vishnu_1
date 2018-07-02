@@ -4,7 +4,8 @@
       พี่บ้าน
       <strong>{{name}}</strong> :
       ช <input @keyup='edit = true' v-model.lazy='ช'>,
-      ญ <input @keyup='edit = true' v-model.lazy='ญ'>
+      ญ <input @keyup='edit = true' v-model.lazy='ญ'>,
+      ข้าวพิเศษ <input @keyup='edit = true'>
       <button v-if='edit' @click='update'
       class='button is-warning is-small'> update </button>
     </h1>
