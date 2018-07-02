@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h1 class="is-size-6" style="height: 30px">
-      vishnu EN102 : database
-    </h1>
     <button>xxx</button>
     <p class="is-size-4" style="height: 50px;">
       พี่ค่าย :

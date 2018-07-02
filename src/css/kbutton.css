@@ -1,0 +1,53 @@
+.kbtn.kblue         {background-color: #3bb3e0; color: white;}
+.kbtn.kblue::before {background-color: #3e96b6; color: white;}
+.kbtn.kblue:active         {background-color: #23718d;}
+.kbtn.kblue:active::before {background-color: #3e7c92;}
+.kbtn.kblue:hover          {background-color: #2793bb; transition: all .3s ease;}
+.kbtn.kblue:hover::before  {background-color: #23718d; transition: all .3s ease;}
+
+.kbtn.kgray         {background-color: #777777; color: white;}
+.kbtn.kgray::before {background-color: #5a5a5a; color: white;}
+.kbtn.kgray:active         {background-color: #3f3f3f;}
+.kbtn.kgray:active::before {background-color: #292929;}
+.kbtn.kgray:hover          {background-color: #1b1b1b; transition: all .3s ease;}
+.kbtn.kgray:hover::before  {background-color: #303030; transition: all .3s ease;}
+
+.kbtn.kred         {background-color: #b15c6f; color: white;}
+.kbtn.kred::before {background-color: #7e3646; color: white;}
+.kbtn.kred:active         {background-color: #9c1d39;}
+.kbtn.kred:active::before {background-color: #5c1c2a;}
+.kbtn.kred:hover          {background-color: #c4173c; transition: all .3s ease;}
+.kbtn.kred:hover::before  {background-color: #97102e; transition: all .3s ease;}
+
+.kbtn.kcross::before {
+  font-family: 'FontAwesome';
+	content: "\f00d";
+  font-size: 20px;
+}
+
+.kbtn {
+	font-size: 12px;
+	position: relative;
+	padding: 10px 15px;
+	margin-left: 35px;
+	border-radius: 0 5px 5px 0;
+}
+.kbtn::before {
+	width:  36px;
+	height: 100%;
+	display: block;
+	position: absolute;
+	top: 0px;
+	left: -36px;
+  padding-top: 1px;
+  padding-left: 10px;
+	border-radius: 5px 0 0 5px;
+}
+
+.transform {
+  -webkit-transition: all 2s ease;
+     -moz-transition: all 2s ease;
+       -o-transition: all 2s ease;
+      -ms-transition: all 2s ease;
+          transition: all 2s ease;
+}
