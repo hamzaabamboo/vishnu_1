@@ -95,7 +95,6 @@ export default {
 			//   frontend_update(id, dynamic_db.freshy[id] = snapshot.val())
 			// })
 		}
-		console.log('[success]: loading information');
 	},
 	computed: {
 		table_dbs_filter() {
