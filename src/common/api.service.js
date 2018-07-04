@@ -48,3 +48,13 @@ const ApiService = {
 };
 
 export default ApiService;
+
+export const FreshyService = {
+	getInfo: () => {
+		return require('../other/freshy_information.json');
+	},
+
+	getStatus: () => {
+		return require('../other/status.json');
+	}
+};
