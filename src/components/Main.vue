@@ -5,9 +5,7 @@
       <overview v-if='args.tot'></overview>
       <baanstaff v-if='!args.tot' :name='args.nme' :group='args.usr'></baanstaff>
     </div>
-    <div class="box">
-      <announce></announce>
-    </div>
+    <announce></announce>
     <div class="box">
       <freshy-table
         :arg-grp='args.grp'

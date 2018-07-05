@@ -1,5 +1,5 @@
 <template>
-  <section class='section'>
+  <section class='section' style='display: flex; align-items: center; justify-content: center;'>
     <div class="box">
       <h1 class='title'>vishnu</h1>
       <code>user : A, pwd : A</code><br>

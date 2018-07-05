@@ -36,5 +36,6 @@ input {
   border: none;
   width: 40px;
   text-align: center;
+  border-bottom: 1px solid rgb(212, 212, 212);
 }
 </style>
