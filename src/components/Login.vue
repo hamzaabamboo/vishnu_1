@@ -7,18 +7,18 @@
       <code>user : staff, pwd : staff</code><br>
       <code>user : nurse, pwd : nurse</code><br>
       <code>user : supply, pwd : supply</code>
-      <code>{{md5_pwd}}</code><br/>
       <div>
         <input v-model='usr' class='input has-text-centered' placeholder="username" required type='text'>
         <input v-model='pwd' class='input has-text-centered' placeholder="password" required type='password'>
       </div>
-      <input @click='router_table' type="submit" class='button is-warning' tag="button" value='submit'>
+      <input @click='login' type="submit" class='button is-warning' tag="button" value='submit'>
     </div>
   </section>
 </template>
 
 <script>
 import md5 from 'md5';
+import { LOGIN } from '@/store/actions.type';
 export default {
 	name: 'Login',
 	data() {
@@ -31,25 +31,13 @@ export default {
 		localStorage.clear();
 	},
 	methods: {
-		router_table() {
-			if (this.valid_user) {
-				let data = require('../other/login_user.json')[this.usr];
-				localStorage.setItem('args', JSON.stringify(data));
-				this.$router.push('/');
-			} else {
-				alert('user not valid');
-			}
+		login() {
+				this.$store
+					.dispatch(LOGIN, { username: this.usr, password: md5(this.pwd) })
+					.then(() => this.$router.push({ name: 'Main' }))
+					.catch();
 		}
 	},
-	computed: {
-		md5_pwd() {
-			return md5(this.pwd);
-		},
-		valid_user() {
-			let lgn = require('../other/login_user.json');
-			return this.usr in lgn && md5(this.pwd) == lgn[this.usr].pwd;
-		}
-	}
 };
 </script>
 

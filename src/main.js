@@ -2,20 +2,14 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import App from './App';
-import router from './router';
+import router from '@/router';
+import store from '@/store'
 
 import ApiService from '@/common/api.service';
 import ErrorFilter from '@/common/error.filter';
 import 'font-awesome/css/font-awesome.css'
 
 import 'animate.css'
-
-// import { library } from '@fortawesome/fontawesome-svg-core'
-// import { faCoffee } from '@fortawesome/free-solid-svg-icons'
-// library.add(faCoffee)
-
-// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-// Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false;
 
@@ -26,7 +20,8 @@ ApiService.init();
 /* eslint-disable no-new */
 new Vue({
 	el: '#app',
-	router,
+  router,
+  store,
 	components: { App },
   template: '<App/>',
   filters: {
