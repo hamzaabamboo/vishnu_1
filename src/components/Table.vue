@@ -68,8 +68,7 @@ export default {
 			this.ids.push(id);
 			this.freshyList.push(freshyInfo[id]);
 		}
-		for (let field in this.freshyList[0]) this.fields.push(field);
-		console.log(this.ids, this.freshyList, this.fields);
+		for (let field in this.freshyList[0]) this.fields.push(field); 
 	},
 	computed: {},
 	methods: {

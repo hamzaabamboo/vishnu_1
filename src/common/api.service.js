@@ -49,6 +49,14 @@ const ApiService = {
 
 export default ApiService;
 
+export const AuthService = {
+	login: credentials => {
+		return ApiService.post('/api/jwts', credentials);
+	},
+	logout: () => {
+		return ApiService.delete(`/api/jwts/${JwtService.getToken()}`);
+	}
+};
 export const FreshyService = {
 	getInfo: () => {
 		return require('../other/freshy_information.json');

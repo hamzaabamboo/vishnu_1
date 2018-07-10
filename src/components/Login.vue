@@ -30,7 +30,7 @@ export default {
 	methods: {
 		login() {
 			this.$store
-				.dispatch(LOGIN, { username: this.usr, password: md5(this.pwd) })
+				.dispatch(LOGIN, { username: this.usr, password: this.pwd })
 				.then(() => this.$router.push({ name: 'Main' }))
 				.catch();
 		}
