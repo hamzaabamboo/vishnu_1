@@ -27,9 +27,6 @@ export default {
 			pwd: ''
 		};
 	},
-	created() {
-		localStorage.clear();
-	},
 	methods: {
 		login() {
 			this.$store

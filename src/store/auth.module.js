@@ -17,12 +17,10 @@ const getters = {
     return state.isAuthenticated
   }
 }
-
 const actions = {
   [LOGIN] (context, credentials) {
       let { username, password } = credentials;
       return new Promise((resolve, reject) => {
-        console.log(username, password);
         if ( userData[username] && password == userData[username].pwd ) {
             const {usr, nme, pwd, tot, atr, grp} = userData[username]
             const user = {
@@ -56,19 +54,19 @@ const actions = {
     context.commit(PURGE_AUTH)
   },
   [CHECK_AUTH] (context) {
-    if (JwtService.getToken()) {
-      ApiService.setHeader()
-      ApiService
-        .get('user')
-        .then(({data}) => {
-          context.commit(SET_AUTH, data.user)
-        })
-        .catch(({response}) => {
-          context.commit(SET_ERROR, response.data.errors)
-        })
-    } else {
-      context.commit(PURGE_AUTH)
-    }
+    // if (JwtService.getToken()) {
+    //   ApiService.setHeader()
+    //   ApiService
+    //     .get('user')
+    //     .then(({data}) => {
+    //       context.commit(SET_AUTH, data.user)
+    //     })
+    //     .catch(({response}) => {
+    //       context.commit(SET_ERROR, response.data.errors)
+    //     })
+    // } else {
+    //   context.commit(PURGE_AUTH)
+    // }
   },
 }
 
