@@ -1,20 +1,22 @@
 <template>
   <div>
-    <button>xxx</button>
-    <p class="is-size-4" style="height: 50px;">
-      พี่ค่าย :
-      <strong>
-        ช <span class="_cred">{{total["ช"]}}</span>,
-        ญ <span class="_cred">{{total["ญ"]}}</span>
-      </strong>
-    </p>
-    <table class="table is-narrow is-striped _cred" align='center'>
-      <thead>
-        <tr>
-          <td></td>
-          <td v-for='b in Object.keys(baan)' :key='b.id'>
-            <strong>{{b}}</strong>
-          </td>
+    <div>
+      <p class="is-size-4">
+        พี่ค่าย :
+        <strong>
+          ช <span class="_cred">{{total["ช"]}}</span>,
+          ญ <span class="_cred">{{total["ญ"]}}</span>
+        </strong>
+      </p>
+    </div>
+    <div style='overflow-y: auto'>
+      <table class="table __knarrow is-striped _cred" align='center'>
+        <thead>
+          <tr>
+            <td></td>
+            <td v-for='b in Object.keys(baan)' :key='b.id'>
+              <strong>{{b}}</strong>
+            </td>
         </tr>
       </thead>
       <tbody>
@@ -27,6 +29,7 @@
       </tbody>
     </table>
   </div>
+</div>
 </template>
 
 <script>
@@ -60,5 +63,8 @@ export default {
 }
 ._cred {
   color: rgb(155, 41, 41);
+}
+.table.__knarrow td {
+  padding: .2em .2em;
 }
 </style>

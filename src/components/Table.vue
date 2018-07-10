@@ -23,12 +23,14 @@
           <tr v-for='freshy in freshyList' :key='freshy.id'>
 
             <td>
-              <div id='redID' class="animated"  @click='click_button($event, "#blueID")'>
-                <span class="kbtn kcross kred">cancel</span>
-                <span class="kbtn kcross kgray">cancel</span>
+              <div id='grayID' class="animated" @click='click_button($event, "#blueID")'>
+                <span class="kbtn kcross kgray">ไม่เข้า</span>
               </div>
               <div id='blueID' class="animated" @click='click_button($event, "#redID")' style='display: none'>
-                <span class="kbtn kcross kblue">cancel</span>
+                <span class="kbtn kcross kblue">ปกติ</span>
+              </div>
+              <div id='redID' class="animated"  @click='click_button($event, "#blueID")' style='display: none'>
+                <span class="kbtn kcross kred">ออก</span>
               </div>
             </td>
 
