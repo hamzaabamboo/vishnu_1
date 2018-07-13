@@ -1,11 +1,11 @@
 <template>
   <div class="__card">
       <div class="_margin">
-        <span class="title is-5 is-inline"><slot name='title'>Title</slot></span>
-        <span class="subtitle is-7 is-inline"><slot name='author'>xxxx</slot></span>
+        <span class="title is-5 is-inline"><slot name='title'></slot></span>
+        <span class="subtitle is-7 is-inline"><slot name='author'></slot></span>
       </div>
       <div class="_margin">
-        <slot name='body'>Lorem ipsum dolor, sit amet consectetur adipisicing fuga iste </slot>
+        <slot name='body'></slot>
       </div>
   </div>
 </template>

@@ -52,6 +52,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import Overview from './Overview.vue';
 import { FreshyService } from '@/common/api.service.js';
+import { FETCH_FRESHIES } from '@/store/actions.type';
 
 export default {
 	components: { Overview },
@@ -66,11 +67,12 @@ export default {
 	created() {
 		const freshyInfo = FreshyService.getInfo();
 		const freshyStatus = FreshyService.getStatus();
+		this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
 		for (let id in freshyInfo) {
 			this.ids.push(id);
 			this.freshyList.push(freshyInfo[id]);
 		}
-		for (let field in this.freshyList[0]) this.fields.push(field); 
+		for (let field in this.freshyList[0]) this.fields.push(field);
 	},
 	computed: {},
 	methods: {

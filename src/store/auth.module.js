@@ -1,7 +1,7 @@
 import JwtService from '@/common/jwt.service';
 import { LOGIN, LOGOUT, CHECK_AUTH } from './actions.type';
 import { SET_AUTH, PURGE_AUTH, SET_ERROR } from './mutations.type';
-import { AuthService } from '../common/api.service';
+import { AuthService } from '@/common/api.service';
 const state = {
 	errors: null,
 	user: {},

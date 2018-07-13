@@ -51,13 +51,17 @@ export default ApiService;
 
 export const AuthService = {
 	login: credentials => {
-		return ApiService.post('/api/jwts', credentials);
+		return ApiService.post('/jwts', credentials);
 	},
 	logout: () => {
-		return ApiService.delete(`/api/jwts/${JwtService.getToken()}`);
+		return ApiService.delete(`/jwts/${JwtService.getToken()}`);
 	}
 };
 export const FreshyService = {
+	getFreshies: () => {
+		return ApiService.get('/freshman');
+	},
+	setFreshyStatus: () => {},
 	getInfo: () => {
 		return require('../other/freshy_information.json');
 	},
@@ -65,4 +69,8 @@ export const FreshyService = {
 	getStatus: () => {
 		return require('../other/status.json');
 	}
+};
+export const StaffService = {
+	setStaffCount: ({ male, female }) => {},
+	setSpecialMealCount: count => {}
 };
