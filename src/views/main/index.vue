@@ -17,10 +17,10 @@
 
 <script>
 import _ from 'lodash';
-import FreshyTable from './Table.vue';
-import Overview from './Overview.vue';
-import Baanstaff from './Baanstaff.vue';
-import Announce from './Announce.vue';
+import FreshyTable from './components/Table.vue';
+import Overview from './components/Overview.vue';
+import Baanstaff from './components/Baanstaff.vue';
+import Announce from './components/Announce.vue';
 import { LOGOUT } from '@/store/actions.type';
 import ApiService from '@/common/api.service.js';
 
@@ -32,7 +32,9 @@ export default {
 	},
 	methods: {
 		logout() {
-			this.$store.dispatch(LOGOUT).then(() => this.$router.push({ name: 'Login' }));
+			this.$store
+				.dispatch(LOGOUT)
+				.then(() => this.$router.push({ name: 'Login' }));
 		}
 	},
 	computed: {

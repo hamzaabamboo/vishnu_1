@@ -61,7 +61,12 @@ export const FreshyService = {
 	getFreshies: () => {
 		return ApiService.get('/freshman');
 	},
-	setFreshyStatus: () => {},
+	setFreshyStatus: (id, status) => {
+		return ApiService.patch(`/freshman/${id}`, status);
+	},
+	query: id => {
+		return require('../other/freshy_information.json')[id];
+	},
 	getInfo: () => {
 		return require('../other/freshy_information.json');
 	},
@@ -70,7 +75,19 @@ export const FreshyService = {
 		return require('../other/status.json');
 	}
 };
+
+export const MessageService = {
+	getMessages: () => {
+		return ApiService.get('/messages');
+	},
+	postMessage: message => {
+		return ApiService.post('/messages');
+	}
+};
 export const StaffService = {
+	getStaff: () => {
+		return require('../other/status.json').staff;
+	},
 	setStaffCount: ({ male, female }) => {},
 	setSpecialMealCount: count => {}
 };
