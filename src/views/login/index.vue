@@ -1,19 +1,11 @@
-<template>
-  <section class='section' style='display: flex; align-items: center; justify-content: center;'>
-    <div class="box">
-      <h1 class='title'>vishnu</h1>
-      <code>user : A, pwd : A</code><br>
-      <code>user : B, pwd : B</code><br>
-      <code>user : staff, pwd : staff</code><br>
-      <code>user : nurse, pwd : nurse</code><br>
-      <code>user : supply, pwd : supply</code>
-      <div>
-        <input v-model='usr' class='input has-text-centered' placeholder="username" required type='text'>
-        <input v-model='pwd' class='input has-text-centered' placeholder="password" required type='password'>
-      </div>
-      <input @click='login' type="submit" class='button is-warning' tag="button" value='submit'>
-    </div>
-  </section>
+<template lang='pug'>
+  section.section(style='display: flex; align-items: center; justify-content: center;')
+    div.box
+      h1.title vishnu
+      div
+        input.input.has-text-centered(v-model='usr' placeholder="username" required type='text')
+        input.input.has-text-centered(v-model='pwd' placeholder="password" required type='password')
+      button.button.is-warning(@click='login' value='submit')
 </template>
 
 <script>
@@ -38,23 +30,22 @@ export default {
 };
 </script>
 
-<style scoped>
-section {
+<style lang='stylus' scoped>
+section
 	max-width: 400px;
 	min-height: 720px;
 	margin: 0px auto;
-}
-input {
+
+input
 	margin: 5px auto;
-}
-.button {
+
+.button
 	margin-top: 10px;
 	width: 100%;
-}
-.box {
+
+.box
 	margin: 0px auto;
-}
-code {
+
+code
 	font-size: 14px;
-}
 </style>
