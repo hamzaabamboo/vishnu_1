@@ -67,7 +67,7 @@ export default {
 	created() {
 		const freshyInfo = FreshyService.getInfo();
 		const freshyStatus = FreshyService.getStatus();
-		this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
+		// this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
 		for (let id in freshyInfo) {
 			this.ids.push(id);
 			this.freshyList.push(freshyInfo[id]);

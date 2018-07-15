@@ -8,12 +8,11 @@ const ApiService = {
 	init() {
 		Vue.use(VueAxios, axios);
 		Vue.axios.defaults.baseURL = API_URL;
+		if (JwtService.hasToken()) this.setHeader();
 	},
 
 	setHeader() {
-		Vue.axios.defaults.headers.common[
-			'Authorization'
-		] = `Token ${JwtService.getToken()}`;
+		Vue.axios.defaults.headers.common['jwt'] = `${JwtService.getToken()}`;
 	},
 
 	query(resource, params) {
@@ -55,6 +54,9 @@ export const AuthService = {
 	},
 	logout: () => {
 		return ApiService.delete(`/jwts/${JwtService.getToken()}`);
+	},
+	ping: () => {
+		return ApiService.get('/jwts/ping');
 	}
 };
 export const FreshyService = {
@@ -81,7 +83,7 @@ export const MessageService = {
 		return ApiService.get('/messages');
 	},
 	postMessage: message => {
-		return ApiService.post('/messages');
+		return ApiService.post('/messages', { message });
 	}
 };
 export const StaffService = {

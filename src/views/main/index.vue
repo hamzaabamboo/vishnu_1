@@ -22,11 +22,12 @@ import Overview from './components/Overview.vue';
 import Baanstaff from './components/Baanstaff.vue';
 import Announce from './components/Announce.vue';
 import { LOGOUT } from '@/store/actions.type';
-import ApiService from '@/common/api.service.js';
+import ApiService, { AuthService } from '@/common/api.service.js';
 
 export default {
 	components: { Overview, FreshyTable, Baanstaff, Announce }, //Announce
 	created() {
+		AuthService.ping();
 		if (!this.$store.getters.isAuthenticated)
 			this.$router.push({ name: 'Login' });
 	},
