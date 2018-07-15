@@ -27,17 +27,14 @@ export default {
 			pwd: ''
 		};
 	},
-	created() {
-		localStorage.clear();
-	},
 	methods: {
 		login() {
-				this.$store
-					.dispatch(LOGIN, { username: this.usr, password: md5(this.pwd) })
-					.then(() => this.$router.push({ name: 'Main' }))
-					.catch();
+			this.$store
+				.dispatch(LOGIN, { username: this.usr, password: this.pwd })
+				.then(() => this.$router.push({ name: 'Main' }))
+				.catch();
 		}
-	},
+	}
 };
 </script>
 

@@ -48,3 +48,46 @@ const ApiService = {
 };
 
 export default ApiService;
+
+export const AuthService = {
+	login: credentials => {
+		return ApiService.post('/jwts', credentials);
+	},
+	logout: () => {
+		return ApiService.delete(`/jwts/${JwtService.getToken()}`);
+	}
+};
+export const FreshyService = {
+	getFreshies: () => {
+		return ApiService.get('/freshmen');
+	},
+	setFreshyStatus: (id, status) => {
+		return ApiService.patch(`/freshmen/${id}`, status);
+	},
+	query: id => {
+		return require('../other/freshy_information.json')[id];
+	},
+	getInfo: () => {
+		return require('../other/freshy_information.json');
+	},
+
+	getStatus: () => {
+		return require('../other/status.json');
+	}
+};
+
+export const MessageService = {
+	getMessages: () => {
+		return ApiService.get('/messages');
+	},
+	postMessage: message => {
+		return ApiService.post('/messages');
+	}
+};
+export const StaffService = {
+	getStaff: () => {
+		return require('../other/status.json').staff;
+	},
+	setStaffCount: ({ male, female }) => {},
+	setSpecialMealCount: count => {}
+};

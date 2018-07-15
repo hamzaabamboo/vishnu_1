@@ -24,7 +24,7 @@ export default {
 	data() {
 		return {
 			id: this.$route.params.id,
-			udata: require('../other/freshy_information.json')[this.$route.params.id]
+			udata: FreshService.query(this.$route.params.id)
 		};
 	}
 };
