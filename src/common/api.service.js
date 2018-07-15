@@ -59,10 +59,10 @@ export const AuthService = {
 };
 export const FreshyService = {
 	getFreshies: () => {
-		return ApiService.get('/freshman');
+		return ApiService.get('/freshmen');
 	},
 	setFreshyStatus: (id, status) => {
-		return ApiService.patch(`/freshman/${id}`, status);
+		return ApiService.patch(`/freshmen/${id}`, status);
 	},
 	query: id => {
 		return require('../other/freshy_information.json')[id];
