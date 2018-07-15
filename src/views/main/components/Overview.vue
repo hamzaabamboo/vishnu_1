@@ -1,35 +1,21 @@
-<template>
-  <div>
-    <div>
-      <p class="is-size-4">
-        พี่ค่าย :
-        <strong>
-          ช <span class="_cred">{{total["ช"]}}</span>,
-          ญ <span class="_cred">{{total["ญ"]}}</span>
-        </strong>
-      </p>
-    </div>
-    <div style='overflow-y: auto'>
-      <table class="table __knarrow is-striped _cred" align='center'>
-        <thead>
-          <tr>
-            <td></td>
-            <td v-for='b in Object.keys(baan)' :key='b.id'>
-              <strong>{{b}}</strong>
-            </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for='s in ["ช", "ญ"]' :key='s.id'>
-          <td><strong>{{s}}</strong></td>
-          <td v-for='b in baan' :key='b.id'>
-            {{b[s]}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+<template lang='pug'>
+  div
+    div
+      p.is-size-4 พี่ค่าย :
+        // strong ช
+        //   span._cred {{total["ช"]}} , ญ
+        //   span._cred {{total["ญ"]}}
+    div(style='overflow-y: auto')
+      table.table.__knarrow is-striped._cred(align='center')
+        thead
+          tr
+            td/
+            td(v-for='b in Object.keys(baan)' :key='b.id')
+              strong {{b}}
+        tbody
+          tr(v-for='s in ["ช", "ญ"]' :key='s.id')
+            td: strong {{s}}
+            td(v-for='b in baan' :key='b.id') {{b[s]}}
 </template>
 
 <script>

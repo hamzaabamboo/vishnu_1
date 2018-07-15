@@ -1,22 +1,14 @@
-<template>
-  <section class="section">
-    <div class="container box">
-      <h1 class='title'>ID {{id}}</h1>
-      <div v-if='udata !== undefined'>
-        <table class='container'>
-          <tbody>
-            <tr v-for='k in Object.keys(udata)' :key="k.id">
-              <td class="has-text-right">{{k}}</td>
-              <td class="has-text-left">{{udata[k]}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div v-else class='subtitle'>
-        ERROR: not found
-      </div>
-    </div>
-  </section>
+<template lang='pug'>
+  section.section
+    div.container.box
+      h1.title ID {{id}}
+      div(v-if='udata !== undefined')
+        table.container
+          tbody
+            tr(v-for='k in Object.keys(udata)' :key="k.id")
+              td.has-text-right {{k}}
+              td.has-text-left {{udata[k]}}
+      div.subtitle(v-else) ERROR: not found
 </template>
 
 <script>
@@ -30,7 +22,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang='stylus' scoped>
 .box {
 	max-width: 90%;
 	overflow: scroll;

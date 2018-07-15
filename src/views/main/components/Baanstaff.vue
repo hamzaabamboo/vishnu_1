@@ -1,15 +1,13 @@
-<template>
-  <div>
-    <h1 class="is-size-4">
-      พี่บ้าน
-      <strong>{{name}}</strong> :
-      ช <input @keyup='edit = true' v-model.lazy='ช'>,
-      ญ <input @keyup='edit = true' v-model.lazy='ญ'>,
-      ข้าวพิเศษ <input @keyup='edit = true'>
-      <button v-if='edit' @click='update'
-      class='button is-warning is-small'> update </button>
-    </h1>
-  </div>
+<template lang='pug'>
+  div
+    h1.is-size-4 พี่บ้าน
+      strong {{name}} : ช
+      input(@keyup='edit = true' v-model.lazy='ช')
+      | , ญ
+      input(@keyup='edit = true' v-model.lazy='ญ')
+      | , ข้าวพิเศษ
+      input(@keyup='edit = true')
+      button.button.is-warning.is-small(v-if='edit' @click='update') update
 </template>
 
 <script>
