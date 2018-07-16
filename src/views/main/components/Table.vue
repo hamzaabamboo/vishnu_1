@@ -6,7 +6,7 @@
           tr
             td
               h5.is-size-5.has-text-centered
-                | ลูกค่าย <strong>{{ids.length}}</strong> คน
+                | ลูกค่าย <strong>{{freshyList.length}}</strong> คน
             td(v-for='field in fields' :key='field')
               p.is-size-6.has-text-centered
                 strong {{field}}
@@ -39,19 +39,14 @@ export default {
 	props: ['arg-grp', 'arg-atr'],
 	data() {
 		return {
-			ids: [],
 			freshyList: [],
 			fields: []
 		};
 	},
-	created() {
-		const freshyInfo = FreshyService.getInfo();
-		const freshyStatus = FreshyService.getStatus();
+	async created() {
+		this.freshyList = (await FreshyService.getFreshies()).data[0];
 		// this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
-		for (let id in freshyInfo) {
-			this.ids.push(id);
-			this.freshyList.push(freshyInfo[id]);
-		}
+
 		for (let field in this.freshyList[0]) this.fields.push(field);
 	},
 	computed: {},
@@ -60,15 +55,6 @@ export default {
 			if (mode != 'F' || confirm()) {
 				this.mode_lock = true;
 			}
-		},
-		string_time_interval(d1, d2) {
-			let tm = moment(d2).diff(moment(d1)) / 1000;
-			let sc = Math.floor(tm) % 60;
-			let mn = Math.floor(tm / 60) % 60;
-			let hr = Math.floor(tm / 60 / 60);
-			if (hr > 0) return `${hr}:${mn} hour`;
-			if (mn > 0) return `${mn} min`;
-			return 'now';
 		},
 		click_button(now, nextId) {
 			now = now.target.parentNode;

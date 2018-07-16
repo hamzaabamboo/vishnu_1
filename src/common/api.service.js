@@ -83,7 +83,7 @@ export const MessageService = {
 		return ApiService.get('/messages');
 	},
 	postMessage: message => {
-		return ApiService.post('/messages', { message });
+		return ApiService.post('/messages', message);
 	}
 };
 export const StaffService = {
