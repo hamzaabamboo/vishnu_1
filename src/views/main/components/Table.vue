@@ -1,53 +1,33 @@
-<template>
-  <div>
-    <div class="table">
-      <table class="is-narrow is-striped">
+<template lang='pug'>
+  div
+    div.table
+      table.is-narrow.is-striped
+        thead
+          tr
+            td
+              h5.is-size-5.has-text-centered
+                | ลูกค่าย <strong>{{ids.length}}</strong> คน
+            td(v-for='field in fields' :key='field')
+              p.is-size-6.has-text-centered
+                strong {{field}}
+                br
+                input(style="width:100%")
+                br
+        tbody
+          tr(v-for='freshy in freshyList' :key='freshy.id')
+            td
+              div#grayID.animated(@click='click_button($event, "#blueID")')
+                span.kbtn.kcross.kgray ไม่เข้า
+              div#blueID.animated(@click='click_button($event, "#redID")' style='display: none')
+                span.kbtn.kcross.kblue ปกติ
+              div#redID.animated(@click='click_button($event, "#blueID")' style='display: none')
+                span.kbtn.kcross.kred ออก
 
-        <thead>
-          <tr>
-            <td>
-              <h5 class="is-size-5 has-text-centered">
-                ลูกค่าย <strong>{{ids.length}}</strong> คน
-              </h5>
-            </td>
-            <td v-for='field in fields' :key='field'>
-              <p class='is-size-6 has-text-centered'>
-                <strong>{{field}}</strong><br>
-                <input style="width:100%"/><br>
-              </p>
-            </td>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr v-for='freshy in freshyList' :key='freshy.id'>
-
-            <td>
-              <div id='grayID' class="animated" @click='click_button($event, "#blueID")'>
-                <span class="kbtn kcross kgray">ไม่เข้า</span>
-              </div>
-              <div id='blueID' class="animated" @click='click_button($event, "#redID")' style='display: none'>
-                <span class="kbtn kcross kblue">ปกติ</span>
-              </div>
-              <div id='redID' class="animated"  @click='click_button($event, "#blueID")' style='display: none'>
-                <span class="kbtn kcross kred">ออก</span>
-              </div>
-            </td>
-
-            <td v-for='field in fields' :key='field'>
-              <div class='animated fadeInDown'>
-                {{freshy[field]}}
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+            td(v-for='field in fields' :key='field')
+              div.animated.fadeInDown {{freshy[field]}}
 </template>
 
 <script>
-// import firebase from 'firebase'
 import _ from 'lodash';
 import moment from 'moment';
 import Overview from './Overview.vue';
@@ -111,13 +91,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style style='stylus' scoped>
 input {
 	color: rgb(160, 49, 91);
 	border-width: 0px;
 	border: none;
 }
-div.container {
+.container {
 	background-color: antiquewhite;
 }
 .box {
