@@ -44,7 +44,7 @@ export default {
 		};
 	},
 	async created() {
-		this.freshyList = (await FreshyService.getFreshies()).data[0];
+		this.freshyList = (await FreshyService.getFreshies()).data;
 		// this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
 
 		for (let field in this.freshyList[0]) this.fields.push(field);
