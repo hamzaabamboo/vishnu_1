@@ -92,3 +92,9 @@ export const StaffService = {
 	setStaffCount: ({ male, female }) => {},
 	setSpecialMealCount: count => {}
 };
+
+export const MealService = {
+	getMeals: () => ApiService.get('/meals'),
+	getStaffMeals: group => ApiService.get(`/staff/${group}/meals`)
+	// setStaffMeals: staff => ApiService.put(`/staff/${group}/meals`);
+};
