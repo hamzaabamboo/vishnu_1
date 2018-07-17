@@ -9,9 +9,15 @@ const state = {
 const getters = {
 	getErrors() {
 		return state.errors;
+	},
+	hasErrors() {
+		return state.isOpen;
 	}
 };
 const actions = {
+	[CLEAR_ERROR](context) {
+		context.commit(CLEAR_ERROR);
+	},
 	[ERROR](context, error) {
 		switch (error.response.status) {
 			case 422:

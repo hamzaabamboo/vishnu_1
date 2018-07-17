@@ -3,9 +3,9 @@
       div._margin
         span.title.is-5.is-inline: slot(name='title') 
         span.subtitle.is-5.is-inline: slot(name='author')
-        span(v-if='add'): button.add.button.is-success.is-inline(@click='$emit("click")') Go
       div._margin
         slot(name='body')
+        span(v-if='add'): button.add.button.is-success.is-inline(@click='$emit("click")') Go
 </template>
 
 <script>
@@ -19,7 +19,7 @@ export default {
 <style>
 .add {
 	width: 30%;
-	margin: auto;
+	margin: 10px auto;
 }
 .__card ._margin {
 	margin: 15px;
