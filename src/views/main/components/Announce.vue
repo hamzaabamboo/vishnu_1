@@ -30,12 +30,11 @@ export default {
 	},
 	methods: {
 		async updateMessages() {
-			const now = new Date();
-			console.log(now);
+			const now = new Date().getTime();
 			this.messages = (await MessageService.getMessages())
 				.sort((a, b) => b.broadcast_time - a.broadcast_time)
 				.filter(e => {
-					return true; // now > new Date(e.broadcast_time) && now < new Date(e.expiry);
+					return now > e.broadcast_time * 1000 && now < e.expiry * 1000;
 				})
 				.slice(0, 3);
 		},
