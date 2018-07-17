@@ -16,13 +16,17 @@ import FreshyTable from './components/Table.vue';
 import Overview from './components/Overview.vue';
 import Baanstaff from './components/Baanstaff.vue';
 import Announce from './components/Announce.vue';
-import { LOGOUT } from '@/store/actions.type';
+import { LOGOUT, ERROR } from '@/store/actions.type';
 import ApiService, { AuthService } from '@/common/api.service.js';
 
 export default {
 	components: { Overview, FreshyTable, Baanstaff, Announce }, //Announce
 	created() {
-		AuthService.ping();
+		AuthService.ping().catch(error =>
+			this.$store
+				.dispatch(ERROR, error)
+				.then(() => this.$router.push({ name: 'Login' }))
+		);
 		if (!this.$store.getters.isAuthenticated)
 			this.$router.push({ name: 'Login' });
 	},
@@ -42,9 +46,11 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-.section
-  padding: 10px 10px;
+.section {
+	padding: 10px 10px;
+}
 
-#header
-  margin: 20px auto;
+#header {
+	margin: 20px auto;
+}
 </style>

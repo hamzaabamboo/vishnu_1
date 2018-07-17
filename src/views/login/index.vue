@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import md5 from 'md5';
 import { LOGIN } from '@/store/actions.type';
 export default {
 	name: 'Login',
@@ -31,21 +30,26 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-section
+section {
 	max-width: 400px;
 	min-height: 720px;
 	margin: 0px auto;
+}
 
-input
+input {
 	margin: 5px auto;
+}
 
-.button
+.button {
 	margin-top: 10px;
 	width: 100%;
+}
 
-.box
+.box {
 	margin: 0px auto;
+}
 
-code
+code {
 	font-size: 14px;
+}
 </style>

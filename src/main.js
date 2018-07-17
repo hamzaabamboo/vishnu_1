@@ -12,6 +12,9 @@ import 'font-awesome/css/font-awesome.css';
 import 'animate.css';
 
 Vue.config.productionTip = false;
+Vue.config.errorHandler = err => {
+	console.log('handling error:', err);
+};
 
 Vue.filter('error', ErrorFilter);
 

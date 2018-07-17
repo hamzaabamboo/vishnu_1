@@ -4,7 +4,6 @@ import { SET_AUTH, PURGE_AUTH, SET_ERROR } from './mutations.type';
 import { AuthService } from '@/common/api.service';
 import ApiService from '../common/api.service';
 const state = {
-	errors: null,
 	user: {},
 	isAuthenticated: !!JwtService.getToken()
 };
@@ -15,9 +14,6 @@ const getters = {
 	},
 	isAuthenticated(state) {
 		return state.isAuthenticated;
-	},
-	getErrors() {
-		return state.errors;
 	}
 };
 const actions = {
@@ -36,37 +32,15 @@ const actions = {
 	},
 	[LOGOUT](context) {
 		return new Promise(resolve => {
-			AuthService.logout()
-				.then(({ data }) => {
-					context.commit(PURGE_AUTH);
-					resolve();
-				})
-				.catch(({ response }) => {
-					if (response) context.commit(SET_ERROR, response.data.errors);
-				});
+			AuthService.logout().then(({ data }) => {
+				context.commit(PURGE_AUTH);
+				resolve();
+			});
 		});
-	},
-	[CHECK_AUTH](context) {
-		// if (JwtService.getToken()) {
-		//   ApiService.setHeader()
-		//   ApiService
-		//     .get('user')
-		//     .then(({data}) => {
-		//       context.commit(SET_AUTH, data.user)
-		//     })
-		//     .catch(({response}) => {
-		//       context.commit(SET_ERROR, response.data.errors)
-		//     })
-		// } else {
-		//   context.commit(PURGE_AUTH)
-		// }
 	}
 };
 
 const mutations = {
-	[SET_ERROR](state, error) {
-		state.errors = error;
-	},
 	[SET_AUTH](state, user) {
 		state.isAuthenticated = true;
 		state.user = user.username;

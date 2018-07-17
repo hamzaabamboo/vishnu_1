@@ -11,29 +11,30 @@
 </template>
 
 <script>
-import md5 from 'md5'
 export default {
-  props: ['name', 'group'],
-  data () {
-    return {
-      edit: false,
-      ช: 23,
-      ญ: 12
-  }},
-  methods: {
-    update(){
-      console.log(this.ช + ' ' + this.ญ)
-      this.edit = false;
-  }}
-}
+	props: ['name', 'group'],
+	data() {
+		return {
+			edit: false,
+			ช: 23,
+			ญ: 12
+		};
+	},
+	methods: {
+		update() {
+			console.log(this.ช + ' ' + this.ญ);
+			this.edit = false;
+		}
+	}
+};
 </script>
 
 <style scoped>
 input {
-  font-size: 20px;
-  border: none;
-  width: 40px;
-  text-align: center;
-  border-bottom: 1px solid rgb(212, 212, 212);
+	font-size: 20px;
+	border: none;
+	width: 40px;
+	text-align: center;
+	border-bottom: 1px solid rgb(212, 212, 212);
 }
 </style>

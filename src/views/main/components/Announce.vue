@@ -1,6 +1,6 @@
 <template lang='pug'>
 div(style='margin-bottom: 18px')
-  h1.box.is-size-3 Announcement
+  h1.box.is-size-3 Announcements
   div.__flex-container
     card(v-for='message in messages' :key='message._idid')
       template(slot='title') {{ message.message_title }}
@@ -44,7 +44,7 @@ export default {
 				message_title: title,
 				message: body
 			});
-			this.updateMessages();
+			await this.updateMessages();
 		}
 	}
 };
