@@ -15,6 +15,7 @@ div(style='margin-bottom: 18px')
 import moment from 'moment';
 import Card from './Card';
 import { MessageService } from '@/common/api.service';
+import { ERROR } from '@/store/actions.type';
 import _ from 'lodash';
 export default {
 	components: { Card },
@@ -43,7 +44,7 @@ export default {
 			await MessageService.postMessage({
 				message_title: title,
 				message: body
-			});
+			}).catch(error => this.$store.dispatch(ERROR, error));
 			await this.updateMessages();
 		}
 	}

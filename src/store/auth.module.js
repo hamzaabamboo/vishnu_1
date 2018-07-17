@@ -5,7 +5,8 @@ import { AuthService } from '@/common/api.service';
 import ApiService from '../common/api.service';
 const state = {
 	user: {},
-	isAuthenticated: !!JwtService.getToken()
+	isAuthenticated: !!JwtService.getToken(),
+	roles: JwtService.getRoles()
 };
 
 const getters = {
@@ -44,15 +45,19 @@ const mutations = {
 	[SET_AUTH](state, user) {
 		state.isAuthenticated = true;
 		state.user = user.username;
+		state.roles = user.role;
 		state.errors = {};
 		JwtService.saveToken(user.jwt);
+		JwtService.saveRoles(user.role);
 		ApiService.setHeader();
 	},
 	[PURGE_AUTH](state) {
 		state.isAuthenticated = false;
 		state.user = {};
 		state.errors = {};
+		state.roles = [];
 		JwtService.destroyToken();
+		JwtService.destroyRoles();
 	}
 };
 
