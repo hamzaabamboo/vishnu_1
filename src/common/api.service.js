@@ -80,7 +80,9 @@ export const FreshyService = {
 
 export const MessageService = {
 	getMessages: () => {
-		return ApiService.get('/messages');
+		return new Promise(resolve =>
+			ApiService.get('/messages').then(res => resolve(res.data.data))
+		);
 	},
 	postMessage: message => {
 		return ApiService.post('/messages', message);

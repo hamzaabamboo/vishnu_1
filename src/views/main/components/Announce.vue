@@ -2,10 +2,10 @@
 div(style='margin-bottom: 18px')
   h1.box.is-size-3 Announcement
   div.__flex-container
-    card(v-for='message in messages' :key='message.title+message.author')
-      template(slot='title') {{ message.title }}
-      template(slot='author') {{ message.author}}
-      template(slot='body') {{ message.body }}
+    card(v-for='message in messages' :key='message._idid')
+      template(slot='title') {{ message.message_title }}
+      template(slot='author')  @{{ message.username}}
+      template(slot='body') {{ message.message }}
     card(add @click="send")
       template(slot='title'): input.input._title.is-inline(placeholder="Title" v-model="title")
       template(slot='body'): textarea.textarea(placeholder="message" v-model="body")
@@ -22,26 +22,30 @@ export default {
 		return {
 			title: '',
 			body: '',
-			messages: [
-				{
-					title: 'ข้าวยังไม่เสร็จนะครับ',
-					author: '@สวัส',
-					body: 'ให้ถ่วงเวลาไปก่อน'
-				}
-			]
+			messages: []
 		};
 	},
 	async created() {
-		this.messages = (await MessageService.getMessages()).data;
+		await this.updateMessages();
 	},
 	methods: {
+		async updateMessages() {
+			const now = new Date();
+			console.log(now);
+			this.messages = (await MessageService.getMessages())
+				.sort((a, b) => b.broadcast_time - a.broadcast_time)
+				.filter(e => {
+					return true; // now > new Date(e.broadcast_time) && now < new Date(e.expiry);
+				})
+				.slice(0, 3);
+		},
 		async send() {
 			let { title, body } = this;
 			await MessageService.postMessage({
 				message_title: title,
 				message: body
 			});
-			this.created();
+			this.updateMessages();
 		}
 	}
 };
