@@ -13,6 +13,9 @@ import './css/chulafont.css'
 import VueDragDrop from 'vue-drag-drop';
 Vue.use(VueDragDrop);
 
+import VishnuBtn from '@/components/VishnuBtn.vue'
+Vue.component('vishnu-btn', VishnuBtn)
+
 import 'animate.css';
 
 Vue.config.productionTip = false;

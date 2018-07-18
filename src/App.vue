@@ -3,7 +3,7 @@
     <router-view/>
     <error-modal />
   </div>
-  
+
 </template>
 
 <script>

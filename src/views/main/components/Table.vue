@@ -1,23 +1,27 @@
 <template lang='pug'>
   div
     div(style='overflow-x: scroll; padding: .2em')
-      Container(@drop="onDrop" orientation="horizontal")
+      Container(@drop="field_move" orientation="horizontal")
         Draggable(v-for="field in fields" :key="field.id")
-          button.button.mginL(@click='toggle(field)' :class='class_btn(field)') {{field}}
+          button.button.mginL(@click='field_toggle(field)' :class='class_btn(field)') {{field}}
     br
     div.table
       table.is-narrow.is-striped
-        thead: tr
-            td: h3.is-size-5.has-text-centered: strong {{ids.length}} คน
+        thead
+          tr
+            td: div.has-text-centered: button.button.is-size-6: strong {{freshyList.length}} คน
             td(v-for="field in fields" v-show='fields_show[field]' :key="field.id" :value='field')
-              p.has-text-centered
+              p
                 strong {{field}}
                 div: input(style="width: 100%; height: 1.8em")
         tbody
           tr(v-for='freshy in freshyList' :key='freshy.id')
             td
-              button.button.check-btn
-              button.button.check-btn
+              //{{fields_status[freshy["uniq_id"]]}}
+              vishnu-btn(
+                :value='fields_status[freshy["uniq_id"]]'
+                @input='v => update_status(freshy["uniq_id"], v)'
+              )
 
             td(v-for='field in fields' v-show='fields_show[field]' :key='field.id' :value='field')
               // div.animated.fadeInDown
@@ -28,50 +32,47 @@
 import _ from 'lodash';
 import moment from 'moment';
 import Overview from './Overview.vue';
+
 import { FreshyService } from '@/common/api.service.js';
 import { FETCH_FRESHIES } from '@/store/actions.type';
 import { Container, Draggable } from "vue-smooth-dnd";
 
 export default {
-	components: { Overview, Container, Draggable },
+	components: { Overview, Container, Draggable},
 	props: ['arg-grp', 'arg-atr'],
 	data() {
 		return {
-			freshyList: [],
-      fields: [],
-      fields_show: {},
-      items: [1,2,3,4,5,6,7]
+			freshyList: [],     // [Object]
+      fields: [],         // [String]
+      fields_show: {},    // [String] => Boolean
+      fields_status: {}   // [uid] => -1, 0, 1, 2, 3, 4
 		};
 	},
-<<<<<<< HEAD
-	created() {
-		const freshyInfo = FreshyService.getInfo();
-		const freshyStatus = FreshyService.getStatus();
+	async created() {
+    this.freshyList = (await FreshyService.getFreshies()).data; // real
+    this.freshyList = require('@/other/freshy_information.json')
+
 		// this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
-		for (let id in freshyInfo) {
-			this.ids.push(id);
-      this.freshyList.push(freshyInfo[id]);
-		}
 		for (let field in this.freshyList[0]){
       this.fields.push(field);
-      this.fields_show[field] = true;
+      this.fields_show[field] = false;
     }
-=======
-	async created() {
-		this.freshyList = (await FreshyService.getFreshies()).data;
-		// this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
-
-		for (let field in this.freshyList[0]) this.fields.push(field);
->>>>>>> fa1b08360ecb2052667723168d8ba481829ecd02
+    for (let show of ["tname", "fname", "lname", "nname", "department"]) {
+      this.fields_show[show] = true;
+    }
+    for (let freshy of this.freshyList){
+      console.log(freshy)
+      this.fields_status[freshy["uniq_id"]] = -1;
+    }
 	},
 	methods: {
-    onDrop(dropResult) {
+    field_move(dropResult) {
       let {addedIndex, removedIndex,} = dropResult
       let cutOut = this.fields.splice(removedIndex, 1) [0];
       this.fields.splice(addedIndex + (removedIndex > addedIndex ? 0 : 0), 0, cutOut);
       this.$forceUpdate()
     },
-    toggle(field){
+    field_toggle(field){
       this.$set(this.fields_show, field, !this.fields_show[field])
       this.$forceUpdate()
     },
@@ -81,10 +82,11 @@ export default {
         "is-success": this.fields_show[field]
       }
     },
-		update_status(cid, mode) {
-			if (mode != 'F' || confirm()) {
-				this.mode_lock = true;
-			}
+		update_status(uid, mode) {
+      if (prompt("uniq_id") == uid) {
+        this.$set(this.fields_status, uid, mode)
+        this.$forceUpdate();
+      }
 		},
 		click_button(now, nextId) {
 			now = now.target.parentNode;
@@ -121,7 +123,8 @@ tbody{
 }
 
 thead tr td {
-  padding: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 td {

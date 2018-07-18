@@ -1,7 +1,7 @@
 <template lang='pug'>
 div
-  button.button.check-btn(:class='btnColor(0)' @click='click(0)')
-  button.button.check-btn(:class='btnColor(1)' @click='click(1)')
+  button.button.check-btn(@click='click(0)' :class='[btnColor(0)]')
+  button.button.check-btn(@click='click(1)' :class='[btnColor(1)]')
 </template>
 
 <script>
@@ -9,18 +9,20 @@ export default {
   props: {
     value: {
       type: Number,
-      require: true
+      require: true,
+      default: -1
     }
   },
-  computed: {
+  created() {
+    console.log('create btn')
+  },
+  methods: {
     btnColor(i) {
       let cur = this.value;
       let suc = 'is-success'
       let dan = 'is-danger'
-      return [suc, i ? dan : suc, dan, dan, i ? dan : suc][cur] || ''
-    }
-  },
-  methods: {
+      return [suc, dan, i == 1 ? dan : suc, dan, i == 1 ? dan : suc][cur] || 'is-warning'
+    },
     click(i) {
       if (this.value == -1) this.$emit('input', 0)
       if (this.value ==  0) this.$emit('input', i + 1)

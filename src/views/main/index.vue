@@ -46,24 +46,18 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-.section {
-	padding: 10px 10px;
-}
+  .section
+    padding: 10px 10px
 
-<<<<<<< HEAD
-#header
-  margin: 20px auto;
+  #header
+    margin: 20px auto
 
-.box
-  @media screen and (max-width 500px)
-    padding .1em
-  @media screen and (max-width 900px)
-    padding .3em
-  @media screen and (max-width 1300px)
-    padding .4em
-=======
-#header {
-	margin: 20px auto;
-}
->>>>>>> fa1b08360ecb2052667723168d8ba481829ecd02
+  .box
+    @media screen and (max-width 500px)
+      padding .1em
+    @media screen and (max-width 900px)
+      padding .3em
+    @media screen and (max-width 1300px)
+      padding .4em
+
 </style>
