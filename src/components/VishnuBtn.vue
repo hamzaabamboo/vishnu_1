@@ -13,9 +13,6 @@ export default {
       default: -1
     }
   },
-  created() {
-    console.log('create btn')
-  },
   methods: {
     btnColor(i) {
       let cur = this.value;
@@ -33,9 +30,9 @@ export default {
 
 <style scoped>
 .check-btn {
-  height: 2em;
+  height: 1.8em;
   border-radius: 290486px;
-  padding: 1em;
-  margin-right: 5px;
+  padding: .9em;
+  margin-right: 4px;
 }
 </style>
