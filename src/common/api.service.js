@@ -18,6 +18,10 @@ const ApiService = {
 		Vue.axios.defaults.headers.common['jwt'] = `${JwtService.getToken()}`;
 	},
 
+	removeHeader() {
+		Vue.axios.defaults.headers.common['jwt'] = '';
+	},
+
 	query(resource, params) {
 		return Vue.axios.get(resource, params);
 	},

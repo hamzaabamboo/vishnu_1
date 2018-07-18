@@ -1,5 +1,5 @@
 const ID_TOKEN_KEY = 'token';
-const ROLE = 'role';
+const ROLE = 'roles';
 const PERMISSION = 'permisisons';
 export default {
 	getToken() {
