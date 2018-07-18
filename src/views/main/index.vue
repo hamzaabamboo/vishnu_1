@@ -22,7 +22,7 @@ import ApiService, { AuthService } from '@/common/api.service.js';
 export default {
 	components: { Overview, FreshyTable, Baanstaff, Announce, },
 	created() {
-		AuthService.ping().catch(error =>
+    AuthService.ping().catch(error =>
 			this.$store
 				.dispatch(ERROR, error)
 				.then(() => this.$router.push({ name: 'Login' }))

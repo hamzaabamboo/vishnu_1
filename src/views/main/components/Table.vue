@@ -9,15 +9,16 @@
       table.is-narrow.is-striped
         thead
           tr
-            td: div.has-text-centered: button.button.is-size-6: strong {{freshyList.length}} คน
+            td: div.has-text-centered
+              div.is-size-6
+                strong {{freshyList.length}} คน
             td(v-for="field in fields" v-show='fields_show[field]' :key="field.id" :value='field')
               p
                 strong {{field}}
-                div: input(style="width: 100%; height: 1.8em")
+                div: input(v-model='filter_field[field]' style="width: 100%; height: 1.8em")
         tbody
-          tr(v-for='freshy in freshyList' :key='freshy.id')
+          tr(v-for='freshy in freshyList' :key='freshy.id' v-show='filter_field_func(freshy)')
             td
-              //{{fields_status[freshy["uniq_id"]]}}
               vishnu-btn(
                 :value='fields_status[freshy["uniq_id"]]'
                 @input='v => update_status(freshy["uniq_id"], v)'
@@ -39,18 +40,19 @@ import { Container, Draggable } from "vue-smooth-dnd";
 
 export default {
 	components: { Overview, Container, Draggable},
-	props: ['arg-grp', 'arg-atr'],
 	data() {
 		return {
 			freshyList: [],     // [Object]
       fields: [],         // [String]
       fields_show: {},    // [String] => Boolean
-      fields_status: {}   // [uid] => -1, 0, 1, 2, 3, 4
+      fields_status: {},   // [uid] => -1, 0, 1, 2, 3, 4
+      filter_field: {}
 		};
 	},
 	async created() {
-    this.freshyList = (await FreshyService.getFreshies()).data; // real
-    this.freshyList = require('@/other/freshy_information.json')
+    this.freshyList = (await FreshyService.getFreshies()).data;
+    // this.freshyList = require('@/other/freshy_information.json')
+    // HACK DATA BY KRIST
 
 		// this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
 		for (let field in this.freshyList[0]){
@@ -104,7 +106,12 @@ export default {
 				now,
 				nxt
 			);
-		}
+    },
+    filter_field_func(usr) {
+      return _.keys(this.filter_field).every(
+        field => !this.filter_field[field] || usr[field].indexOf(this.filter_field[field]) != -1
+      )
+    }
 	}
 };
 </script>

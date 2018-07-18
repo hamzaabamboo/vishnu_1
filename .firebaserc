@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "vishnu-en102-a88d3"
+    "default": "vishnu16-9bfe3",
+    "vishnu": "vishnu16-9bfe3"
   }
 }
