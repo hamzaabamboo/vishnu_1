@@ -7,7 +7,14 @@ import store from '@/store';
 
 import ApiService from '@/common/api.service';
 import ErrorFilter from '@/common/error.filter';
-import 'font-awesome/css/font-awesome.css';
+import 'font-awesome/css/font-awesome.css'
+import './css/chulafont.css'
+
+import VueDragDrop from 'vue-drag-drop';
+Vue.use(VueDragDrop);
+
+import VishnuBtn from '@/components/VishnuBtn.vue'
+Vue.component('vishnu-btn', VishnuBtn)
 
 import 'animate.css';
 

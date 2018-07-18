@@ -2,6 +2,7 @@
   section.section(style='display: flex; align-items: center; justify-content: center;')
     div.box
       h1.title Vishnu Camp #16
+      // vishnubtn
       div
         input.input.has-text-centered(v-model='usr' placeholder="username" required type='text')
         input.input.has-text-centered(v-model='pwd' placeholder="password" required type='password')

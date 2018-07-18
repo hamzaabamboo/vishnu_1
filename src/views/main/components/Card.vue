@@ -1,7 +1,7 @@
 <template lang='pug'>
   div.__card
       div._margin
-        span.title.is-5.is-inline: slot(name='title') 
+        span.title.is-5.is-inline: slot(name='title')
         span.subtitle.is-5.is-inline: slot(name='author')
       div._margin
         slot(name='body')
@@ -13,7 +13,6 @@ export default {
 	props: ['add']
 };
 </script>
-
 
 
 <style>

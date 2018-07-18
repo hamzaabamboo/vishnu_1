@@ -1,60 +1,94 @@
 <template lang='pug'>
   div
+    div(style='overflow-x: scroll; padding: .2em')
+      Container(@drop="field_move" orientation="horizontal")
+        Draggable(v-for="field in fields" :key="field.id")
+          button.button.mginL(@click='field_toggle(field)' :class='class_btn(field)') {{field}}
+    br
     div.table
       table.is-narrow.is-striped
         thead
           tr
-            td
-              h5.is-size-5.has-text-centered
-                | ลูกค่าย <strong>{{freshyList.length}}</strong> คน
-            td(v-for='field in fields' :key='field')
-              p.is-size-6.has-text-centered
+            td: div.has-text-centered
+              div.is-size-6
+                strong {{freshyList.length}} คน
+            td(v-for="field in fields" v-show='fields_show[field]' :key="field.id" :value='field')
+              p
                 strong {{field}}
-                br
-                input(style="width:100%")
-                br
+                div: input(v-model='filter_field[field]' style="width: 100%; height: 1.8em")
         tbody
-          tr(v-for='freshy in freshyList' :key='freshy.id')
+          tr(v-for='freshy in freshyList' :key='freshy.id' v-show='filter_field_func(freshy)')
             td
-              div#grayID.animated(@click='click_button($event, "#blueID")')
-                span.kbtn.kcross.kgray ไม่เข้า
-              div#blueID.animated(@click='click_button($event, "#redID")' style='display: none')
-                span.kbtn.kcross.kblue ปกติ
-              div#redID.animated(@click='click_button($event, "#blueID")' style='display: none')
-                span.kbtn.kcross.kred ออก
+              vishnu-btn(
+                :value='fields_status[freshy["uniq_id"]]'
+                @input='v => update_status(freshy["uniq_id"], v)'
+              )
 
-            td(v-for='field in fields' :key='field')
-              div.animated.fadeInDown {{freshy[field]}}
+            td(v-for='field in fields' v-show='fields_show[field]' :key='field.id' :value='field')
+              // div.animated.fadeInDown
+              div {{freshy[field]}}
 </template>
 
 <script>
 import _ from 'lodash';
 import moment from 'moment';
 import Overview from './Overview.vue';
+
 import { FreshyService } from '@/common/api.service.js';
 import { FETCH_FRESHIES } from '@/store/actions.type';
+import { Container, Draggable } from "vue-smooth-dnd";
 
 export default {
-	components: { Overview },
-	props: ['arg-grp', 'arg-atr'],
+	components: { Overview, Container, Draggable},
 	data() {
 		return {
-			freshyList: [],
-			fields: []
+			freshyList: [],     // [Object]
+      fields: [],         // [String]
+      fields_show: {},    // [String] => Boolean
+      fields_status: {},   // [uid] => -1, 0, 1, 2, 3, 4
+      filter_field: {}
 		};
 	},
 	async created() {
-		this.freshyList = (await FreshyService.getFreshies()).data;
-		// this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
+    this.freshyList = (await FreshyService.getFreshies()).data;
+    // this.freshyList = require('@/other/freshy_information.json')
+    // HACK DATA BY KRIST
 
-		for (let field in this.freshyList[0]) this.fields.push(field);
+		// this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
+		for (let field in this.freshyList[0]){
+      this.fields.push(field);
+      this.fields_show[field] = false;
+    }
+    for (let show of ["tname", "fname", "lname", "nname", "department"]) {
+      this.fields_show[show] = true;
+    }
+    for (let freshy of this.freshyList){
+      console.log(freshy)
+      this.fields_status[freshy["uniq_id"]] = -1;
+    }
 	},
-	computed: {},
 	methods: {
-		update_status(cid, mode) {
-			if (mode != 'F' || confirm()) {
-				this.mode_lock = true;
-			}
+    field_move(dropResult) {
+      let {addedIndex, removedIndex,} = dropResult
+      let cutOut = this.fields.splice(removedIndex, 1) [0];
+      this.fields.splice(addedIndex + (removedIndex > addedIndex ? 0 : 0), 0, cutOut);
+      this.$forceUpdate()
+    },
+    field_toggle(field){
+      this.$set(this.fields_show, field, !this.fields_show[field])
+      this.$forceUpdate()
+    },
+    class_btn(field){
+      return {
+        "is-danger": !this.fields_show[field],
+        "is-success": this.fields_show[field]
+      }
+    },
+		update_status(uid, mode) {
+      if (prompt("uniq_id") == uid) {
+        this.$set(this.fields_status, uid, mode)
+        this.$forceUpdate();
+      }
 		},
 		click_button(now, nextId) {
 			now = now.target.parentNode;
@@ -72,7 +106,12 @@ export default {
 				now,
 				nxt
 			);
-		}
+    },
+    filter_field_func(usr) {
+      return _.keys(this.filter_field).every(
+        field => !this.filter_field[field] || usr[field].indexOf(this.filter_field[field]) != -1
+      )
+    }
 	}
 };
 </script>
@@ -81,31 +120,56 @@ export default {
 input {
 	color: rgb(160, 49, 91);
 	border-width: 0px;
-	border: none;
+  border: none;
 }
-.container {
-	background-color: antiquewhite;
-}
-.box {
+
+.table,
+thead,
+tbody{
 	overflow: auto;
 }
-.table {
-	overflow-x: scroll;
-	width: 100%;
+
+thead tr td {
+  padding-top: 0;
+  padding-bottom: 0;
 }
-tr td {
+
+td {
+	text-align: left;
+	vertical-align: top;
+	border-left: 1px solid #fff;
+}
+
+td {
 	white-space: nowrap;
 	font-size: 14px;
 	overflow: hidden;
 }
-.section {
-	padding: 10px 10px;
+
+.button.mginL {
+  margin-right: 5px;
+  padding: .4em;
+  font-size: 12px;
 }
-#header {
-	margin: 20px auto;
+
+
+::-webkit-scrollbar {
+    height: 7px;
+    width: 7px;
 }
-button {
-	width: 50px;
-	margin-right: 12px;
+/* Track */
+::-webkit-scrollbar-track {
+    /* box-shadow: inset 0 0 5px rgb(255, 0, 170); */
+    background-color: transparent;
+    border-radius: 10px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #6669;
+    border-radius: 10px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #4449;
 }
 </style>

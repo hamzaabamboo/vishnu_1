@@ -1,7 +1,7 @@
 <template lang='pug'>
   div
     h1.is-size-4 พี่บ้าน
-      strong {{name}} : ช
+      | {{name}} : ช
       input(@keyup='edit = true' v-model.lazy='ช')
       | , ญ
       input(@keyup='edit = true' v-model.lazy='ญ')
