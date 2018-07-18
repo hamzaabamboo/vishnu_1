@@ -1,30 +1,27 @@
 <template lang='pug'>
   div
+    div(style='overflow-x: scroll; padding: .2em')
+      Container(@drop="onDrop" orientation="horizontal")
+        Draggable(v-for="field in fields" :key="field.id")
+          button.button.mginL(@click='toggle(field)' :class='class_btn(field)') {{field}}
+    br
     div.table
       table.is-narrow.is-striped
-        thead
-          tr
-            td
-              h5.is-size-5.has-text-centered
-                | ลูกค่าย <strong>{{ids.length}}</strong> คน
-            td(v-for='field in fields' :key='field')
-              p.is-size-6.has-text-centered
+        thead: tr
+            td: h3.is-size-5.has-text-centered: strong {{ids.length}} คน
+            td(v-for="field in fields" v-show='fields_show[field]' :key="field.id" :value='field')
+              p.has-text-centered
                 strong {{field}}
-                br
-                input(style="width:100%")
-                br
+                div: input(style="width: 100%; height: 1.8em")
         tbody
           tr(v-for='freshy in freshyList' :key='freshy.id')
             td
-              div#grayID.animated(@click='click_button($event, "#blueID")')
-                span.kbtn.kcross.kgray ไม่เข้า
-              div#blueID.animated(@click='click_button($event, "#redID")' style='display: none')
-                span.kbtn.kcross.kblue ปกติ
-              div#redID.animated(@click='click_button($event, "#blueID")' style='display: none')
-                span.kbtn.kcross.kred ออก
+              button.button.check-btn
+              button.button.check-btn
 
-            td(v-for='field in fields' :key='field')
-              div.animated.fadeInDown {{freshy[field]}}
+            td(v-for='field in fields' v-show='fields_show[field]' :key='field.id' :value='field')
+              // div.animated.fadeInDown
+              div {{freshy[field]}}
 </template>
 
 <script>
@@ -33,29 +30,50 @@ import moment from 'moment';
 import Overview from './Overview.vue';
 import { FreshyService } from '@/common/api.service.js';
 import { FETCH_FRESHIES } from '@/store/actions.type';
+import { Container, Draggable } from "vue-smooth-dnd";
 
 export default {
-	components: { Overview },
+	components: { Overview, Container, Draggable },
 	props: ['arg-grp', 'arg-atr'],
 	data() {
 		return {
 			ids: [],
 			freshyList: [],
-			fields: []
+      fields: [],
+      fields_show: {},
+      items: [1,2,3,4,5,6,7]
 		};
 	},
 	created() {
 		const freshyInfo = FreshyService.getInfo();
 		const freshyStatus = FreshyService.getStatus();
-		this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
+		// this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
 		for (let id in freshyInfo) {
 			this.ids.push(id);
-			this.freshyList.push(freshyInfo[id]);
+      this.freshyList.push(freshyInfo[id]);
 		}
-		for (let field in this.freshyList[0]) this.fields.push(field);
+		for (let field in this.freshyList[0]){
+      this.fields.push(field);
+      this.fields_show[field] = true;
+    }
 	},
-	computed: {},
 	methods: {
+    onDrop(dropResult) {
+      let {addedIndex, removedIndex,} = dropResult
+      let cutOut = this.fields.splice(removedIndex, 1) [0];
+      this.fields.splice(addedIndex + (removedIndex > addedIndex ? 0 : 0), 0, cutOut);
+      this.$forceUpdate()
+    },
+    toggle(field){
+      this.$set(this.fields_show, field, !this.fields_show[field])
+      this.$forceUpdate()
+    },
+    class_btn(field){
+      return {
+        "is-danger": !this.fields_show[field],
+        "is-success": this.fields_show[field]
+      }
+    },
 		update_status(cid, mode) {
 			if (mode != 'F' || confirm()) {
 				this.mode_lock = true;
@@ -95,31 +113,55 @@ export default {
 input {
 	color: rgb(160, 49, 91);
 	border-width: 0px;
-	border: none;
+  border: none;
 }
-.container {
-	background-color: antiquewhite;
-}
-.box {
+
+.table,
+thead,
+tbody{
 	overflow: auto;
 }
-.table {
-	overflow-x: scroll;
-	width: 100%;
+
+thead tr td {
+  padding: 0;
 }
-tr td {
+
+td {
+	text-align: left;
+	vertical-align: top;
+	border-left: 1px solid #fff;
+}
+
+td {
 	white-space: nowrap;
 	font-size: 14px;
 	overflow: hidden;
 }
-.section {
-	padding: 10px 10px;
+
+.button.mginL {
+  margin-right: 5px;
+  padding: .4em;
+  font-size: 12px;
 }
-#header {
-	margin: 20px auto;
+
+
+::-webkit-scrollbar {
+    height: 7px;
+    width: 7px;
 }
-button {
-	width: 50px;
-	margin-right: 12px;
+/* Track */
+::-webkit-scrollbar-track {
+    /* box-shadow: inset 0 0 5px rgb(255, 0, 170); */
+    background-color: transparent;
+    border-radius: 10px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #6669;
+    border-radius: 10px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #4449;
 }
 </style>

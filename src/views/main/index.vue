@@ -5,7 +5,7 @@
       overview(v-if='user.staffView')
       baanstaff(v-if='!user.staffView' :name='user.name' :group='user.username')
     div
-    announce/
+    // announce/
     div.box
       freshy-table(:arg-grp='user.group' :arg-atr='user.fields')
 </template>
@@ -16,11 +16,12 @@ import FreshyTable from './components/Table.vue';
 import Overview from './components/Overview.vue';
 import Baanstaff from './components/Baanstaff.vue';
 import Announce from './components/Announce.vue';
+
 import { LOGOUT } from '@/store/actions.type';
 import ApiService from '@/common/api.service.js';
 
 export default {
-	components: { Overview, FreshyTable, Baanstaff, Announce }, //Announce
+	components: { Overview, FreshyTable, Baanstaff, Announce, },
 	created() {
 		// if (!this.$store.getters.isAuthenticated)
 		// 	this.$router.push({ name: 'Login' });
@@ -46,4 +47,12 @@ export default {
 
 #header
   margin: 20px auto;
+
+.box
+  @media screen and (max-width 500px)
+    padding .1em
+  @media screen and (max-width 900px)
+    padding .3em
+  @media screen and (max-width 1300px)
+    padding .4em
 </style>
