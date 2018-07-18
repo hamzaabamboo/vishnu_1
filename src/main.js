@@ -7,15 +7,11 @@ import store from '@/store';
 
 import ApiService from '@/common/api.service';
 import ErrorFilter from '@/common/error.filter';
-<<<<<<< HEAD
 import 'font-awesome/css/font-awesome.css'
 import './css/chulafont.css'
 
 import VueDragDrop from 'vue-drag-drop';
 Vue.use(VueDragDrop);
-=======
-import 'font-awesome/css/font-awesome.css';
->>>>>>> fa1b08360ecb2052667723168d8ba481829ecd02
 
 import 'animate.css';
 

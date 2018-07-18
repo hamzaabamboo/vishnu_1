@@ -16,14 +16,8 @@ import FreshyTable from './components/Table.vue';
 import Overview from './components/Overview.vue';
 import Baanstaff from './components/Baanstaff.vue';
 import Announce from './components/Announce.vue';
-<<<<<<< HEAD
-
-import { LOGOUT } from '@/store/actions.type';
-import ApiService from '@/common/api.service.js';
-=======
 import { LOGOUT, ERROR } from '@/store/actions.type';
 import ApiService, { AuthService } from '@/common/api.service.js';
->>>>>>> fa1b08360ecb2052667723168d8ba481829ecd02
 
 export default {
 	components: { Overview, FreshyTable, Baanstaff, Announce, },

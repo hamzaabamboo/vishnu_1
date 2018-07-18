@@ -7,20 +7,10 @@
     br
     div.table
       table.is-narrow.is-striped
-<<<<<<< HEAD
         thead: tr
             td: h3.is-size-5.has-text-centered: strong {{ids.length}} คน
             td(v-for="field in fields" v-show='fields_show[field]' :key="field.id" :value='field')
               p.has-text-centered
-=======
-        thead
-          tr
-            td
-              h5.is-size-5.has-text-centered
-                | ลูกค่าย <strong>{{freshyList.length}}</strong> คน
-            td(v-for='field in fields' :key='field')
-              p.is-size-6.has-text-centered
->>>>>>> fa1b08360ecb2052667723168d8ba481829ecd02
                 strong {{field}}
                 div: input(style="width: 100%; height: 1.8em")
         tbody
