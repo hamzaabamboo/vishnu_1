@@ -7,10 +7,20 @@
     br
     div.table
       table.is-narrow.is-striped
+<<<<<<< HEAD
         thead: tr
             td: h3.is-size-5.has-text-centered: strong {{ids.length}} คน
             td(v-for="field in fields" v-show='fields_show[field]' :key="field.id" :value='field')
               p.has-text-centered
+=======
+        thead
+          tr
+            td
+              h5.is-size-5.has-text-centered
+                | ลูกค่าย <strong>{{freshyList.length}}</strong> คน
+            td(v-for='field in fields' :key='field')
+              p.is-size-6.has-text-centered
+>>>>>>> fa1b08360ecb2052667723168d8ba481829ecd02
                 strong {{field}}
                 div: input(style="width: 100%; height: 1.8em")
         tbody
@@ -37,13 +47,13 @@ export default {
 	props: ['arg-grp', 'arg-atr'],
 	data() {
 		return {
-			ids: [],
 			freshyList: [],
       fields: [],
       fields_show: {},
       items: [1,2,3,4,5,6,7]
 		};
 	},
+<<<<<<< HEAD
 	created() {
 		const freshyInfo = FreshyService.getInfo();
 		const freshyStatus = FreshyService.getStatus();
@@ -56,6 +66,13 @@ export default {
       this.fields.push(field);
       this.fields_show[field] = true;
     }
+=======
+	async created() {
+		this.freshyList = (await FreshyService.getFreshies()).data;
+		// this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
+
+		for (let field in this.freshyList[0]) this.fields.push(field);
+>>>>>>> fa1b08360ecb2052667723168d8ba481829ecd02
 	},
 	methods: {
     onDrop(dropResult) {
@@ -78,15 +95,6 @@ export default {
 			if (mode != 'F' || confirm()) {
 				this.mode_lock = true;
 			}
-		},
-		string_time_interval(d1, d2) {
-			let tm = moment(d2).diff(moment(d1)) / 1000;
-			let sc = Math.floor(tm) % 60;
-			let mn = Math.floor(tm / 60) % 60;
-			let hr = Math.floor(tm / 60 / 60);
-			if (hr > 0) return `${hr}:${mn} hour`;
-			if (mn > 0) return `${mn} min`;
-			return 'now';
 		},
 		click_button(now, nextId) {
 			now = now.target.parentNode;

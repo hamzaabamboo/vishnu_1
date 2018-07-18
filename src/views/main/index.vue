@@ -16,15 +16,25 @@ import FreshyTable from './components/Table.vue';
 import Overview from './components/Overview.vue';
 import Baanstaff from './components/Baanstaff.vue';
 import Announce from './components/Announce.vue';
+<<<<<<< HEAD
 
 import { LOGOUT } from '@/store/actions.type';
 import ApiService from '@/common/api.service.js';
+=======
+import { LOGOUT, ERROR } from '@/store/actions.type';
+import ApiService, { AuthService } from '@/common/api.service.js';
+>>>>>>> fa1b08360ecb2052667723168d8ba481829ecd02
 
 export default {
 	components: { Overview, FreshyTable, Baanstaff, Announce, },
 	created() {
-		// if (!this.$store.getters.isAuthenticated)
-		// 	this.$router.push({ name: 'Login' });
+		AuthService.ping().catch(error =>
+			this.$store
+				.dispatch(ERROR, error)
+				.then(() => this.$router.push({ name: 'Login' }))
+		);
+		if (!this.$store.getters.isAuthenticated)
+			this.$router.push({ name: 'Login' });
 	},
 	methods: {
 		logout() {
@@ -42,9 +52,11 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-.section
-  padding: 10px 10px;
+.section {
+	padding: 10px 10px;
+}
 
+<<<<<<< HEAD
 #header
   margin: 20px auto;
 
@@ -55,4 +67,9 @@ export default {
     padding .3em
   @media screen and (max-width 1300px)
     padding .4em
+=======
+#header {
+	margin: 20px auto;
+}
+>>>>>>> fa1b08360ecb2052667723168d8ba481829ecd02
 </style>

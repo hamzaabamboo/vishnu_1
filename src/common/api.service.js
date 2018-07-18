@@ -2,30 +2,28 @@ import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import JwtService from '@/common/jwt.service';
+import store from '@/store';
 import { API_URL } from '@/common/config';
+import { ERROR } from '../store/actions.type';
 
 const ApiService = {
 	init() {
 		Vue.use(VueAxios, axios);
 		Vue.axios.defaults.baseURL = API_URL;
+		Vue.axios.defaults.headers.common['Cache-Control'] = 'no-cache';
+		if (JwtService.hasToken()) this.setHeader();
 	},
 
 	setHeader() {
-		Vue.axios.defaults.headers.common[
-			'Authorization'
-		] = `Token ${JwtService.getToken()}`;
+		Vue.axios.defaults.headers.common['jwt'] = `${JwtService.getToken()}`;
 	},
 
 	query(resource, params) {
-		return Vue.axios.get(resource, params).catch(error => {
-			throw new Error(`[RWV] ApiService ${error}`);
-		});
+		return Vue.axios.get(resource, params);
 	},
 
 	get(resource, slug = '') {
-		return Vue.axios.get(`${resource}/${slug}`).catch(error => {
-			throw new Error(`[RWV] ApiService ${error}`);
-		});
+		return Vue.axios.get(`${resource}/${slug}`);
 	},
 
 	post(resource, params) {
@@ -41,9 +39,7 @@ const ApiService = {
 	},
 
 	delete(resource) {
-		return Vue.axios.delete(resource).catch(error => {
-			throw new Error(`[RWV] ApiService ${error}`);
-		});
+		return Vue.axios.delete(resource);
 	}
 };
 
@@ -55,6 +51,9 @@ export const AuthService = {
 	},
 	logout: () => {
 		return ApiService.delete(`/jwts/${JwtService.getToken()}`);
+	},
+	ping: () => {
+		return ApiService.get('/jwts/ping');
 	}
 };
 export const FreshyService = {
@@ -78,10 +77,12 @@ export const FreshyService = {
 
 export const MessageService = {
 	getMessages: () => {
-		return ApiService.get('/messages');
+		return new Promise(resolve =>
+			ApiService.get('/messages').then(res => resolve(res.data.data))
+		);
 	},
 	postMessage: message => {
-		return ApiService.post('/messages');
+		return ApiService.post('/messages', message);
 	}
 };
 export const StaffService = {
@@ -90,4 +91,10 @@ export const StaffService = {
 	},
 	setStaffCount: ({ male, female }) => {},
 	setSpecialMealCount: count => {}
+};
+
+export const MealService = {
+	getMeals: () => ApiService.get('/meals'),
+	getStaffMeals: group => ApiService.get(`/staff/${group}/meals`)
+	// setStaffMeals: staff => ApiService.put(`/staff/${group}/meals`);
 };
