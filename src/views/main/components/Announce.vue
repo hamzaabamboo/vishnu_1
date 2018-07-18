@@ -51,7 +51,6 @@ export default {
 	computed: {
 		sendable() {
 			const permission = this.$store.getters.getPermissions;
-			console.log(permission);
 			return permission.includes('*') || permission.includes('broadcast');
 		}
 	}
