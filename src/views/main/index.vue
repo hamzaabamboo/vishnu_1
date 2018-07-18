@@ -5,6 +5,7 @@
       overview(v-if='user.staffView')
       baanstaff(v-if='!user.staffView' :name='user.name' :group='user.username')
     div
+    meal-count(v-if='isWelfare')
     announce
     div.box
       freshy-table(:arg-grp='user.group' :arg-atr='user.fields')
@@ -13,14 +14,14 @@
 <script>
 import _ from 'lodash';
 import FreshyTable from './components/Table.vue';
-import Overview from './components/Overview.vue';
+import MealCount from './components/MealCount.vue';
 import Baanstaff from './components/Baanstaff.vue';
 import Announce from './components/Announce.vue';
 import { LOGOUT, ERROR } from '@/store/actions.type';
 import ApiService, { AuthService } from '@/common/api.service.js';
 
 export default {
-	components: { Overview, FreshyTable, Baanstaff, Announce },
+	components: { MealCount, FreshyTable, Baanstaff, Announce },
 	created() {
 		AuthService.ping().catch(error =>
 			this.$store
@@ -40,6 +41,11 @@ export default {
 	computed: {
 		user() {
 			return this.$store.getters.currentUser;
+		},
+		isWelfare() {
+			const roles = this.$store.getters.getRoles;
+			console.log(roles);
+			return roles.includes('welfare');
 		}
 	}
 };
