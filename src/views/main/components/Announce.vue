@@ -6,7 +6,7 @@ div(style='margin-bottom: 18px')
       template(slot='title') {{ message.message_title }}
       template(slot='author')  @{{ message.username}}
       template(slot='body') {{ message.message }}
-    card(add @click="send")
+    card(add @click="send" v-if="sendable")
       template(slot='title'): input.input._title.is-inline(placeholder="Title" v-model="title")
       template(slot='body'): textarea.textarea(placeholder="message" v-model="body")
 </template>
@@ -46,6 +46,13 @@ export default {
 				message: body
 			}).catch(error => this.$store.dispatch(ERROR, error));
 			await this.updateMessages();
+		}
+	},
+	computed: {
+		sendable() {
+			const permission = this.$store.getters.getPermissions;
+			console.log(permission);
+			return permission.includes('*') || permission.includes('broadcast');
 		}
 	}
 };

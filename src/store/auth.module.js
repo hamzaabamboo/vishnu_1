@@ -6,12 +6,16 @@ import ApiService from '../common/api.service';
 const state = {
 	user: {},
 	isAuthenticated: !!JwtService.getToken(),
-	roles: JwtService.getRoles()
+	roles: JwtService.getRoles(),
+	permissions: JwtService.getPermissions()
 };
 
 const getters = {
 	currentUser(state) {
 		return state.user;
+	},
+	getPermissions(state) {
+		return state.permissions;
 	},
 	isAuthenticated(state) {
 		return state.isAuthenticated;
@@ -46,18 +50,22 @@ const mutations = {
 		state.isAuthenticated = true;
 		state.user = user.username;
 		state.roles = user.role;
+		state.permissions = user.permission;
 		state.errors = {};
 		JwtService.saveToken(user.jwt);
-		JwtService.saveRoles(user.role);
+		JwtService.saveRoles(user.roles);
+		JwtService.savePermissions(user.permission);
 		ApiService.setHeader();
 	},
 	[PURGE_AUTH](state) {
 		state.isAuthenticated = false;
 		state.user = {};
 		state.errors = {};
+		state.permissions = [];
 		state.roles = [];
 		JwtService.destroyToken();
 		JwtService.destroyRoles();
+		JwtService.destroyPermissions();
 	}
 };
 
