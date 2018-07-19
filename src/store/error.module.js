@@ -1,6 +1,6 @@
 import { ERROR, CLEAR_ERROR, LOGOUT } from './actions.type';
 import { SET_ERROR } from './mutations.type';
-import store from '@/store';
+
 const state = {
 	isOpen: false,
 	errors: []
@@ -34,10 +34,10 @@ const actions = {
 				break;
 			case 410:
 			case 401:
-				context.dispatch(LOGOUT);
+				if (context.rootState.auth.isAuthenticated) context.dispatch(LOGOUT);
 				context.commit(SET_ERROR, {
-					title: "You've been logged out !",
-					message: 'Session timed out'
+					title: 'Login error',
+					message: error.response.data.errors[0]
 				});
 				break;
 			case 500:
