@@ -9,7 +9,7 @@
             td.mcenter(v-for='m in Object.keys(meals)' :key='m.id')
               div(align="center"): strong {{m}}
         tbody
-          tr(v-for='s in Object.keys(Object.values(meals)[0])' :key='s.id')
+          tr(v-for='s in fields' :key='s.id')
             td: strong {{ translate(s) || s }}
             td: div(align="center") {{total[s]}}
             td.mcenter(v-for='m in meals' :key='m.id'): div(align="center") {{m[s]}}
@@ -27,10 +27,11 @@ export default {
 		};
 	},
 	async created() {
-		this.meals = (this.group == 'staff'
-			? await MealService.getStaffMeals()
-			: await MealService.getMeals()
-		).data;
+		this.meals =
+			(this.group == 'staff'
+				? await MealService.getStaffMeals()
+				: await MealService.getMeals()
+			).data || [];
 	},
 	methods: {
 		translate(word) {
@@ -38,6 +39,9 @@ export default {
 		},
 		sum(property) {
 			return _.values(this.meals).reduce((a, b) => a + b[property], 0);
+		},
+		fields() {
+			return Object.keys(Object.values(this.meals)[0] || {});
 		}
 	},
 	computed: {
