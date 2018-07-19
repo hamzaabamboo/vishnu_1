@@ -49,21 +49,21 @@ export default {
 			fields: [], // [String]
 			fields_show: {}, // [String] => Boolean
 			freshy_status: {}, // [uid] => -1, 0, 1, 2, 3, 4
-      filter_field: {},
-      translate: {},
-      status_mode: "all"
+			filter_field: {},
+			translate: {},
+			status_mode: 'all'
 		};
 	},
 	async created() {
 		// this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
-		this.freshyList = (await FreshyService.getFreshies());
-    this.freshy_status = (await FreshyService.setFreshyStatus())
-    this.translate = require('@/other/language_translate.json')
-    this.fields = _.keys(this.freshyList[0])
-    this.fields_show =_.fromPairs(this.fields.map(x => [x, false]));
+		this.freshyList = await FreshyService.getFreshies();
+		this.freshy_status = await FreshyService.setFreshyStatus();
+		this.translate = require('@/other/language_translate.json');
+		this.fields = _.keys(this.freshyList[0]);
+		this.fields_show = _.fromPairs(this.fields.map(x => [x, false]));
 		['tname', 'fname', 'lname', 'nname', 'department'].forEach(
-      show => this.fields_show[show] = true
-    )
+			show => (this.fields_show[show] = true)
+		);
 	},
 	methods: {
 		field_move(dropResult) {
@@ -74,10 +74,10 @@ export default {
 		},
 		field_toggle(field) {
 			this.$set(this.fields_show, field, !this.fields_show[field]);
-      this.$forceUpdate();
-      if (!this.fields_show[field]) {
-        this.filter_field[field] = ''
-      }
+			this.$forceUpdate();
+			if (!this.fields_show[field]) {
+				this.filter_field[field] = '';
+			}
 		},
 		class_btn(field) {
 			return {
@@ -92,32 +92,33 @@ export default {
 			}
 		},
 		filter_field_func(usr) {
-      let filt = this.filter_field
-			return _.keys(filt).every(field =>
-        usr[field] && (!filt[field] || usr[field].indexOf(filt[field]) != -1)
+			let filt = this.filter_field;
+			return _.keys(filt).every(
+				field =>
+					usr[field] && (!filt[field] || usr[field].indexOf(filt[field]) != -1)
 			);
-    },
-    status_btn_click() {
-      let mode_list = ["all", "in", "out", "never"]
-      let it = mode_list.indexOf(this.status_mode)
-      this.status_mode = mode_list[(it + 1) % 4]
-    },
-    filter_status_func(usr) {
-      let x = ["all", "in", "out", "never"].indexOf(this.status_mode)
-      let stat = this.freshy_status[usr["uniq_id"]]
-      return [true, stat == 0, stat > 0, stat == -1][x]
-    }
-  },
-  computed: {
-    status_btn_class() {
-      return {
-        "all": [],
-        "in": ['is-success'],
-        "out": ['is-danger'],
-        "never": ['is-warning'],
-      }[this.status_mode]
-    }
-  }
+		},
+		status_btn_click() {
+			let mode_list = ['all', 'in', 'out', 'never'];
+			let it = mode_list.indexOf(this.status_mode);
+			this.status_mode = mode_list[(it + 1) % 4];
+		},
+		filter_status_func(usr) {
+			let x = ['all', 'in', 'out', 'never'].indexOf(this.status_mode);
+			let stat = this.freshy_status[usr['uniq_id']];
+			return [true, stat == 0, stat > 0, stat == -1][x];
+		}
+	},
+	computed: {
+		status_btn_class() {
+			return {
+				all: [],
+				in: ['is-success'],
+				out: ['is-danger'],
+				never: ['is-warning']
+			}[this.status_mode];
+		}
+	}
 };
 </script>
 
@@ -156,5 +157,4 @@ td {
 	padding: 0.4em;
 	font-size: 12px;
 }
-
 </style>
