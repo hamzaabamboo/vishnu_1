@@ -1,31 +1,35 @@
 <template lang='pug'>
-  div
+  div.cu
+
+    // ARRANGEBLE COLUMNS
     div(style='overflow-x: scroll; padding: .2em')
       Container(@drop="field_move" orientation="horizontal")
         Draggable(v-for="field in fields" :key="field.id")
-          button.button.mginL(@click='field_toggle(field)' :class='class_btn(field)') {{field}}
+          button.button.mginL.cu(@click='field_toggle(field)' :class='class_btn(field)') {{translate[field]}}
     br
     div.table
       table.is-narrow.is-striped
-        thead
-          tr
-            td: div.has-text-centered
-              div.is-size-6
-                strong {{freshyList.length}} คน
-            td(v-for="field in fields" v-show='fields_show[field]' :key="field.id" :value='field')
-              p
-                strong {{field}}
-                div: input(v-model='filter_field[field]' style="width: 100%; height: 1.8em")
+
+        // HEADER
+        thead: tr
+          td: div.has-text-centered: div.is-size-6
+            button.button(:class='status_btn_class' @click='status_btn_click')
+              | {{freshyList.filter(filter_field_func).filter(filter_status_func).length}} คน
+          td(v-for="field in fields" v-show='fields_show[field]' :key="field.id" :value='field'): p
+            div
+              strong {{translate[field]}}
+              div: input(v-model='filter_field[field]' style="width: 100%; height: 1.8em")
+
+        // BODY
         tbody
-          tr(v-for='freshy in freshyList' :key='freshy._id' v-show='filter_field_func(freshy)')
+          tr(v-for='freshy in freshyList' :key='freshy._id' v-show='filter_field_func(freshy) && filter_status_func(freshy)')
             td
               vishnu-btn(
-                :value='fields_status[freshy["uniq_id"]]'
+                :value='freshy_status[freshy["uniq_id"]]'
                 @input='v => update_status(freshy["uniq_id"], v)'
               )
-
+              // div {{freshy_status[freshy["uniq_id"]]}}
             td(v-for='field in fields' v-show='fields_show[field]' :key='field._id' :value='field')
-              // div.animated.fadeInDown
               div {{freshy[field]}}
 </template>
 
@@ -44,44 +48,36 @@ export default {
 			freshyList: [], // [Object]
 			fields: [], // [String]
 			fields_show: {}, // [String] => Boolean
-			fields_status: {}, // [uid] => -1, 0, 1, 2, 3, 4
-			filter_field: {}
+			freshy_status: {}, // [uid] => -1, 0, 1, 2, 3, 4
+      filter_field: {},
+      translate: {},
+      status_mode: "all"
 		};
 	},
 	async created() {
-		this.freshyList = (await FreshyService.getFreshies()).data;
-		// this.freshyList = require('@/other/freshy_information.json')
-		// HACK DATA BY KRIST
-
 		// this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
-		for (let field in this.freshyList[0]) {
-			if (!['_id', 'status'].includes(field)) {
-				this.fields.push(field);
-				this.fields_show[field] = false;
-			}
-		}
-		for (let show of ['tname', 'fname', 'lname', 'nname', 'department']) {
-			this.fields_show[show] = true;
-		}
-		for (let freshy of this.freshyList) {
-			console.log(freshy);
-			this.fields_status[freshy['uniq_id']] = -1;
-		}
+		this.freshyList = (await FreshyService.getFreshies());
+    this.freshy_status = (await FreshyService.setFreshyStatus())
+    this.translate = require('@/other/language_translate.json')
+    this.fields = _.keys(this.freshyList[0])
+    this.fields_show =_.fromPairs(this.fields.map(x => [x, false]));
+		['tname', 'fname', 'lname', 'nname', 'department'].forEach(
+      show => this.fields_show[show] = true
+    )
 	},
 	methods: {
 		field_move(dropResult) {
 			let { addedIndex, removedIndex } = dropResult;
 			let cutOut = this.fields.splice(removedIndex, 1)[0];
-			this.fields.splice(
-				addedIndex + (removedIndex > addedIndex ? 0 : 0),
-				0,
-				cutOut
-			);
+			this.fields.splice(addedIndex, 0, cutOut);
 			this.$forceUpdate();
 		},
 		field_toggle(field) {
 			this.$set(this.fields_show, field, !this.fields_show[field]);
-			this.$forceUpdate();
+      this.$forceUpdate();
+      if (!this.fields_show[field]) {
+        this.filter_field[field] = ''
+      }
 		},
 		class_btn(field) {
 			return {
@@ -91,35 +87,37 @@ export default {
 		},
 		update_status(uid, mode) {
 			if (prompt('Please input Unique ID') == uid) {
-				this.$set(this.fields_status, uid, mode);
+				this.$set(this.freshy_status, uid, mode);
 				this.$forceUpdate();
 			}
 		},
-		click_button(now, nextId) {
-			now = now.target.parentNode;
-			let nxt = now.parentNode.querySelector(nextId);
-			now.classList.add('fadeOutUp');
-			now.classList.remove('fadeInDown');
-			setTimeout(
-				(nw, nx) => {
-					nw.style.display = 'none';
-					nx.style.display = 'block';
-					nx.classList.add('fadeInDown');
-					nx.classList.remove('fadeOutUp');
-				},
-				500,
-				now,
-				nxt
-			);
-		},
 		filter_field_func(usr) {
-			return _.keys(this.filter_field).every(
-				field =>
-					!this.filter_field[field] ||
-					usr[field].indexOf(this.filter_field[field]) != -1
+      let filt = this.filter_field
+			return _.keys(filt).every(field =>
+        usr[field] && (!filt[field] || usr[field].indexOf(filt[field]) != -1)
 			);
-		}
-	}
+    },
+    status_btn_click() {
+      let mode_list = ["all", "in", "out", "never"]
+      let it = mode_list.indexOf(this.status_mode)
+      this.status_mode = mode_list[(it + 1) % 4]
+    },
+    filter_status_func(usr) {
+      let x = ["all", "in", "out", "never"].indexOf(this.status_mode)
+      let stat = this.freshy_status[usr["uniq_id"]]
+      return [true, stat == 0, stat > 0, stat == -1][x]
+    }
+  },
+  computed: {
+    status_btn_class() {
+      return {
+        "all": [],
+        "in": ['is-success'],
+        "out": ['is-danger'],
+        "never": ['is-warning'],
+      }[this.status_mode]
+    }
+  }
 };
 </script>
 
@@ -159,23 +157,4 @@ td {
 	font-size: 12px;
 }
 
-::-webkit-scrollbar {
-	height: 7px;
-	width: 7px;
-}
-/* Track */
-::-webkit-scrollbar-track {
-	/* box-shadow: inset 0 0 5px rgb(255, 0, 170); */
-	background-color: transparent;
-	border-radius: 10px;
-}
-/* Handle */
-::-webkit-scrollbar-thumb {
-	background: #6669;
-	border-radius: 10px;
-}
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-	background: #4449;
-}
 </style>

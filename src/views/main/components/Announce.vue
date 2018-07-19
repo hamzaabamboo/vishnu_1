@@ -1,14 +1,14 @@
 <template lang='pug'>
-div(style='margin-bottom: 18px')
-  h1.box.is-size-3 Announcements
+div
+  // h1.box.is-size-3 Announcements
   div.__flex-container
     card(v-for='message in messages' :key='message._idid')
       template(slot='title') {{ message.message_title }}
       template(slot='author')  @{{ message.username}}
       template(slot='body') {{ message.message }}
     card(add @click="send" v-if="sendable")
-      template(slot='title'): input.input._title.is-inline(placeholder="Title" v-model="title")
-      template(slot='body'): textarea.textarea(placeholder="message" v-model="body")
+      template(slot='title'): input.input._title.is-inline.cu(placeholder="Title" v-model="title")
+      template(slot='body'): textarea.textarea.cu(placeholder="message" v-model="body")
 </template>
 
 <script>

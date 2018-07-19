@@ -1,41 +1,39 @@
 <template lang='pug'>
   div
-    div
-      p.is-size-4 พี่ค่าย :
-        // strong ช
-        //   span._cred {{total["ช"]}} , ญ
-        //   span._cred {{total["ญ"]}}
-    div(style='overflow-y: auto')
-      table.table.__knarrow.is-striped._cred(align='center')
+    div.cu(style='overflow-y: auto')
+      table.table.is-striped._cred(align='center')
         thead
           tr
-            td/
-            td(v-for='b in Object.keys(baan)' :key='b.id')
-              strong {{b}}
+            td: strong FOOD
+            td: strong รวม
+            td.mcenter(v-for='m in Object.keys(meals)' :key='m.id')
+              div(align="center"): strong {{m}}
         tbody
-          tr(v-for='s in ["ช", "ญ"]' :key='s.id')
-            td: strong {{s}}
-            td(v-for='b in baan' :key='b.id') {{b[s]}}
+          tr(v-for='s in ["norm", "spci"]' :key='s.id')
+            td: strong {{s == "norm" ? "ธรรมดา" : "พิเศษ"}}
+            td: div(align="center") {{total[s]}}
+            td.mcenter(v-for='m in meals' :key='m.id'): div(align="center") {{m[s]}}
 </template>
 
 <script>
 import _ from 'lodash';
-import { StaffService } from '@/common/api.service';
+import { MealService } from '@/common/api.service';
 
 export default {
+  props: ['group'],
 	data() {
 		return {
-			baan: {}
+			meals: {}
 		};
 	},
 	created() {
-		this.baan = StaffService.getStaff();
+		this.meals = this.group == "staff" ? MealService.getStaffMeals() : MealService.getFreshyMeals();
 	},
 	computed: {
 		total() {
 			return {
-				ช: _.values(this.baan).reduce((a, b) => a + b['ช'], 0),
-				ญ: _.values(this.baan).reduce((a, b) => a + b['ญ'], 0)
+				norm: _.values(this.meals).reduce((a, b) => a + b.norm, 0),
+				spci: _.values(this.meals).reduce((a, b) => a + b.spci, 0)
 			};
 		}
 	}
@@ -43,15 +41,7 @@ export default {
 </script>
 
 <style scoped>
-.table {
-	overflow: scroll;
-	width: 100%;
-	max-width: 800px;
-}
-._cred {
-	color: rgb(155, 41, 41);
-}
-.table.__knarrow td {
-	padding: 0.2em 0.2em;
+td {
+	padding: 0.3em 0.4em;
 }
 </style>

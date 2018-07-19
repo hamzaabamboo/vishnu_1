@@ -1,15 +1,12 @@
 @font-face {
   font-family: "Chula";
+  font-weight: normal;
   src: url("./font/CHULALONGKORNReg.otf");
-  /* src:
-  url("css/fonts/Harabara.woff") format("woff"),
-  url("css/fonts/Harabara.otf") format("opentype"),
-  url("css/fonts/Harabara.svg#filename") format("svg"); */
 }
 @font-face {
   font-family: "Chula";
-  src: url("./font/CHULALONGKORNBold.otf");
   font-weight: bold;
+  src: url("./font/CHULALONGKORNBold.otf");
 }
 .cu {
   font-family: Chula;

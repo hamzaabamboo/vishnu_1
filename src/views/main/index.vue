@@ -1,13 +1,18 @@
 <template lang='pug'>
   section.section
     div.box(style="margin-top: 15px")
-      button.button.is-warning.is-pulled-right(@click='logout') logout
-      overview(v-if='user.staffView')
+      button.button.is-warning.is-pulled-right(@click='logout' style='margin-left: -80%') logout
       baanstaff(v-if='!user.staffView' :name='user.name' :group='user.username')
-    div
-    meal-count(v-if='isWelfare')
-    announce
-    div.box
+
+    div.box(v-if='true || user == "สวัส"')
+      strong.is-size-4 STAFF
+      meal-count(group = 'staff')
+
+    div.box(v-if='true || user == "สวัส"')
+      strong.is-size-4 FRESHY
+      meal-count(group = 'freshy')
+
+    div.box(v-if='true || user["see_freshy"]')
       freshy-table(:arg-grp='user.group' :arg-atr='user.fields')
 </template>
 

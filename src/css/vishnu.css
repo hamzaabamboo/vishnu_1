@@ -1,0 +1,36 @@
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+	height: 7px;
+	width: 7px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+	background-color: transparent;
+	border-radius: 10px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #6669;
+	border-radius: 10px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #4449;
+}
+
+/* ALIGN */
+.mcenter {
+  margin-left: auto;
+  margin-right: auto;
+}
+.margin0 {
+  margin: 0;
+}
+
+
+/* force font */
+div, span, strong, input, textarea, button {
+  font-family: "Chula";
+}

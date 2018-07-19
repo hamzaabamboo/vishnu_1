@@ -1,29 +1,42 @@
 <template lang='pug'>
-  div
-    h1.is-size-4 พี่บ้าน
-      | {{name}} : ช
-      input(@keyup='edit = true' v-model.lazy='ช')
-      | , ญ
-      input(@keyup='edit = true' v-model.lazy='ญ')
-      | , ข้าวพิเศษ
-      input(@keyup='edit = true')
-      button.button.is-warning.is-small(v-if='edit' @click='update') update
+  div.cu
+    div
+      h1.is-size-3.cu.bold {{name}}
+    div
+      span.is-size-6  ธรรมดา
+        input.cu(@keyup='edit = true' type='number' v-model.lazy.number='meal.norm')
+      span.is-size-6  พิเศษ
+        input.cu(@keyup='edit = true' type='number' v-model.lazy.number='meal.spci')
+      button.button.is-warning.is-small(v-if='edit' @click='submit') update
 </template>
 
 <script>
 export default {
-	props: ['name', 'group'],
+  props: {
+    group: String,
+    name: {
+      default: 'ฝ่ายทะเบียน'
+    }
+  },
+  watch: {
+    deep: true,
+    meal() {
+      this.edit = true
+    }
+  },
 	data() {
 		return {
 			edit: false,
-			ช: 23,
-			ญ: 12
+			meal: {
+        norm: '',
+        spic: ''
+      }
 		};
 	},
 	methods: {
-		update() {
-			console.log(this.ช + ' ' + this.ญ);
-			this.edit = false;
+		submit() {
+      this.edit = false
+      // handle submit meal
 		}
 	}
 };
@@ -36,5 +49,13 @@ input {
 	width: 40px;
 	text-align: center;
 	border-bottom: 1px solid rgb(212, 212, 212);
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.button.is-warning.is-small {
+  margin-left: 6px;
 }
 </style>
