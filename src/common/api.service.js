@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-import JwtService from '@/common/jwt.service';
+import { TokenStorage } from '@/common/jwt.service';
 import store from '@/store';
 import { API_URL } from '@/common/config';
 import { ERROR } from '../store/actions.type';
@@ -11,11 +11,11 @@ const ApiService = {
 		Vue.use(VueAxios, axios);
 		Vue.axios.defaults.baseURL = API_URL;
 		Vue.axios.defaults.headers.common['Cache-Control'] = 'no-cache';
-		if (JwtService.hasToken()) this.setHeader();
+		if (TokenStorage.get) this.setHeader();
 	},
 
 	setHeader() {
-		Vue.axios.defaults.headers.common['jwt'] = `${JwtService.getToken()}`;
+		Vue.axios.defaults.headers.common['jwt'] = `${TokenStorage.get}`;
 	},
 
 	removeHeader() {
@@ -54,7 +54,7 @@ export const AuthService = {
 		return ApiService.post('/jwts', credentials);
 	},
 	logout: () => {
-		return ApiService.delete(`/jwts/${JwtService.getToken()}`);
+		return ApiService.delete(`/jwts/${TokenStorage.get}`);
 	},
 	ping: () => {
 		return ApiService.get('/jwts/ping');
@@ -62,19 +62,19 @@ export const AuthService = {
 };
 export const FreshyService = {
 	getFreshies: () => {
-    return require('@/other/freshy_information.json')
-    return ApiService.get('/freshmen');
+		return require('@/other/freshy_information.json');
+		// return ApiService.get('/freshmen');
 	},
 	setFreshyStatus: (id, status) => {
-    return require('../other/freshy_status.json')
-    // return ApiService.patch(`/freshmen/${id}`, status);
+		return require('../other/freshy_status.json');
+		// return ApiService.patch(`/freshmen/${id}`, status);
 	},
 	query: id => {
 		return require('../other/freshy_information.json')[id];
 	},
 	getInfo: () => {
 		return require('../other/freshy_information.json');
-	},
+	}
 
 	// getStatus: () => {
 	// 	return require('../other/status.json');

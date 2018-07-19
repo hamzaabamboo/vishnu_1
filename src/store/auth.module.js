@@ -1,13 +1,19 @@
-import JwtService from '@/common/jwt.service';
-import { LOGIN, LOGOUT, CHECK_AUTH } from './actions.type';
-import { SET_AUTH, PURGE_AUTH, SET_ERROR } from './mutations.type';
+import {
+	TokenStorage,
+	RoleStorage,
+	PermissionStorage,
+	UsernameStorage
+} from '@/common/jwt.service';
+import { LOGIN, LOGOUT, ERROR } from './actions.type';
+import { SET_AUTH, PURGE_AUTH } from './mutations.type';
 import { AuthService } from '@/common/api.service';
 import ApiService from '../common/api.service';
+
 const state = {
-	user: {},
-	isAuthenticated: !!JwtService.getToken(),
-	roles: JwtService.getRoles() || [],
-	permissions: JwtService.getPermissions() || []
+	user: UsernameStorage.get || '',
+	isAuthenticated: !!TokenStorage.get,
+	roles: RoleStorage.get || [],
+	permissions: PermissionStorage.get || []
 };
 
 const getters = {
@@ -33,8 +39,8 @@ const actions = {
 					context.commit(SET_AUTH, data);
 					resolve();
 				})
-				.catch(({ response }) => {
-					if (response) context.commit(SET_ERROR, response.data.errors);
+				.catch(error => {
+					error && context.dispatch(ERROR, error);
 				});
 		});
 	},
@@ -55,9 +61,10 @@ const mutations = {
 		state.roles = user.roles;
 		state.permissions = user.permission;
 		state.errors = {};
-		JwtService.saveToken(user.jwt);
-		JwtService.saveRoles(user.roles);
-		JwtService.savePermissions(user.permission);
+		TokenStorage.save(user.jwt);
+		RoleStorage.save(user.roles);
+		PermissionStorage.save(user.permission);
+		UsernameStorage.save(user.username);
 		ApiService.setHeader();
 	},
 	[PURGE_AUTH](state) {
@@ -66,9 +73,10 @@ const mutations = {
 		state.errors = {};
 		state.permissions = [];
 		state.roles = [];
-		JwtService.destroyToken();
-		JwtService.destroyRoles();
-		JwtService.destroyPermissions();
+		TokenStorage.destroy();
+		RoleStorage.destroy();
+		PermissionStorage.destroy();
+		UsernameStorage.destroy();
 		ApiService.removeHeader();
 	}
 };
