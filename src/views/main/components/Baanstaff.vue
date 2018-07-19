@@ -12,31 +12,31 @@
 
 <script>
 export default {
-  props: {
-    group: String,
-    name: {
-      default: 'ฝ่ายทะเบียน'
-    }
-  },
-  watch: {
-    deep: true,
-    meal() {
-      this.edit = true
-    }
-  },
+	props: {
+		group: String,
+		name: {
+			default: 'Loading...'
+		}
+	},
+	watch: {
+		deep: true,
+		meal() {
+			this.edit = true;
+		}
+	},
 	data() {
 		return {
 			edit: false,
 			meal: {
-        norm: '',
-        spic: ''
-      }
+				norm: '',
+				spic: ''
+			}
 		};
 	},
 	methods: {
 		submit() {
-      this.edit = false
-      // handle submit meal
+			this.edit = false;
+			// handle submit meal
 		}
 	}
 };
@@ -50,12 +50,12 @@ input {
 	text-align: center;
 	border-bottom: 1px solid rgb(212, 212, 212);
 }
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
 .button.is-warning.is-small {
-  margin-left: 6px;
+	margin-left: 6px;
 }
 </style>

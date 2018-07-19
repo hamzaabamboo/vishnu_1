@@ -2,18 +2,16 @@
   section.section
     div.box(style="margin-top: 15px")
       button.button.is-warning.is-pulled-right(@click='logout' style='margin-left: -80%') logout
-      baanstaff(v-if='!user.staffView' :name='user.name' :group='user.username')
-
-    div.box(v-if='true || user == "สวัส"')
+      baanstaff(v-if='!user.staffView' :name='user' :group='user.username')
+    div.box(v-if='isWelfare')
       strong.is-size-4 STAFF
       meal-count(group = 'staff')
-
-    div.box(v-if='true || user == "สวัส"')
+    div.box(v-if='isWelfare')
       strong.is-size-4 FRESHY
       meal-count(group = 'freshy')
-
+    announce
     div.box(v-if='true || user["see_freshy"]')
-      freshy-table(:arg-grp='user.group' :arg-atr='user.fields')
+      freshy-table
 </template>
 
 <script>
@@ -49,7 +47,6 @@ export default {
 		},
 		isWelfare() {
 			const roles = this.$store.getters.getRoles;
-			console.log(roles);
 			return roles.includes('welfare');
 		}
 	}
