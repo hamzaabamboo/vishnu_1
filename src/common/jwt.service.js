@@ -2,6 +2,7 @@ const ID_TOKEN_KEY = 'token';
 const ROLES = 'roles';
 const PERMISSION = 'permisisons';
 const USERNAME = 'username';
+const MEAL_GROUP = 'mealGroup';
 class LocalStorageService {
 	constructor(object, json = true) {
 		this.object = object;
@@ -30,3 +31,4 @@ export const TokenStorage = new LocalStorageService(ID_TOKEN_KEY, false);
 export const PermissionStorage = new LocalStorageService(PERMISSION);
 export const UsernameStorage = new LocalStorageService(USERNAME, false);
 export const RoleStorage = new LocalStorageService(ROLES);
+export const MealGroupStorage = new LocalStorageService(MEAL_GROUP);

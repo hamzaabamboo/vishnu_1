@@ -62,8 +62,10 @@ export const AuthService = {
 };
 export const FreshyService = {
 	getFreshies: () => {
-		return require('@/other/freshy_information.json');
-		// return ApiService.get('/freshmen');
+		// return require('@/other/freshy_information.json');
+		return new Promise(resolve =>
+			ApiService.get('/freshmen').then(res => resolve(res.data))
+		);
 	},
 	setFreshyStatus: (id, status) => {
 		return require('../other/freshy_status.json');
@@ -100,9 +102,8 @@ export const StaffService = {
 };
 
 export const MealService = {
-	// getMeals: () => ApiService.get('/meals'),
-	getStaffMeals: () => require('../other/staff_food.json'),
-	getFreshyMeals: () => require('../other/freshy_food.json')
+	getMeals: () => ApiService.get('/meals/1'),
+	getStaffMeals: () => ApiService.get('/staff/all/meals')
 	// getStaffMeals: group => ApiService.get(`/staff/${group}/meals`)
 	// setStaffMeals: staff => ApiService.put(`/staff/${group}/meals`);
 };

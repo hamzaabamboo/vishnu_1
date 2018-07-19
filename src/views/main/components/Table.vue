@@ -59,7 +59,7 @@ export default {
 		this.freshyList = await FreshyService.getFreshies();
 		this.freshy_status = await FreshyService.setFreshyStatus();
 		this.translate = require('@/other/language_translate.json');
-		this.fields = _.keys(this.freshyList[0]);
+		this.fields = _.keys(this.freshyList[0]).filter(e => !['_id','status'].includes(e));
 		this.fields_show = _.fromPairs(this.fields.map(x => [x, false]));
 		['tname', 'fname', 'lname', 'nname', 'department'].forEach(
 			show => (this.fields_show[show] = true)
