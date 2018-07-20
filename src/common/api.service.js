@@ -21,8 +21,8 @@ const ApiService = {
 		Vue.axios.defaults.headers.common['jwt'] = '';
 	},
 
-	query(resource, params) {
-		return Vue.axios.get(resource, params);
+	patch(resource, params) {
+		return Vue.axios.patch(resource, params);
 	},
 
 	get(resource, slug = '') {
@@ -66,14 +66,8 @@ export const FreshyService = {
 		);
 	},
 	setFreshyStatus: (id, status) => {
-		return ApiService.patch(`/freshmen/${id}`, status);
+		return ApiService.patch(`/freshmen/${id}/status`, status);
 	},
-	query: id => {
-		return require('../other/freshy_information.json')[id];
-	},
-	getInfo: () => {
-		return require('../other/freshy_information.json');
-	}
 };
 
 export const MessageService = {

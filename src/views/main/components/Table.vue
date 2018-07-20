@@ -90,10 +90,16 @@ export default {
 				'is-success': this.fields_show[field]
 			};
 		},
-		update_status(uid, mode) {
-			if (prompt('Please input Unique ID') == uid) {
-				this.$set(this.freshy_status, uid, mode);
-				this.$forceUpdate();
+		update_status(freshy, mode) {
+			if (prompt('Please input Unique ID') === freshy.uniq_id) {
+				FreshyService.setFreshyStatus(freshy.uniq_id, {
+					status: {
+						from: parseInt(freshy.status),
+						to: mode
+					}
+				});
+				// this.$set(this.freshy_status, uid, mode);
+				// this.$forceUpdate();
 			}
 		},
 		filter_field_func(usr) {
