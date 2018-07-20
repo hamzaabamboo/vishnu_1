@@ -25,8 +25,8 @@
           tr(v-for='freshy in freshyList' :key='freshy._id' v-show='filter_field_func(freshy) && filter_status_func(freshy)')
             td
               vishnu-btn(
-                :value='freshy_status[freshy["uniq_id"]]'
-                @input='v => update_status(freshy["uniq_id"], v)'
+                :value='parseInt(freshy.status)'
+                @input='v => update_status(freshy, v)'
               )
               // div {{freshy_status[freshy["uniq_id"]]}}
             td(v-for='field in fields' v-show='fields_show[field]' :key='field._id' :value='field')
@@ -41,6 +41,11 @@ import { FreshyService } from '@/common/api.service.js';
 import { FETCH_FRESHIES } from '@/store/actions.type';
 import { Container, Draggable } from 'vue-smooth-dnd';
 
+const ALL = 0;
+const IN = 1;
+const OUT = 2;
+const NEVER = 3;
+
 export default {
 	components: { Container, Draggable },
 	data() {
@@ -48,18 +53,18 @@ export default {
 			freshyList: [], // [Object]
 			fields: [], // [String]
 			fields_show: {}, // [String] => Boolean
-			freshy_status: {}, // [uid] => -1, 0, 1, 2, 3, 4
 			filter_field: {},
 			translate: {},
-			status_mode: 'all'
+			status_mode: ALL
 		};
 	},
 	async created() {
 		// this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
 		this.freshyList = await FreshyService.getFreshies();
-		this.freshy_status = await FreshyService.setFreshyStatus();
 		this.translate = require('@/other/language_translate.json');
-		this.fields = _.keys(this.freshyList[0]).filter(e => !['_id','status'].includes(e));
+		this.fields = _.keys(this.freshyList[0]).filter(
+			e => !['_id', 'status'].includes(e)
+		);
 		this.fields_show = _.fromPairs(this.fields.map(x => [x, false]));
 		['tname', 'fname', 'lname', 'nname', 'department'].forEach(
 			show => (this.fields_show[show] = true)
@@ -99,23 +104,23 @@ export default {
 			);
 		},
 		status_btn_click() {
-			let mode_list = ['all', 'in', 'out', 'never'];
-			let it = mode_list.indexOf(this.status_mode);
+			let mode_list = [ALL, IN, OUT, NEVER];
+			let it = this.status_mode;
 			this.status_mode = mode_list[(it + 1) % 4];
 		},
 		filter_status_func(usr) {
-			let x = ['all', 'in', 'out', 'never'].indexOf(this.status_mode);
-			let stat = this.freshy_status[usr['uniq_id']];
+			let x = this.status_mode;
+			const stat = usr.status;
 			return [true, stat == 0, stat > 0, stat == -1][x];
 		}
 	},
 	computed: {
 		status_btn_class() {
 			return {
-				all: [],
-				in: ['is-success'],
-				out: ['is-danger'],
-				never: ['is-warning']
+				[ALL]: [],
+				[IN]: ['is-success'],
+				[OUT]: ['is-danger'],
+				[NEVER]: ['is-warning']
 			}[this.status_mode];
 		}
 	}
