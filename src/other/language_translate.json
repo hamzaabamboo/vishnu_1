@@ -28,10 +28,11 @@
 	"relative_name": "ชื่อผู้ปกครอง",
 	"relative": "ความสัมพันธ์ผู้ปกตรอง",
 	"address": "ที่อยู่",
-	"uniq_id": "uniq_id",
+	"uniq_id": "รหัส 5 หลัก",
 	"group": "บ้าน",
 	"normal": "ธรรมดา",
 	"islamic": "อิสลาม",
 	"veg": "มังสวิรัติ",
-	"total": "รวม"
+	"total": "รวม",
+	"other": "อื่นๆ"
 }
