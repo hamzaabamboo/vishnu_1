@@ -56,10 +56,10 @@ const actions = {
 
 const mutations = {
 	[SET_AUTH](state, data) {
-		state.isAuthenticated = true;
 		const { name, roles, permission, meal_group, jwt } = data;
 		state = {
 			...state,
+			isAuthenticated: true,
 			user: name,
 			roles,
 			permissions: permission,
@@ -74,9 +74,9 @@ const mutations = {
 		ApiService.setHeader();
 	},
 	[PURGE_AUTH](state) {
-		state.isAuthenticated = false;
 		state = {
 			user: '',
+			isAuthenticated: false,
 			errors: {},
 			permissions: [],
 			roles: [],
