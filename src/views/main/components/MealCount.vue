@@ -12,8 +12,8 @@
           tr(v-for='field in fields' :key='field')
             td: strong {{ translate(field) || field  }}
             td: div(align="center") {{total[field]}}
-            td.mcenter(v-for='meal in meals' :key='meal + field')
-              div(align="center") {{meal[field]}}
+            td.mcenter(v-for='group in Object.keys(meals)' :key='group + field')
+              div(align="center") {{meals[group][field]}}
 </template>
 
 <script>
@@ -44,7 +44,6 @@ export default {
 	},
 	computed: {
 		fields() {
-			console.log('test');
 			return Object.keys(Object.values(this.meals)[0] || {});
 		},
 		total() {
