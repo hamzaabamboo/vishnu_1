@@ -2,7 +2,7 @@
   section.section
     div.box(style="margin-top: 15px")
       button.button.is-warning.is-pulled-right(@click='logout' style='margin-left: -80%') logout
-      baanstaff(v-if='!user.staffView' :name='user')
+      baanstaff(:name='user')
     div.box(v-if='isWelfare')
       strong.is-size-4 STAFF
       meal-count(group = 'staff')
@@ -51,7 +51,11 @@ export default {
 		},
 		isReg() {
 			const roles = this.$store.getters.getRoles;
-			return roles.includes('house_reg') || roles.includes('admin');
+			return (
+				roles.includes('house_reg') ||
+				roles.includes('admin') ||
+				roles.includes('reg')
+			);
 		}
 	}
 };

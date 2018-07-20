@@ -39,7 +39,10 @@ export default {
 			return translate[word];
 		},
 		sum(property) {
-			return _.values(this.meals).reduce((a, b) => a + b[property], 0);
+			return _.values(this.meals).reduce(
+				(a, b) => a + parseInt(b[property]),
+				0
+			);
 		}
 	},
 	computed: {

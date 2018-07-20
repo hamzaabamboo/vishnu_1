@@ -85,7 +85,8 @@ export const MessageService = {
 	postMessage: message => ApiService.post('/messages', message)
 };
 export const StaffService = {
-	setStaffMeals: data => ApiService.put(`/staff/${MealGroupStorage.get}/meals`),
+	setStaffMeals: data =>
+		ApiService.put(`/staff/${MealGroupStorage.get}/meals`, data),
 	getStaffMeals: () => {
 		return new Promise(resolve =>
 			ApiService.get(`/staff/${MealGroupStorage.get}/meals`).then(res =>

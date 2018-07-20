@@ -44,6 +44,7 @@ export default {
 	methods: {
 		submit() {
 			this.edit = false;
+			StaffService.setStaffMeals(this.meal);
 		}
 	},
 	computed: {
