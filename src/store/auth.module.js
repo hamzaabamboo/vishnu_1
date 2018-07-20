@@ -11,7 +11,7 @@ import ApiService from '../common/api.service';
 import { MealGroupStorage } from '../common/jwt.service';
 
 const state = {
-	user: NameStorage.get || '',
+	name: NameStorage.get || '',
 	isAuthenticated: !!TokenStorage.get,
 	roles: RoleStorage.get || [],
 	permissions: PermissionStorage.get || []
@@ -19,7 +19,7 @@ const state = {
 
 const getters = {
 	currentUser(state) {
-		return state.user;
+		return state.name;
 	},
 	getPermissions(state) {
 		return state.permissions;
@@ -46,7 +46,7 @@ const actions = {
 	},
 	[LOGOUT](context) {
 		return new Promise(resolve => {
-			AuthService.logout().then(({ data }) => {
+			AuthService.logout().then(() => {
 				context.commit(PURGE_AUTH);
 				resolve();
 			});
@@ -57,15 +57,12 @@ const actions = {
 const mutations = {
 	[SET_AUTH](state, data) {
 		const { name, roles, permission, meal_group, jwt } = data;
-		state = {
-			...state,
-			isAuthenticated: true,
-			user: name,
-			roles,
-			permissions: permission,
-			meal_group,
-			errors: {}
-		};
+		state.isAuthenticated = true;
+		state.name = name;
+		state.roles = roles;
+		state.permissions = permission;
+		state.meal_group = meal_group;
+		state.errors = {};
 		TokenStorage.save(jwt);
 		RoleStorage.save(roles);
 		PermissionStorage.save(permission);
@@ -74,14 +71,12 @@ const mutations = {
 		ApiService.setHeader();
 	},
 	[PURGE_AUTH](state) {
-		state = {
-			user: '',
-			isAuthenticated: false,
-			errors: {},
-			permissions: [],
-			roles: [],
-			meal_group: []
-		};
+		state.name = '';
+		state.isAuthenticated = false;
+		state.errors = {};
+		state.permissions = [];
+		state.roles = [];
+		state.meal_group = [];
 		const storages = [
 			TokenStorage,
 			RoleStorage,
