@@ -13,7 +13,7 @@
             td: strong {{ translate(field) || field  }}
             td: div(align="center") {{total[field]}}
             td.mcenter(v-for='group in Object.keys(meals)' :key='group + field')
-              div(align="center") {{meals[group][field]}}
+              div(align="center") {{getValue(meals[group][field])}}
 </template>
 
 <script>
@@ -43,6 +43,9 @@ export default {
 				(a, b) => a + parseInt(b[property]),
 				0
 			);
+		},
+		getValue(value) {
+			return isNaN(value) || value.length === 0 ? value.length : value;
 		}
 	},
 	computed: {
