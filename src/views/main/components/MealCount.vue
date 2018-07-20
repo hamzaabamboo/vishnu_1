@@ -19,7 +19,7 @@
 <script>
 import _ from 'lodash';
 import { MealService } from '@/common/api.service';
-import translate from '@/other/language_translate.json';
+import translate from '@/i10n/language_translate.json';
 export default {
 	props: ['group'],
 	data() {

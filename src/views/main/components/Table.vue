@@ -61,7 +61,7 @@ export default {
 	async created() {
 		// this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
 		this.freshyList = await FreshyService.getFreshies();
-		this.translate = require('@/other/language_translate.json');
+		this.translate = require('@/i10n/language_translate.json');
 		this.fields = _.keys(this.freshyList[0]).filter(
 			e => !['_id', 'status'].includes(e)
 		);
