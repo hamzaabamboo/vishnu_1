@@ -10,7 +10,7 @@
       strong.is-size-4 FRESHY
       meal-count(group = 'freshy')
     announce
-    div.box(v-if='true || user["see_freshy"]')
+    div.box(v-if='isReg')
       freshy-table
 </template>
 
@@ -48,6 +48,10 @@ export default {
 		isWelfare() {
 			const roles = this.$store.getters.getRoles;
 			return roles.includes('welfare');
+		},
+		isReg() {
+			const roles = this.$store.getters.getRoles;
+			return roles.includes('house_reg') || roles.includes('admin');
 		}
 	}
 };
@@ -55,24 +59,24 @@ export default {
 
 <style lang='stylus' scoped>
 .section {
-  padding: 10px 10px;
+	padding: 10px 10px;
 }
 
 #header {
-  margin: 20px auto;
+	margin: 20px auto;
 }
 
 .box {
-  @media screen and (max-width: 500px) {
-    padding: 0.1em;
-  }
+	@media screen and (max-width: 500px) {
+		padding: 0.1em;
+	}
 
-  @media screen and (max-width: 900px) {
-    padding: 0.3em;
-  }
+	@media screen and (max-width: 900px) {
+		padding: 0.3em;
+	}
 
-  @media screen and (max-width: 1300px) {
-    padding: 0.4em;
-  }
+	@media screen and (max-width: 1300px) {
+		padding: 0.4em;
+	}
 }
 </style>
