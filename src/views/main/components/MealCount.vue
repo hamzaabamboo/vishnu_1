@@ -6,13 +6,14 @@
           tr
             td: strong FOOD
             td: strong รวม
-            td.mcenter(v-for='m in Object.keys(meals)' :key='m.id')
-              div(align="center"): strong {{m}}
+            td.mcenter(v-for='group in Object.keys(meals)' :key='group')
+              div(align="center"): strong {{group}}
         tbody
-          tr(v-for='s in fields' :key='s.id')
-            td: strong {{ translate(s) || s }}
-            td: div(align="center") {{total[s]}}
-            td.mcenter(v-for='m in meals' :key='m.id'): div(align="center") {{m[s]}}
+          tr(v-for='field in fields' :key='field')
+            td: strong {{ translate(field) || field  }}
+            td: div(align="center") {{total[field]}}
+            td.mcenter(v-for='meal in meals' :key='meal + field')
+              div(align="center") {{meal[field]}}
 </template>
 
 <script>
@@ -39,12 +40,13 @@ export default {
 		},
 		sum(property) {
 			return _.values(this.meals).reduce((a, b) => a + b[property], 0);
-		},
-		fields() {
-			return Object.keys(Object.values(this.meals)[0] || {});
 		}
 	},
 	computed: {
+		fields() {
+			console.log('test');
+			return Object.keys(Object.values(this.meals)[0] || {});
+		},
 		total() {
 			return {
 				normal: this.sum('normal'),
