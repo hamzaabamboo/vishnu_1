@@ -4,7 +4,7 @@
       table.table.is-striped._cred(align='center')
         thead
           tr
-            td: strong FOOD
+            td: strong ประเภท
             td: strong รวม
             td.mcenter(v-for='group in Object.keys(meals)' :key='group')
               div(align="center"): strong {{group}}
@@ -30,7 +30,7 @@ export default {
 	async created() {
 		this.meals =
 			(this.group == 'staff'
-				? await MealService.getStaffMeals()
+				? await MealService.getAllStaffMeals()
 				: await MealService.getMeals()
 			).data || [];
 	},
@@ -44,7 +44,9 @@ export default {
 	},
 	computed: {
 		fields() {
-			return Object.keys(Object.values(this.meals)[0] || {});
+			return Object.keys(Object.values(this.meals)[0] || {}).filter(
+				key => key != 'updated_at'
+			);
 		},
 		total() {
 			return {

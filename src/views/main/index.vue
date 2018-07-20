@@ -2,7 +2,7 @@
   section.section
     div.box(style="margin-top: 15px")
       button.button.is-warning.is-pulled-right(@click='logout' style='margin-left: -80%') logout
-      baanstaff(v-if='!user.staffView' :name='user' :group='user.username')
+      baanstaff(v-if='!user.staffView' :name='user')
     div.box(v-if='isWelfare')
       strong.is-size-4 STAFF
       meal-count(group = 'staff')
