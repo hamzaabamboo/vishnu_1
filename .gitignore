@@ -4,7 +4,6 @@ node_modules/
 build/
 logs/
 User/
-static/
 npm-debug.log*https://github.com/hamzaabamboo/vishnu_1.git
 yarn-debug.log*
 yarn-error.log*
