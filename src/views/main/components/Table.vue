@@ -60,7 +60,7 @@ export default {
 	},
 	async created() {
 		// this.$store.dispatch(FETCH_FRESHIES).then(d => console.log(d));
-		this.freshyList = await FreshyService.getFreshies();
+		await this.updateFreshy();
 		this.translate = require('@/i10n/language_translate.json');
 		this.fields = _.keys(this.freshyList[0]).filter(
 			e => !['_id', 'status'].includes(e)
@@ -70,7 +70,11 @@ export default {
 			show => (this.fields_show[show] = true)
 		);
 	},
+
 	methods: {
+		async updateFreshy() {
+			this.freshyList = await FreshyService.getFreshies();
+		},
 		field_move(dropResult) {
 			let { addedIndex, removedIndex } = dropResult;
 			let cutOut = this.fields.splice(removedIndex, 1)[0];
@@ -90,14 +94,15 @@ export default {
 				'is-success': this.fields_show[field]
 			};
 		},
-		update_status(freshy, mode) {
+		async update_status(freshy, mode) {
 			if (prompt('Please input Unique ID') === freshy.uniq_id) {
-				FreshyService.setFreshyStatus(freshy.uniq_id, {
+				await FreshyService.setFreshyStatus(freshy.uniq_id, {
 					status: {
 						from: parseInt(freshy.status),
 						to: mode
 					}
 				});
+				this.updateFreshy();
 				// this.$set(this.freshy_status, uid, mode);
 				// this.$forceUpdate();
 			}
