@@ -20,7 +20,8 @@ export default {
 			return translate[word];
 		},
 		food(group) {
-			return this.list[group].other.filter(e => e.food_allergy);
+			let otherFood = this.list[group].other.filter(e => e.food_allergy);
+			return otherFood.length > 0 ? otherFood : [{ food_allergy: 'none' }];
 		}
 	}
 };
