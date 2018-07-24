@@ -14,14 +14,17 @@
             td: div(align="center") {{total[field]}}
             td.mcenter(v-for='group in Object.keys(meals)' :key='group + field')
               div(align="center") {{getValue(meals[group][field])}}
+    others-list(v-if='isWelfare && group != "staff"' :list='meals')
 </template>
 
 <script>
 import _ from 'lodash';
 import { MealService } from '@/common/api.service';
 import translate from '@/i10n/language_translate.json';
+import OthersList from './OthersList';
 export default {
 	props: ['group'],
+	components: { OthersList },
 	data() {
 		return {
 			meals: {}
@@ -63,6 +66,10 @@ export default {
 				total: this.sum('total'),
 				other: this.sum('other')
 			};
+		},
+		isWelfare() {
+			const roles = this.$store.getters.getRoles;
+			return roles.includes('welfare');
 		}
 	}
 };
