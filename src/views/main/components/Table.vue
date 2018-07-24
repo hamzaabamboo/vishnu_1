@@ -113,8 +113,12 @@ export default {
 		filter_field_func(usr) {
 			let filt = this.filter_field;
 			return _.keys(filt).every(
-				field =>
-					usr[field] && (!filt[field] || usr[field].indexOf(filt[field]) != -1)
+				field => {
+          if (!usr[field]) return false
+          if (filt[field] == '+') return Boolean(usr[field]) && usr[field] != '-'
+          return !filt[field] || usr[field].indexOf(filt[field]) != -1
+        }
+
 			);
 		},
 		status_btn_click() {

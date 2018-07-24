@@ -22,10 +22,6 @@ export default {
 			default: 'ไม่ระบุชื่อ'
 		}
 	},
-	watch: {
-		deep: true,
-		meal() {}
-	},
 	data() {
 		return {
 			edit: false,
