@@ -5,12 +5,12 @@
         span.subtitle.is-5.is-inline: slot(name='author')
       div._margin
         slot(name='body')
-        span(v-if='add'): button.add.button.is-success.is-inline.margin0(@click='$emit("click")') Go
+        span(v-if='add'): button.add.button.is-success.is-inline.margin0(@click='$emit("click")' :disabled='disabled') Go
 </template>
 
 <script>
 export default {
-	props: ['add']
+	props: ['add', 'disabled']
 };
 </script>
 

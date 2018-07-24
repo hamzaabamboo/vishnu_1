@@ -6,7 +6,7 @@ div
       template(slot='title') {{ message.message_title }}
       template(slot='author')  @{{ message.username}}
       template(slot='body') {{ message.message }}
-    card(add @click="send" v-if="sendable")
+    card(add :disabled="loading" @click="send" v-if="sendable")
       template(slot='title'): input.input._title.is-inline.cu(placeholder="Title" v-model="title")
       template(slot='body'): textarea.textarea.cu(placeholder="message" v-model="body")
 </template>
@@ -23,7 +23,8 @@ export default {
 		return {
 			title: '',
 			body: '',
-			messages: []
+			messages: [],
+			loading: false
 		};
 	},
 	async created() {
@@ -41,11 +42,20 @@ export default {
 		},
 		async send() {
 			let { title, body } = this;
+			this.loading = true;
 			await MessageService.postMessage({
 				message_title: title,
 				message: body
 			}).catch(error => this.$store.dispatch(ERROR, error));
 			await this.updateMessages();
+			await new Promise(resolve => {
+				setTimeout(() => {
+					resolve();
+				}, 2000);
+			});
+			this.loading = false;
+			this.title = '';
+			this.body = '';
 		}
 	},
 	computed: {
