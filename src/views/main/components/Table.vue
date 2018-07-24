@@ -27,6 +27,7 @@
               vishnu-btn(
                 :value='parseInt(freshy.status)'
                 @input='v => update_status(freshy, v)'
+                :admin='admin'
               )
               // div {{freshy_status[freshy["uniq_id"]]}}
             td(v-for='field in fields' v-show='fields_show[field]' :key='field._id' :value='field')
@@ -47,7 +48,8 @@ const OUT = 2;
 const NEVER = 3;
 
 export default {
-	components: { Container, Draggable },
+  components: { Container, Draggable },
+  props: ['admin'],
 	data() {
 		return {
 			freshyList: [], // [Object]

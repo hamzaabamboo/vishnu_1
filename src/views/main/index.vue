@@ -11,7 +11,7 @@
       meal-count(group = 'freshy')
     announce
     div.box(v-if='isReg')
-      freshy-table
+      freshy-table(:admin='isAdmin')
 </template>
 
 <script>
@@ -56,6 +56,10 @@ export default {
 				roles.includes('admin') ||
 				roles.includes('reg')
 			);
+    },
+    isAdmin() {
+			const roles = this.$store.getters.getRoles;
+			return roles.includes('admin');
 		}
 	}
 };
