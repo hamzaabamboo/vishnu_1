@@ -8,7 +8,7 @@ import { LOGIN, LOGOUT, ERROR } from './actions.type';
 import { SET_AUTH, PURGE_AUTH } from './mutations.type';
 import { AuthService } from '@/common/api.service';
 import ApiService from '../common/api.service';
-import { MealGroupStorage } from '../common/jwt.service';
+import { MealGroupStorage, ColumnsStorage } from '../common/jwt.service';
 
 const state = {
 	name: NameStorage.get || '',
@@ -81,7 +81,8 @@ const mutations = {
 			TokenStorage,
 			RoleStorage,
 			PermissionStorage,
-			NameStorage
+			NameStorage,
+			ColumnsStorage
 		];
 		storages.forEach(storage => {
 			storage.destroy();

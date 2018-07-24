@@ -26,13 +26,14 @@ import ApiService, { AuthService } from '@/common/api.service.js';
 export default {
 	components: { MealCount, FreshyTable, Baanstaff, Announce },
 	created() {
-		AuthService.ping().catch(error =>
-			this.$store
-				.dispatch(ERROR, error)
-				.then(() => this.$router.push({ name: 'Login' }))
-		);
 		if (!this.$store.getters.isAuthenticated)
 			this.$router.push({ name: 'Login' });
+		else
+			AuthService.ping().catch(error =>
+				this.$store
+					.dispatch(ERROR, error)
+					.then(() => this.$router.push({ name: 'Login' }))
+			);
 	},
 	methods: {
 		logout() {

@@ -37,7 +37,7 @@ const actions = {
 				if (context.rootState.auth.isAuthenticated) context.dispatch(LOGOUT);
 				context.commit(SET_ERROR, {
 					title: 'Login error',
-					message: error.response.data.errors[0]
+					message: 'Please login again'
 				});
 				break;
 			case 500:

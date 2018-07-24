@@ -37,7 +37,7 @@
 <script>
 import _ from 'lodash';
 import moment from 'moment';
-
+import { ColumnsStorage } from '@/common/jwt.service.js';
 import { FreshyService } from '@/common/api.service.js';
 import { FETCH_FRESHIES } from '@/store/actions.type';
 import { Container, Draggable } from 'vue-smooth-dnd';
@@ -67,10 +67,12 @@ export default {
 		this.fields = _.keys(this.freshyList[0]).filter(
 			e => !['_id', 'status'].includes(e)
 		);
-		this.fields_show = _.fromPairs(this.fields.map(x => [x, false]));
-		['tname', 'fname', 'lname', 'nname', 'department'].forEach(
-			show => (this.fields_show[show] = true)
-		);
+		this.fields_show =
+			ColumnsStorage.get || _.fromPairs(this.fields.map(x => [x, false]));
+		if (!ColumnsStorage.get) {
+			const columns = ['tname', 'fname', 'lname', 'nname', 'department'];
+			columns.forEach(show => (this.fields_show[show] = true));
+		}
 	},
 
 	methods: {
@@ -85,9 +87,10 @@ export default {
 		},
 		field_toggle(field) {
 			this.$set(this.fields_show, field, !this.fields_show[field]);
-      this.$forceUpdate();
+			ColumnsStorage.save(this.fields_show);
+			this.$forceUpdate();
 			if (!this.fields_show[field]) {
-        delete this.filter_field[field];
+				delete this.filter_field[field];
 			}
 		},
 		class_btn(field) {
@@ -134,36 +137,36 @@ export default {
 				[NEVER]: ['is-warning']
 			}[this.status_mode];
 		}
-  },
-  watch: {
-    filter_field: {
-      deep: true,
-      handler(ffield){
-        for (let f in ffield){
-          if (!ffield[f]) {
-            delete this.filter_field[f]
-          }
-        }
-      }
-    }
-  }
+	},
+	watch: {
+		filter_field: {
+			deep: true,
+			handler(ffield) {
+				for (let f in ffield) {
+					if (!ffield[f]) {
+						delete this.filter_field[f];
+					}
+				}
+			}
+		}
+	}
 };
 </script>
 
 <style style='stylus' scoped>
 input {
 	color: rgb(160, 49, 91);
-  font-size: 15px;
+	font-size: 15px;
 	border-width: 0px 0px 1px 0px;
-  border-bottom: 0px solid rgb(255, 255, 255);
-  box-shadow: 0 2px 0 #ddddddb4;
-  padding-left: 3px;
+	border-bottom: 0px solid rgb(255, 255, 255);
+	box-shadow: 0 2px 0 #ddddddb4;
+	padding-left: 3px;
 }
 input:focus {
-  box-shadow: 0 2px 0 #ffdd57;
-  outline-width: 0px;
+	box-shadow: 0 2px 0 #ffdd57;
+	outline-width: 0px;
 }
-	/* border: none; */
+/* border: none; */
 
 .table,
 thead,

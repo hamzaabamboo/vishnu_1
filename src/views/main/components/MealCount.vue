@@ -40,11 +40,12 @@ export default {
 		},
 		sum(property) {
 			return _.values(this.meals).reduce(
-				(a, b) => a + parseInt(b[property]),
+				(a, b) => a + this.getValue(b[property]),
 				0
 			);
 		},
 		getValue(value) {
+			if (!value) return 0;
 			return isNaN(value) || value.length === 0 ? value.length : value;
 		}
 	},
@@ -59,7 +60,8 @@ export default {
 				normal: this.sum('normal'),
 				islamic: this.sum('islamic'),
 				veg: this.sum('veg'),
-				total: this.sum('total')
+				total: this.sum('total'),
+				other: this.sum('other')
 			};
 		}
 	}
