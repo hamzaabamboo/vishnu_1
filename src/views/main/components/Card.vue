@@ -30,7 +30,6 @@ export default {
 	padding: 0.3rem 1rem;
 	position: relative;
 	width: 100%;
-	margin-bottom: 24px;
 }
 @media only screen and (max-width: 2000px) {
 	.__card {

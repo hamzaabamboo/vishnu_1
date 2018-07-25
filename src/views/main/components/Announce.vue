@@ -1,15 +1,17 @@
 <template lang='pug'>
 div
   // h1.box.is-size-3 Announcements
-  button.button.is-warning(@click='see_more') see more
   div.__flex-container
-    card(v-for='message in messages.splice(0, n_see)' :key='message._idid')
+    card(v-for='message in messages.slice(0, n_see)' :key='message._idid')
       template(slot='title') {{ message.message_title }}
       template(slot='author')  @{{ message.username}}
       template(slot='body') {{ message.message }}
     card(add :disabled="loading" @click="send" v-if="sendable")
       template(slot='title'): input.input._title.is-inline.cu(placeholder="Title" v-model="title")
       template(slot='body'): textarea.textarea.cu(placeholder="message" v-model="body")
+  div
+    button.button.is-warning(@click='see_more' style='margin: 3px auto 20px auto; border-radius: 6px') see more
+
 </template>
 
 <script>
@@ -37,10 +39,12 @@ export default {
       this.n_see += 3
     },
 		async updateMessages() {
+      console.log('1234567')
 			const now = new Date().getTime();
 			this.messages = (await MessageService.getMessages())
 				.sort((a, b) => b.broadcast_time - a.broadcast_time)
 				.filter(e => {
+          // return true
 					return now > e.broadcast_time * 1000 && now < e.expiry * 1000;
         })
 		},
