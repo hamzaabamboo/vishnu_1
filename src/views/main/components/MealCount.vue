@@ -56,7 +56,7 @@ export default {
 		fields() {
 			return Object.keys(Object.values(this.meals)[0] || {}).filter(
 				key => key != 'updated_at'
-			);
+			).sort();
 		},
 		total() {
 			return {
