@@ -1,8 +1,9 @@
 <template lang='pug'>
 div
   // h1.box.is-size-3 Announcements
+  button.button.is-warning(@click='see_more') see more
   div.__flex-container
-    card(v-for='message in messages' :key='message._idid')
+    card(v-for='message in messages.splice(0, n_see)' :key='message._idid')
       template(slot='title') {{ message.message_title }}
       template(slot='author')  @{{ message.username}}
       template(slot='body') {{ message.message }}
@@ -23,22 +24,25 @@ export default {
 		return {
 			title: '',
 			body: '',
-			messages: [],
-			loading: false
+      messages: [],
+      loading: false,
+      n_see: 3
 		};
 	},
 	async created() {
 		await this.updateMessages();
 	},
 	methods: {
+    see_more() {
+      this.n_see += 3
+    },
 		async updateMessages() {
 			const now = new Date().getTime();
 			this.messages = (await MessageService.getMessages())
 				.sort((a, b) => b.broadcast_time - a.broadcast_time)
 				.filter(e => {
 					return now > e.broadcast_time * 1000 && now < e.expiry * 1000;
-				})
-				.slice(0, 3);
+        })
 		},
 		async send() {
 			let { title, body } = this;
