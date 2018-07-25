@@ -36,6 +36,10 @@ export default {
       if (this.admin) {
         this.$emit('input', this.value ? IN : EMER)
       } else {
+
+        // HACK
+        this.$emit('input', [OUT1, OUT2][i]); return
+
         let status = [
           {"start": '09:00 27-8-2018', "end": '10:00 27-8-2018', "btn": [IN, IN]},
           {"start": '12:00 27-8-2018', "end": '12:45 27-8-2018', "btn": [OUT1, OUT2]},
