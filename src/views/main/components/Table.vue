@@ -42,10 +42,7 @@ import { FreshyService } from '@/common/api.service.js';
 import { FETCH_FRESHIES } from '@/store/actions.type';
 import { Container, Draggable } from 'vue-smooth-dnd';
 
-const ALL = 0;
-const IN = 1;
-const OUT = 2;
-const NEVER = 3;
+const [ALL, IN, OUT1, OUT2, NEVER] = [-1, 0, 1, 2, 3];
 
 export default {
   components: { Container, Draggable },
@@ -122,14 +119,21 @@ export default {
 			);
 		},
 		status_btn_click() {
-			let mode_list = [ALL, IN, OUT, NEVER];
-			let it = this.status_mode;
-			this.status_mode = mode_list[(it + 1) % 4];
+			let mode_list = [ALL, IN, OUT1, OUT2, NEVER];
+      let it = this.status_mode;
+      console.log(it)
+			this.status_mode = mode_list[(mode_list.indexOf(it) + 1) % 5];
 		},
 		filter_status_func(usr) {
-			let x = this.status_mode;
-			const stat = usr.status;
-			return [true, stat == 0, stat > 0, stat == -1][x];
+			const mode = Number(this.status_mode);
+      const stat = Number(usr.status);
+      console.log(mode, stat)
+			return mode == ALL || {
+        [IN]: [0],
+        [OUT1]: [1, 3],
+        [OUT2]: [2, 4],
+        [NEVER]: [-1]
+      }[mode].includes(stat);
 		}
 	},
 	computed: {
@@ -137,7 +141,8 @@ export default {
 			return {
 				[ALL]: [],
 				[IN]: ['is-success'],
-				[OUT]: ['is-danger'],
+        [OUT1]: ['is-danger'],
+        [OUT2]: ['is-danger'],
 				[NEVER]: ['is-warning']
 			}[this.status_mode];
 		}

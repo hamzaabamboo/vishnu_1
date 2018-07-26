@@ -16,7 +16,8 @@ import translate from '@/i10n/language_translate.json';
 export default {
 	props: ['list'],
 	// data() {},
-	async created() {},
+	created() {
+  },
 	methods: {
 		translate(word) {
 			return translate[word];

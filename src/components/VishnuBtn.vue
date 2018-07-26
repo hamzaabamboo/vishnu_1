@@ -35,9 +35,9 @@ export default {
       let [IN, OUT1, OUT2, OUT3, OUT4, EMER] = [0, 1, 2, 3, 4, 9];
       if (this.admin) {
         console.log('admin check')
-        this.$emit('input', this.value != IN ? IN : EMER)
-      } else if (this.value == IN) {
-        if (new Date() < new Date('00:00 28-07-2018')){
+        this.$emit('input', this.value !== IN ? IN : EMER)
+      } else if (this.value === IN) {
+        if (new Date() < new Date('00:00 2018-07-28')){
           this.$emit('input', [OUT1, OUT2][i])
         } else {
           this.$emit('input', [OUT3, OUT4][i])
