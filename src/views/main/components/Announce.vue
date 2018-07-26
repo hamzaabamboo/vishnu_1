@@ -26,27 +26,26 @@ export default {
 		return {
 			title: '',
 			body: '',
-      messages: [],
-      loading: false,
-      n_see: 3
+			messages: [],
+			loading: false,
+			n_see: 3
 		};
 	},
 	async created() {
 		await this.updateMessages();
 	},
 	methods: {
-    see_more() {
-      this.n_see += 3
-    },
+		see_more() {
+			this.n_see += 3;
+		},
 		async updateMessages() {
-      console.log('1234567')
 			const now = new Date().getTime();
 			this.messages = (await MessageService.getMessages())
 				.sort((a, b) => b.broadcast_time - a.broadcast_time)
 				.filter(e => {
-          // return true
+					// return true
 					return now > e.broadcast_time * 1000 && now < e.expiry * 1000;
-        })
+				});
 		},
 		async send() {
 			let { title, body } = this;
