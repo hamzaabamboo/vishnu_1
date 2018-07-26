@@ -97,7 +97,8 @@ export default {
 			};
 		},
 		async update_status(freshy, mode) {
-			if (prompt('Please input Unique ID') === freshy.uniq_id) {
+      let inp = prompt('Please input Unique ID')
+			if (inp === freshy.uniq_id) {
 				await FreshyService.setFreshyStatus(freshy.uniq_id, {
 					status: {
 						from: parseInt(freshy.status),
@@ -105,7 +106,9 @@ export default {
 					}
 				});
 				this.updateFreshy();
-			}
+			} else if (inp !== null) {
+        alert('Unique ID is wrong')
+      }
 		},
 		filter_field_func(usr) {
 			let filt = this.filter_field;
