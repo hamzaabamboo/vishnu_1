@@ -11,47 +11,40 @@ export default {
 			type: Number,
 			require: true,
 			default: -1
-    },
-    admin: {
-      type: Boolean,
-      default: false
-    }
+		},
+		admin: {
+			type: Boolean,
+			default: false
+		}
 	},
 	methods: {
 		btnColor(i) {
-      let cur = this.value;
+			let cur = this.value;
 			const [wrn, suc, dan] = ['is-warning', 'is-success', 'is-danger'];
 			return {
-        "-1": wrn,
-        "0": suc,
-        "1": dan,
-        "2": i == 1 ? dan : suc,
-        "3": dan,
-        "4": i == 1 ? dan : suc,
-        "9": dan
-      }[String(cur)]
+				'-1': wrn,
+				'0': suc,
+				'1': dan,
+				'2': i == 1 ? dan : suc,
+				'3': dan,
+				'4': i == 1 ? dan : suc,
+				'9': dan
+			}[String(cur)];
 		},
 		click(i) {
-      let [IN, OUT1, OUT2, OUT3, OUT4, EMER] = [0, 1, 2, 3, 4, 9];
-      if (this.admin) {
-<<<<<<< HEAD
-        console.log('admin check')
-        this.$emit('input', this.value !== IN ? IN : EMER)
-      } else if (this.value === IN) {
-        if (new Date() < new Date('00:00 2018-07-28')){
-=======
-        this.$emit('input', this.value != IN ? IN : EMER)
-      } else if (this.value == IN) {
-        if (new Date() < new Date('00:00 28-07-2018')){
->>>>>>> 7f83a0a55a4e3b350222508d5c4572d5ee0b2721
-          this.$emit('input', [OUT1, OUT2][i])
-        } else {
-          this.$emit('input', [OUT3, OUT4][i])
-        }
-      } else {
-        alert('not allow action this time')
-      }
-    }
+			let [IN, OUT1, OUT2, OUT3, OUT4, EMER] = [0, 1, 2, 3, 4, 9];
+			if (this.admin) {
+				this.$emit('input', this.value != IN ? IN : EMER);
+			} else if (this.value == IN) {
+				if (new Date() < new Date('00:00 28-07-2018')) {
+					this.$emit('input', [OUT1, OUT2][i]);
+				} else {
+					this.$emit('input', [OUT3, OUT4][i]);
+				}
+			} else {
+				alert('not allow action this time');
+			}
+		}
 	}
 };
 </script>
