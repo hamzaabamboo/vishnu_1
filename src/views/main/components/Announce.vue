@@ -10,7 +10,7 @@ div
       template(slot='title'): input.input._title.is-inline.cu(placeholder="Title" v-model="title")
       template(slot='body'): textarea.textarea.cu(placeholder="message" v-model="body")
   div
-    button.button.is-warning(@click='see_more' style='margin: 3px auto 20px auto; border-radius: 6px') see more
+    button.button.is-warning(@click='see_more' v-if="messages.length > 3" style='margin: 3px auto 20px auto; border-radius: 6px') see more
 
 </template>
 
