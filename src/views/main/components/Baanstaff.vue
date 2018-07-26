@@ -16,12 +16,7 @@
 import { MealGroupStorage } from '@/common/jwt.service';
 import { StaffService } from '@/common/api.service';
 export default {
-	props: {
-		group: String,
-		name: {
-			default: 'ไม่ระบุชื่อ'
-		}
-	},
+	props: ['name'],
 	data() {
 		return {
 			edit: false,

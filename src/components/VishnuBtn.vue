@@ -29,32 +29,20 @@ export default {
         "3": dan,
         "4": i == 1 ? dan : suc,
         "9": dan
-      }[cur]
+      }[String(cur)]
 		},
 		click(i) {
       let [IN, OUT1, OUT2, OUT3, OUT4, EMER] = [0, 1, 2, 3, 4, 9];
       if (this.admin) {
-        this.$emit('input', this.value ? IN : EMER)
-      } else {
-
-        // HACK
-        this.$emit('input', [OUT1, OUT2][i]); return
-
-        let status = [
-          {"start": '09:00 27-8-2018', "end": '10:00 27-8-2018', "btn": [IN, IN]},
-          {"start": '12:00 27-8-2018', "end": '12:45 27-8-2018', "btn": [OUT1, OUT2]},
-          {"start": '16:20 27-8-2018', "end": '17:00 27-8-2018', "btn": [OUT1, OUT2]},
-          {"start": '20:00 27-8-2018', "end": '20:40 27-8-2018', "btn": [OUT2, OUT2]},
-          {"start": '12:00 28-8-2018', "end": '12:45 28-8-2018', "btn": [OUT3, OUT4]},
-          {"start": '16:20 28-8-2018', "end": '17:00 28-8-2018', "btn": [OUT3, OUT4]},
-          {"start": '20:00 28-8-2018', "end": '20:40 28-8-2018', "btn": [OUT4, OUT4]},
-        ]
-        for (let {start, end, btn} of status) {
-          if (new Date(start) <= new Date() && new Date() <= new Date(end)) {
-            this.$emit('input', btn[i])
-            return
-          }
+        console.log('admin check')
+        this.$emit('input', this.value != IN ? IN : EMER)
+      } else if (this.value == IN) {
+        if (new Date() < new Date('00:00 28-07-2018')){
+          this.$emit('input', [OUT1, OUT2][i])
+        } else {
+          this.$emit('input', [OUT3, OUT4][i])
         }
+      } else {
         alert('not allow action this time')
       }
     }

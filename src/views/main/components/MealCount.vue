@@ -35,7 +35,7 @@ export default {
 			(this.group == 'staff'
 				? await MealService.getAllStaffMeals()
 				: await MealService.getMeals()
-			).data || [];
+      ).data || [];
 	},
 	methods: {
 		translate(word) {
@@ -62,7 +62,7 @@ export default {
 			return {
 				normal: this.sum('normal'),
 				islamic: this.sum('islamic'),
-				veg: this.sum('veg'),
+				veg:  this.sum('veg'),
 				total: this.sum('total'),
 				other: this.sum('other')
 			};
@@ -70,7 +70,7 @@ export default {
 		isWelfare() {
 			const roles = this.$store.getters.getRoles;
 			return roles.includes('welfare');
-		}
+    }
 	}
 };
 </script>
