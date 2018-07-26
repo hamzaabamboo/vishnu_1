@@ -1,5 +1,5 @@
 <template lang='pug'>
-  div(style='margin: 20px auto 0px auto')
+  div(style='margin: 20px auto 10px auto')
     div.cu(style='overflow-y: auto')
       h3.cu.bold.is-size-4 Others
       div.mcenter: table(align='center')

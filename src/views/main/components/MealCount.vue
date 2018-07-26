@@ -1,6 +1,13 @@
 <template lang='pug'>
   div
     div.cu(style='overflow-y: auto')
+      div.select(v-if='group != "staff"' style='margin: 10px auto')
+        select(v-model='mealNumber')
+          option(:value='1') 1 เที่ยง
+          option(:value='2') 1 เย็น
+          option(:value='3') 2 เที่ยง
+          option(:value='4') 2 เย็น
+
       table.table.is-striped._cred(align='center')
         thead
           tr
@@ -27,17 +34,30 @@ export default {
 	components: { OthersList },
 	data() {
 		return {
-			meals: {}
+      meals: {},
+      mealNumber: 1
 		};
-	},
+  },
+  watch: {
+    mealNumber(val) {
+      console.log('watch ' + val)
+      this.getMeals()
+    }
+  },
 	async created() {
-		this.meals =
-			(this.group == 'staff'
-				? await MealService.getAllStaffMeals()
-				: await MealService.getMeals()
-      ).data || [];
+    this.meals = await this.getMeals()
 	},
 	methods: {
+    async getMeals() {
+      console.log('call getmeal')
+      this.meals =
+        (this.group == 'staff'
+          ? await MealService.getAllStaffMeals()
+          : await MealService.getMeals(this.mealNumber)
+        ).data || [];
+      this.$forceUpdate()
+      return this.meals
+    },
 		translate(word) {
 			return translate[word];
 		},
