@@ -55,10 +55,11 @@ export default {
 			return (
 				roles.includes('house_reg') ||
 				roles.includes('admin') ||
-				roles.includes('reg')
+				roles.includes('reg') ||
+				roles.includes('medical')
 			);
-    },
-    isAdmin() {
+		},
+		isAdmin() {
 			const roles = this.$store.getters.getRoles;
 			return roles.includes('admin');
 		}
