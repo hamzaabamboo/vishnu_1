@@ -34,10 +34,16 @@ export default {
 		click(i) {
       let [IN, OUT1, OUT2, OUT3, OUT4, EMER] = [0, 1, 2, 3, 4, 9];
       if (this.admin) {
+<<<<<<< HEAD
         console.log('admin check')
         this.$emit('input', this.value !== IN ? IN : EMER)
       } else if (this.value === IN) {
         if (new Date() < new Date('00:00 2018-07-28')){
+=======
+        this.$emit('input', this.value != IN ? IN : EMER)
+      } else if (this.value == IN) {
+        if (new Date() < new Date('00:00 28-07-2018')){
+>>>>>>> 7f83a0a55a4e3b350222508d5c4572d5ee0b2721
           this.$emit('input', [OUT1, OUT2][i])
         } else {
           this.$emit('input', [OUT3, OUT4][i])

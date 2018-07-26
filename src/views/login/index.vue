@@ -21,7 +21,6 @@ export default {
 	},
 	methods: {
 		login() {
-      console.log(this.usr, this.pwd)
 			this.$store
 				.dispatch(LOGIN, { username: this.usr, password: this.pwd })
 				.then(() => this.$router.push({ name: 'Main' }))

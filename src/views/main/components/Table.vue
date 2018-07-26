@@ -45,8 +45,8 @@ import { Container, Draggable } from 'vue-smooth-dnd';
 const [ALL, IN, OUT1, OUT2, NEVER] = [-1, 0, 1, 2, 3];
 
 export default {
-  components: { Container, Draggable },
-  props: ['admin'],
+	components: { Container, Draggable },
+	props: ['admin'],
 	data() {
 		return {
 			freshyList: [], // [Object]
@@ -97,7 +97,7 @@ export default {
 			};
 		},
 		async update_status(freshy, mode) {
-			if (prompt('Please input Unique ID') === freshy.uniq_id) {
+			if (parseInt(prompt('Please input Unique ID')) === freshy.uniq_id) {
 				await FreshyService.setFreshyStatus(freshy.uniq_id, {
 					status: {
 						from: parseInt(freshy.status),
@@ -109,14 +109,11 @@ export default {
 		},
 		filter_field_func(usr) {
 			let filt = this.filter_field;
-			return _.keys(filt).every(
-				field => {
-          if (!usr[field]) return false
-          if (filt[field] == '+') return Boolean(usr[field]) && usr[field] != '-'
-          return !filt[field] || usr[field].indexOf(filt[field]) != -1
-        }
-
-			);
+			return _.keys(filt).every(field => {
+				if (!usr[field]) return false;
+				if (filt[field] == '+') return Boolean(usr[field]) && usr[field] != '-';
+				return !filt[field] || usr[field].indexOf(filt[field]) != -1;
+			});
 		},
 		status_btn_click() {
 			let mode_list = [ALL, IN, OUT1, OUT2, NEVER];
