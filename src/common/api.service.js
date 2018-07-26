@@ -91,6 +91,6 @@ export const StaffService = {
 };
 
 export const MealService = {
-	getMeals: () => ApiService.get('/meals/1'),
+	getMeals: (n = 1) => ApiService.get(`/meals/${n}`),
 	getAllStaffMeals: () => ApiService.get('/staff/all/meals')
 };
