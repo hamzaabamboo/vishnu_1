@@ -97,7 +97,7 @@ export default {
 			};
 		},
 		async update_status(freshy, mode) {
-			if (parseInt(prompt('Please input Unique ID')) === freshy.uniq_id) {
+			if (prompt('Please input Unique ID') === freshy.uniq_id) {
 				await FreshyService.setFreshyStatus(freshy.uniq_id, {
 					status: {
 						from: parseInt(freshy.status),
