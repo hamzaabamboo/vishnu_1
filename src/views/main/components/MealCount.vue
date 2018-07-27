@@ -16,7 +16,7 @@
             td: strong ประเภท
             td: strong รวม
             td.mcenter(v-for='group in Object.keys(meals)' :key='group')
-              div(align="center"): strong {{group}}
+              div(align="center"): strong {{translate_col(group)}}
         tbody
           tr(v-for='field in fields' :key='field')
             td: strong {{ translate(field) || field  }}
@@ -30,6 +30,7 @@
 import _ from 'lodash';
 import { MealService } from '@/common/api.service';
 import translate from '@/i10n/language_translate.json';
+import translate_col from '@/i10n/baan_translate.json';
 import OthersList from './OthersList';
 export default {
 	props: ['group'],
@@ -61,8 +62,11 @@ export default {
       return this.meals
     },
 		translate(word) {
-			return translate[word];
-		},
+			return translate[word] || word;
+    },
+    translate_col(word) {
+      return translate_col[word] || word
+    },
 		sum(property) {
 			return _.values(this.meals).reduce(
 				(a, b) => a + this.getValue(b[property]),
@@ -78,7 +82,7 @@ export default {
 		fields() {
 			return Object.keys(Object.values(this.meals)[0] || {}).filter(
 				key => key != 'updated_at'
-			).sort();
+			);
 		},
 		total() {
 			return {

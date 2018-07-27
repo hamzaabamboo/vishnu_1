@@ -5,7 +5,7 @@
     div(style='overflow-x: scroll; padding: .2em')
       Container(@drop="field_move" orientation="horizontal")
         Draggable(v-for="field in fields" :key="field.id")
-          button.button.mginL.cu(@click='field_toggle(field)' :class='class_btn(field)') {{translate[field]}}
+          button.button.mginL.cu(@click='field_toggle(field)' :class='class_btn(field)') {{translate[field] || field}}
     // br
     div.table
       table.is-narrow.is-striped
@@ -18,7 +18,7 @@
           td(v-for="field in fields" v-show='fields_show[field]' :key="field.id" :value='field'): p
             div
               // strong {{translate[field]}}
-              div: input(:placeholder='translate[field]' v-model='filter_field[field]' style="width: 100%; height: 1.5em")
+              div: input(:placeholder='translate[field] || field' v-model='filter_field[field]' style="width: 100%; height: 1.5em")
 
         // BODY
         tbody
@@ -54,7 +54,7 @@ export default {
 			fields_show: {}, // [String] => Boolean
 			filter_field: {},
 			translate: {},
-			status_mode: ALL
+      status_mode: ALL
 		};
 	},
 	async created() {
