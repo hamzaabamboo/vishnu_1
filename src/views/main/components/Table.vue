@@ -121,13 +121,11 @@ export default {
 		status_btn_click() {
 			let mode_list = [ALL, IN, OUT1, OUT2, NEVER];
       let it = this.status_mode;
-      console.log(it)
 			this.status_mode = mode_list[(mode_list.indexOf(it) + 1) % 5];
 		},
 		filter_status_func(usr) {
 			const mode = Number(this.status_mode);
       const stat = Number(usr.status);
-      console.log(mode, stat)
 			return mode == ALL || {
         [IN]: [0],
         [OUT1]: [1, 3],
