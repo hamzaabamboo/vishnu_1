@@ -1,5 +1,5 @@
 <template lang='pug'>
-div
+div.__announce 
   // h1.box.is-size-3 Announcements
   div.__flex-container
     card(v-for='message in messages.slice(0, n_see)' :key='message._idid')
@@ -82,6 +82,10 @@ button,
 input,
 textarea {
 	width: 100%;
+}
+
+.__announce {
+	margin-bottom: 24px;
 }
 
 .__flex-container {

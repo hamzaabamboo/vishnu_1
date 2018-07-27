@@ -11,30 +11,29 @@ export default {
 			type: Number,
 			require: true,
 			default: -1
-    },
-    admin: {
-      type: Boolean,
-      default: false
-    }
+		},
+		admin: {
+			type: Boolean,
+			default: false
+		}
 	},
 	methods: {
 		btnColor(i) {
-      let cur = this.value;
+			let cur = this.value;
 			const [wrn, suc, dan] = ['is-warning', 'is-success', 'is-danger'];
 			return {
-        "-1": wrn,
-        "0": suc,
-        "1": dan,
-        "2": i == 1 ? dan : suc,
-        "3": dan,
-        "4": i == 1 ? dan : suc,
-        "9": dan
-      }[String(cur)]
+				'-1': wrn,
+				'0': suc,
+				'1': dan,
+				'2': i == 1 ? dan : suc,
+				'3': dan,
+				'4': i == 1 ? dan : suc,
+				'9': dan
+			}[String(cur)];
 		},
 		click(i) {
       let [IN, OUT1, OUT2, OUT3, OUT4, EMER] = [0, 1, 2, 3, 4, 9];
       if (this.admin) {
-        console.log('admin check')
         this.$emit('input', this.value !== IN ? IN : EMER)
       } else if (this.value === IN) {
         if ((new Date()).getTime() < (new Date('00:00 2018-07-28')).getTime()){
