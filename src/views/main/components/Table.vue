@@ -130,7 +130,7 @@ export default {
       console.log(mode, stat)
 			return mode == ALL || {
         [IN]: [0],
-        [OUT1]: [1, 3],
+        [OUT1]: [1, 3, 9],
         [OUT2]: [2, 4],
         [NEVER]: [-1]
       }[mode].includes(stat);

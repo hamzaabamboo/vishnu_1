@@ -5,8 +5,10 @@
         select(v-model='mealNumber')
           option(:value='1') 1 เที่ยง
           option(:value='2') 1 เย็น
-          option(:value='3') 2 เที่ยง
-          option(:value='4') 2 เย็น
+          option(:value='3') 2 เช้า
+          option(:value='4') 2 เที่ยง
+          option(:value='5') 2 เย็น
+          option(:value='6') 3 เช้า
 
       table.table.is-striped._cred(align='center')
         thead

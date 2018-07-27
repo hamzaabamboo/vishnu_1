@@ -37,7 +37,7 @@ export default {
         console.log('admin check')
         this.$emit('input', this.value !== IN ? IN : EMER)
       } else if (this.value === IN) {
-        if (new Date() < new Date('00:00 2018-07-28')){
+        if ((new Date()).getTime() < (new Date('00:00 2018-07-28')).getTime()){
           this.$emit('input', [OUT1, OUT2][i])
         } else {
           this.$emit('input', [OUT3, OUT4][i])
