@@ -2,6 +2,8 @@
 div
   button.button.check-btn(@click='click(0)' :class='[btnColor(0)]')
   button.button.check-btn(@click='click(1)' :class='[btnColor(1)]')
+  div(v-if='admin')
+    button.button(@click='admin_status') admin
 </template>
 
 <script>
@@ -43,6 +45,14 @@ export default {
         }
       } else {
         alert('not allow action this time')
+      }
+    },
+    admin_status() {
+      let stat = prompt('status')
+      if (["-1", "0", "1", "2", "3", "4", "9"].includes(stat)){
+        this.$emit("input", stat)
+      } else if (stat !== null) {
+        alert('status is wrong')
       }
     }
 	}
