@@ -97,12 +97,13 @@ export default {
 			};
 		},
 		async update_status(freshy, mode) {
-      let inp = prompt('Please input Unique ID')
-			if (inp === freshy.uniq_id) {
+      let inp = this.admin || prompt('Please input Unique ID')
+			if (this.admin || inp === freshy.uniq_id) {
+        console.log('change')
 				await FreshyService.setFreshyStatus(freshy.uniq_id, {
 					status: {
 						from: parseInt(freshy.status),
-						to: mode
+						to: parseInt(mode)
 					}
 				});
 				this.updateFreshy();
@@ -132,7 +133,7 @@ export default {
         [OUT2]: [2, 4],
         [NEVER]: [-1]
       }[mode].includes(stat);
-		}
+    }
 	},
 	computed: {
 		status_btn_class() {
