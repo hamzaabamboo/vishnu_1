@@ -9,7 +9,7 @@
     div.box(v-if='isWelfare')
       strong.is-size-4 FRESHY
       meal-count(group = 'freshy')
-    div.box(v-if='isCoor() || isAdmin()')
+    div.box(v-if='isCoor || isAdmin')
       all-freshy-status
     announce
     div.box(v-if='isReg')
