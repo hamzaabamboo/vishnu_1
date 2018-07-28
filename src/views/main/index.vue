@@ -9,7 +9,7 @@
     div.box(v-if='isWelfare')
       strong.is-size-4 FRESHY
       meal-count(group = 'freshy')
-    div.box
+    div.box(v-if='isCoor() || isAdmin()')
       all-freshy-status
     announce
     div.box(v-if='isReg')
@@ -65,6 +65,10 @@ export default {
 		isAdmin() {
 			const roles = this.$store.getters.getRoles;
 			return roles.includes('admin');
+		},
+    isCoor() {
+			const roles = this.$store.getters.getRoles;
+			return roles.includes('coor');
 		}
 	}
 };
