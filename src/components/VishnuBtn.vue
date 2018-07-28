@@ -22,12 +22,12 @@ export default {
 	methods: {
 		btnColor(i) {
 			let cur = this.value;
-			const [wrn, suc, dan] = ['is-warning', 'is-success', 'is-danger'];
+			const [wrn, suc, dan, info] = ['is-warning', 'is-success', 'is-danger', 'is-info'];
 			return {
 				'-1': wrn,
 				'0': suc,
-				'1': dan,
-				'2': i == 1 ? dan : suc,
+				'1': info,
+				'2': i == 1 ? info : suc,
 				'3': dan,
 				'4': i == 1 ? dan : suc,
 				'9': dan
