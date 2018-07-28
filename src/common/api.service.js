@@ -67,7 +67,10 @@ export const FreshyService = {
 	},
 	setFreshyStatus: (id, status) => {
 		return ApiService.patch(`/freshmen/${id}/status`, status);
-	},
+  },
+  getAllFreshyStatus: () => {
+		return ApiService.get('/freshmen/all/status');
+  }
 };
 
 export const MessageService = {

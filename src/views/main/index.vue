@@ -9,6 +9,8 @@
     div.box(v-if='isWelfare')
       strong.is-size-4 FRESHY
       meal-count(group = 'freshy')
+    div.box
+      all-freshy-status
     announce
     div.box(v-if='isReg')
       freshy-table(:admin='isAdmin')
@@ -20,11 +22,12 @@ import FreshyTable from './components/Table.vue';
 import MealCount from './components/MealCount.vue';
 import Baanstaff from './components/Baanstaff.vue';
 import Announce from './components/Announce.vue';
+import AllFreshyStatus from './components/AllFreshyStatus.vue';
 import { LOGOUT, ERROR } from '@/store/actions.type';
 import ApiService, { AuthService } from '@/common/api.service.js';
 
 export default {
-	components: { MealCount, FreshyTable, Baanstaff, Announce },
+	components: { MealCount, FreshyTable, Baanstaff, Announce, AllFreshyStatus },
 	created() {
 		if (!this.$store.getters.isAuthenticated)
 			this.$router.push({ name: 'Login' });
