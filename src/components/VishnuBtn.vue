@@ -22,14 +22,16 @@ export default {
 	methods: {
 		btnColor(i) {
 			let cur = this.value;
-			const [wrn, suc, dan] = ['is-warning', 'is-success', 'is-danger'];
+			const [wrn, suc, dan, info, per] = ['is-warning', 'is-success', 'is-danger', 'is-info', 'is-purple'];
 			return {
 				'-1': wrn,
 				'0': suc,
-				'1': dan,
-				'2': i == 1 ? dan : suc,
-				'3': dan,
-				'4': i == 1 ? dan : suc,
+				// '1': info,
+				// '2': i == 1 ? info : suc,
+				'1': '',
+				'2': '',
+				'3': info,
+				'4': i == 1 ? info : suc,
 				'9': dan
 			}[String(cur)];
 		},
@@ -65,5 +67,10 @@ export default {
 	border-radius: 290486px;
 	padding: 0.9em;
 	margin-right: 4px;
+}
+.button.is-purple {
+  background-color: #b420ee;
+  border-color: transparent;
+  color: #fff;
 }
 </style>
