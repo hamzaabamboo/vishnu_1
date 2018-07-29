@@ -1,5 +1,6 @@
-body, html {
-    margin: 0px;
-    background-color: #9e1028;
-    min-height: 100vh;
+body,
+html {
+	margin: 0px;
+	padding: 0;
+	height: 100vh;
 }

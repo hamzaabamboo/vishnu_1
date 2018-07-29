@@ -31,6 +31,10 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+html {
+	background-color: #9e1028;
+}
+
 section {
 	max-width: 400px;
 	min-height: 720px;

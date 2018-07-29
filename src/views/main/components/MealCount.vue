@@ -5,7 +5,7 @@
         select(v-model='mealNumber')
           option(:value='1') 1 เที่ยง
           option(:value='2') 1 เย็น
-          option(:value='3') 2 เช้า
+          option(:value='3') 2 เช้า //TODO:: ADD BACKGROUND COLOR
           option(:value='4') 2 เที่ยง
           option(:value='5') 2 เย็น
           option(:value='6') 3 เช้า
@@ -37,36 +37,36 @@ export default {
 	components: { OthersList },
 	data() {
 		return {
-      meals: {},
-      mealNumber: 1
+			meals: {},
+			mealNumber: 1
 		};
-  },
-  watch: {
-    mealNumber(val) {
-      console.log('watch ' + val)
-      this.getMeals()
-    }
-  },
+	},
+	watch: {
+		mealNumber(val) {
+			console.log('watch ' + val);
+			this.getMeals();
+		}
+	},
 	async created() {
-    this.meals = await this.getMeals()
+		this.meals = await this.getMeals();
 	},
 	methods: {
-    async getMeals() {
-      console.log('call getmeal')
-      this.meals =
-        (this.group == 'staff'
-          ? await MealService.getAllStaffMeals()
-          : await MealService.getMeals(this.mealNumber)
-        ).data || [];
-      this.$forceUpdate()
-      return this.meals
-    },
+		async getMeals() {
+			console.log('call getmeal');
+			this.meals =
+				(this.group == 'staff'
+					? await MealService.getAllStaffMeals()
+					: await MealService.getMeals(this.mealNumber)
+				).data || [];
+			this.$forceUpdate();
+			return this.meals;
+		},
 		translate(word) {
 			return translate[word] || word;
-    },
-    translate_col(word) {
-      return translate_col[word] || word
-    },
+		},
+		translate_col(word) {
+			return translate_col[word] || word;
+		},
 		sum(property) {
 			return _.values(this.meals).reduce(
 				(a, b) => a + this.getValue(b[property]),
@@ -88,7 +88,7 @@ export default {
 			return {
 				normal: this.sum('normal'),
 				islamic: this.sum('islamic'),
-				veg:  this.sum('veg'),
+				veg: this.sum('veg'),
 				total: this.sum('total'),
 				other: this.sum('other')
 			};
@@ -96,7 +96,7 @@ export default {
 		isWelfare() {
 			const roles = this.$store.getters.getRoles;
 			return roles.includes('welfare');
-    }
+		}
 	}
 };
 </script>

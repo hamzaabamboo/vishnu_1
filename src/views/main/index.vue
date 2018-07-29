@@ -68,6 +68,10 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+body {
+	background-color: #9e1028;
+}
+
 .section {
 	padding: 10px 10px;
 }

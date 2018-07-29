@@ -14,10 +14,15 @@ export default new Router({
 			component: () => import('@/views/login')
 		},
 		{
-			path: '/',
+			path: '/main',
 			name: 'Main',
 			component: () => import('@/views/main'),
 			props: true
+		},
+		{
+			path: '/',
+			name: 'Yaay',
+			component: () => import('@/views/yaay')
 		},
 		{
 			path: '/info/:id',
